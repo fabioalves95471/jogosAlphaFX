@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?package descubraONumero?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="noPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="descubraONumero.ControllerDN">
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label contentDisplay="CENTER" text="Descubra o Numero">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+               <children>
+                  <Label contentDisplay="CENTER" text="Operação">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="150.0" style="-fx-font-size: 18px; -fx-padding: -5;">
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Erros">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbErros" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-border-style: solid; -fx-background-color: rgba(255,0,0,0.5); -fx-background-radius: 5; -fx-border-radius: 5;" text="0" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Acertos">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbAcertos" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" style="-fx-border-style: solid; -fx-border-radius: 5; -fx-background-color: rgba(0,100,255,0.5); -fx-background-radius: 5;" text="0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="quadroCentral" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="150.0" prefWidth="350.0" spacing="8.0" style="-fx-border-style: solid; -fx-border-radius: 10;" visible="false">
+               <children>
+                  <Label fx:id="lbOperadorNome" text="Adiçao">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbPergunta" text="5 + ? = 13">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onAction="#responde" prefWidth="60.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets top="8.0" />
+               </padding>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 40;">
+               <children>
+                  <Button fx:id="btIniciar" mnemonicParsing="false" onKeyPressed="#iniciarJogoTeclaEnter" onMouseClicked="#iniciarJogoClickDireito" text="Iniciar"> <!---->
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Pontuação">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="Tempo: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbTempo" text="00:00">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
