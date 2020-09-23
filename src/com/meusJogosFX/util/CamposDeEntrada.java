@@ -1,4 +1,4 @@
-package application.util;
+package com.meusJogosFX.util;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +21,30 @@ public class CamposDeEntrada {
 					valueInput = valueInput.substring(0,3)+"."+valueInput.substring(3,i);
 				} else if (i>=7) {
 					valueInput = valueInput.substring(0,3)+"."+valueInput.substring(3,6);
+				}
+				Platform.runLater (() -> {
+					textField.setText(valueInput);
+					int j = valueInput.length();
+					if (j != 0) textField.positionCaret(j);
+				});
+		    }
+		});
+	
+	}
+	public static void numero4Dig (TextField textField) {
+		textField.textProperty().addListener(new ChangeListener<String>() {
+			String valueInput;
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (newValue.matches("\\d{0,3}"))
+					return;
+				valueInput = newValue.replaceAll("[^\\d]","");
+	        	int i = valueInput.length();
+				if (i == 4) {
+					valueInput = valueInput.substring(0,1)+"."+valueInput.substring(1,4);
+				} else if (i>=5) {
+					valueInput = valueInput.substring(0,1)+"."+valueInput.substring(1,4);
 				}
 				Platform.runLater (() -> {
 					textField.setText(valueInput);

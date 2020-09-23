@@ -1,9 +1,10 @@
-package descubraONumero.fimDeJogo;
+package com.meusJogosFX.descubraONumero.fimDeJogo._controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import descubraONumero.ControllerDN;
+import com.meusJogosFX.descubraONumero._controller.ControllerDN;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 
 public class ControllerFJ implements Initializable  {
 
-	ControllerDN controllerDescubraONumero;
+	ControllerDN controllerDN;
 	@FXML
 	AnchorPane noPrincipal;
 	@FXML
@@ -43,8 +44,8 @@ public class ControllerFJ implements Initializable  {
 	public void fechaTela () {
 		stage.close();
 	}
-	public void setControllerDescubraONumero(ControllerDN controllerDescubraONumero) {
-		this.controllerDescubraONumero = controllerDescubraONumero;
+	public void setControllerDN (ControllerDN controllerDN) {
+		this.controllerDN = controllerDN;
 	}
 	public void setStage (Stage stage) {
 		this.stage = stage;

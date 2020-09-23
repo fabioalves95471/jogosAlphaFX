@@ -1,11 +1,13 @@
-package descubraONumero;
+package com.meusJogosFX.descubraONumero._controller;
 
-import descubraONumero.fimDeJogo.ControllerFJ;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.util.CamposDeEntrada;
+import com.meusJogosFX.descubraONumero._model.IJogoDN;
+import com.meusJogosFX.descubraONumero._model.JogoDN;
+import com.meusJogosFX.descubraONumero.fimDeJogo._controller.ControllerFJ;
+import com.meusJogosFX.util.CamposDeEntrada;
 
 import javafx.util.Duration;
 import javafx.fxml.Initializable;
@@ -48,8 +50,7 @@ public class ControllerDN implements Initializable {
 	@FXML
 	private ComboBox<String> cbOperadores;
 
-	private ModelJogoDN jogo;
-	private String operadorNome;
+	private IJogoDN jogo;
 	private short numeroQuestoes;
 	private short tempoCorrente;
 	private Timeline tl;
@@ -60,10 +61,10 @@ public class ControllerDN implements Initializable {
 		tl = null;
 	}
 	@FXML
-	void focusIniciar() {
+	public void focusIniciar() {
 		btIniciar.requestFocus();
 	}	
-	void iniciarJogo() {
+	public void iniciarJogo() {
 		// Tempo de jogo
 		if (tl != null) tl.stop();
 		tempoCorrente = 0;
@@ -74,10 +75,9 @@ public class ControllerDN implements Initializable {
 		tl = new Timeline(kf);
 		tl.setCycleCount(3599);
 		// Inicia o Jogo.
-		operadorNome = cbOperadores.getValue();
 		tl.play();
-		jogo = new ModelJogoDN (Operador.valueOf(operadorNome), numeroQuestoes);
-		lbOperadorNome.setText(operadorNome);
+		jogo = new JogoDN (cbOperadores.getValue(), numeroQuestoes);
+		lbOperadorNome.setText(jogo.getOperadorNome());
 		atualizaTela();
 		quadroCentral.setVisible(true);
 		tfResposta.setDisable(false);
@@ -95,12 +95,12 @@ public class ControllerDN implements Initializable {
 			iniciarJogo();
     }
 	@FXML
-	void responde() {
+	public void responde() {
 		if (tfResposta.getText().length() == 0)
 			return;
-		jogo.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta));
+		jogo.incrementaPontuacao(jogo.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
 		if (jogo.temProximaQuestao()) {
-			jogo.proximaQuestao();
+			jogo.rodaProximaQuestao();
 			atualizaTela();
 			tfResposta.setText("");
 			tfResposta.requestFocus();
@@ -112,14 +112,14 @@ public class ControllerDN implements Initializable {
 			tfResposta.setDisable(true);
 			// Chamar tela FimDeJogo e envia este Controller.
 			try {
-				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/descubraONumero/fimDeJogo/ViewFJ.fxml"));
+				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/meusJogosFX/descubraONumero/fimDeJogo/_view/ViewFJ.fxml"));
 				Parent root1 = loaderFimDeJogo.load();
 				Scene scene = new Scene(root1);
 				ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
-				ctrFimDeJogo.setControllerDescubraONumero(this);
-				String operadorNome = jogo.getQuestao().getOperadorNome();
+				ctrFimDeJogo.setControllerDN(this);
+				String operadorNome = jogo.getOperadorNome();
 				String score = (int)(Math.rint(jogo.getAcertosPorcentual()*100)) + "%";
-				String tempo = jogo.getTempo().getTempoFinalDeJogo();
+				String tempo = jogo.getTempoFinalDeJogo();
 				ctrFimDeJogo.setDados(operadorNome, score, tempo);
 				Stage stageFimDeJogo = new Stage();
 				ctrFimDeJogo.setStage(stageFimDeJogo);
@@ -156,23 +156,20 @@ public class ControllerDN implements Initializable {
 		else 			secStr = "" +sec;
 		return minStr+":"+secStr;
 	}
-	private void atualizaTela () {
+	public void atualizaTela () {
 		lbErros.setText(""+jogo.getErros());
 		lbAcertos.setText(""+jogo.getAcertos());
-		lbPergunta.setText(jogo.getQuestao().getPergunta());
+		lbPergunta.setText(jogo.getQuestaoString());
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 			// Insere lista na caixa de seleção.
 //			ObservableList<String> operadores = FXCollections.observableArrayList("Adição", "Subtração", "Multiplicação", "Divisão");
 //			cbOperadores.setItems(operadores);
-			Operador operadores[] = Operador.values();
-			for (Operador op : operadores) {
-				cbOperadores.getItems().add(op.toString());
-			}
+			cbOperadores.getItems().addAll(JogoDN.getOperadorNomes());
 			cbOperadores.getSelectionModel().select(0);
 			// Aplica Ouvidor ao campo.
-			CamposDeEntrada.numero6Dig(tfResposta);
+			CamposDeEntrada.numero4Dig(tfResposta);
 			Platform.runLater (() -> {
 				btIniciar.requestFocus();
 			});
