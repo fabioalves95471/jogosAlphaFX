@@ -1,5 +1,6 @@
 package com.fabiomalves.meusJogosFX.descubraONumero.controller;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -109,7 +110,7 @@ public class ControllerDN implements Initializable {
 			tl.stop();
 			tl = null;
 			tfResposta.setDisable(true);
-			// Chamar tela FimDeJogo e envia este Controller.
+			// Chamar tela FimDeJogo e envia o ControllerDN para essa.
 			try {
 				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/meusJogosFX/descubraONumero/view/fimDeJogo.fxml"));
 				Parent root1 = loaderFimDeJogo.load();
@@ -127,9 +128,9 @@ public class ControllerDN implements Initializable {
 				stageFimDeJogo.initOwner((Stage)bpPrimario.getScene().getWindow());
 				stageFimDeJogo.showAndWait();
 			}
-			catch (IOException e) {
+			catch (Exception e) {
 				Label labelErro = new Label("Não pode abrir a tela. "+e.getMessage());
-				Scene sceneErro = new Scene(labelErro);
+				Scene sceneErro = new Scene(labelErro, 200, 400);
 				Stage stageErro = new Stage();
 				stageErro.setScene(sceneErro);
 				stageErro.initModality(Modality.WINDOW_MODAL);
@@ -139,9 +140,12 @@ public class ControllerDN implements Initializable {
 		}
 	}
 	public void gravaResultado() {
-		System.out.println("m�todo gravaResultado");
+		System.out.println("metodo gravaResultado");
 	}
-	// Atualiza a hora que ser� exibida na tela.
+	public void chamaTelaPontuacao() {
+	
+	}
+	// Atualiza a hora que sera exibida na tela.
 	public String atualizaDisplayTempo (short segundos) {
 		if (segundos >= 3600 || tempoCorrente >= 3600)
 			return "00:00";
@@ -162,8 +166,8 @@ public class ControllerDN implements Initializable {
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-			// Insere lista na caixa de sele��o.
-//			ObservableList<String> operadores = FXCollections.observableArrayList("Adi��o", "Subtra��o", "Multiplica��o", "Divis�o");
+			// Insere lista na caixa de selecao.
+//			ObservableList<String> operadores = FXCollections.observableArrayList("Adicao", "Subtracao", "Multiplicacao", "Divis�o");
 //			cbOperadores.setItems(operadores);
 			cbOperadores.getItems().addAll(ServiceDN.getOperadorNomes());
 			cbOperadores.getSelectionModel().select(0);

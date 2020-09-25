@@ -14,9 +14,6 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-
-
-
 /* Teste de Persistencia JPA
 			System.out.println("Antes da persistencia");
 
