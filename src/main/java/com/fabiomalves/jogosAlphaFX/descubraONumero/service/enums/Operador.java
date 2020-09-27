@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.service.enums;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums;
 
 public enum Operador {
 	ADICAO("Adição", "+"), SUBTRACAO("Subtração", "-"), MULTIPLICACAO("Multiplicação", "x"), DIVISAO("Divisão", "/");

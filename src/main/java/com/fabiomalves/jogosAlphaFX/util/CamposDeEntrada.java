@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX.util;
+package com.fabiomalves.jogosAlphaFX.util;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

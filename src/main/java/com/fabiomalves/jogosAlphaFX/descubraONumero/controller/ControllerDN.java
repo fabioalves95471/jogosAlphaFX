@@ -1,13 +1,14 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.controller;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.fabiomalves.meusJogosFX.descubraONumero.service.IServiceDN;
-import com.fabiomalves.meusJogosFX.descubraONumero.service.ServiceDN;
-import com.fabiomalves.meusJogosFX.util.CamposDeEntrada;
+import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
+import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
+import com.fabiomalves.jogosAlphaFX.tratamentoErros.ControllerErro;
+import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.util.Duration;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -112,7 +114,7 @@ public class ControllerDN implements Initializable {
 			tfResposta.setDisable(true);
 			// Chamar tela FimDeJogo e envia o ControllerDN para essa.
 			try {
-				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/meusJogosFX/descubraONumero/view/fimDeJogo.fxml"));
+				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
 				Parent root1 = loaderFimDeJogo.load();
 				Scene scene = new Scene(root1);
 				ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
@@ -125,17 +127,19 @@ public class ControllerDN implements Initializable {
 				ctrFimDeJogo.setStage(stageFimDeJogo);
 				stageFimDeJogo.initModality(Modality.WINDOW_MODAL);
 				stageFimDeJogo.setScene(scene);
-				stageFimDeJogo.initOwner((Stage)bpPrimario.getScene().getWindow());
+				stageFimDeJogo.initOwner(this.getStage());
 				stageFimDeJogo.showAndWait();
 			}
 			catch (Exception e) {
-				Label labelErro = new Label("Não pode abrir a tela. "+e.getMessage());
-				Scene sceneErro = new Scene(labelErro, 200, 400);
-				Stage stageErro = new Stage();
-				stageErro.setScene(sceneErro);
-				stageErro.initModality(Modality.WINDOW_MODAL);
-				stageErro.showAndWait();
-				e.printStackTrace();
+				try {
+				FXMLLoader fxml = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/tratamentoErros/view/erro.fxml"));
+				Parent rootErro = fxml.load();
+				ControllerErro ctrErro = fxml.getController();
+				ctrErro.chamaTelaErro("Não pode abrir a tela: "+e.getMessage(), rootErro, this.getStage());
+				} catch (Exception ee) {
+					System.out.println("Erro: "+ee.getMessage());
+					ee.printStackTrace();
+				}
 			}
 		}
 	}
@@ -164,18 +168,21 @@ public class ControllerDN implements Initializable {
 		lbAcertos.setText(""+service.getAcertos());
 		lbPergunta.setText(service.getQuestaoString());
 	}
+	public Stage getStage () { 
+		return (Stage)bpPrimario.getScene().getWindow();
+	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-			// Insere lista na caixa de selecao.
-//			ObservableList<String> operadores = FXCollections.observableArrayList("Adicao", "Subtracao", "Multiplicacao", "Divis�o");
-//			cbOperadores.setItems(operadores);
-			cbOperadores.getItems().addAll(ServiceDN.getOperadorNomes());
-			cbOperadores.getSelectionModel().select(0);
-			// Aplica Ouvidor ao campo.
-			CamposDeEntrada.numero4Dig(tfResposta);
-			Platform.runLater (() -> {
-				btIniciar.requestFocus();
-			});
+		// Insere lista na caixa de selecao.
+//		ObservableList<String> operadores = FXCollections.observableArrayList("Adicao", "Subtracao", "Multiplicacao", "Divis�o");
+//		cbOperadores.setItems(operadores);
+		cbOperadores.getItems().addAll(ServiceDN.getOperadorNomes());
+		cbOperadores.getSelectionModel().select(0);
+		// Aplica Ouvidor ao campo.
+		CamposDeEntrada.numero4Dig(tfResposta);
+		Platform.runLater (() -> {
+			btIniciar.requestFocus();
+		});
 	}
 }
 

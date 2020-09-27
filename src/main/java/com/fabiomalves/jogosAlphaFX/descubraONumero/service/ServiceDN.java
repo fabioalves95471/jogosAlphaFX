@@ -1,9 +1,10 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.service;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.fabiomalves.meusJogosFX.descubraONumero.model.JogoDN;
-import com.fabiomalves.meusJogosFX.descubraONumero.service.enums.Operador;
+
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
+import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 public class ServiceDN implements IServiceDN {
 

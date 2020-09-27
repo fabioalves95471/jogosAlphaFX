@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.service;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.service;
 
 public interface IServiceDN {
 

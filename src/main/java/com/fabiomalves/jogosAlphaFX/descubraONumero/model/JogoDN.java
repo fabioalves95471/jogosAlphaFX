@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.model;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

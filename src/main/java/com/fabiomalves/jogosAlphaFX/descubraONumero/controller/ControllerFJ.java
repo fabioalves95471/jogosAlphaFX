@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX.descubraONumero.controller;
+package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,4 +1,4 @@
-package com.fabiomalves.meusJogosFX;
+package com.fabiomalves.jogosAlphaFX;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,22 +14,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-/* Teste de Persistencia JPA
-			System.out.println("Antes da persistencia");
-
-			Usuario1 usu1 = new Usuario1();
-			usu1.setNome("Fulano1");
-			usu1.setTipo("Cliente");
-			Usuario1 usu2 = new Usuario1();
-			usu2.setNome("Fulano2");
-			usu2.setTipo("Funcionario");
-			
-			PersisteUsuario pu = new PersisteUsuario();
-			pu.salvar(usu1);
-
-			System.out.println("Depois da persistencia");
-*/
-			Parent root = FXMLLoader.load(getClass().getResource("/com/fabiomalves/meusJogosFX/descubraONumero/view/descubraONumero.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/descubraONumero.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
