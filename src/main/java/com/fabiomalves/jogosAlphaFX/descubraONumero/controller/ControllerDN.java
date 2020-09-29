@@ -1,13 +1,11 @@
 package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 
-import java.awt.Font;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
-import com.fabiomalves.jogosAlphaFX.tratamentoErros.ControllerErro;
+import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.util.Duration;
@@ -19,7 +17,6 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -49,6 +46,8 @@ public class ControllerDN implements Initializable {
 	private Label lbPergunta;
 	@FXML
 	private Button btIniciar;
+	@FXML
+	private Button btPontuacao;
 	@FXML
 	private ComboBox<String> cbOperadores;
 
@@ -97,6 +96,31 @@ public class ControllerDN implements Initializable {
 			iniciarJogo();
     }
 	@FXML
+	public void chamaTelaPontuacaoTeclaEnter(KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER))
+			chamaTelaPontuacao();
+    }
+	@FXML
+	public void chamaTelaPontuacaoClickDireito(MouseEvent me) {
+		if (me.getButton().equals(MouseButton.PRIMARY))
+			chamaTelaPontuacao();
+    }
+	public void chamaTelaPontuacao() {
+		try {
+		FXMLLoader loaderPo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml"));
+		Parent rootPo = loaderPo.load();
+		Scene scenePo = new Scene(rootPo);
+		Stage stagePo = new Stage();
+		stagePo.initModality(Modality.WINDOW_MODAL);
+		stagePo.setScene(scenePo);
+		stagePo.initOwner(this.getStage());
+		stagePo.showAndWait();
+		} catch (Exception e) {
+			e.printStackTrace();
+			new Erro ("Não pode abrir a Tela: "+e.getMessage(), this.getStage());
+		}
+	}
+	@FXML
 	public void responde() {
 		if (tfResposta.getText().length() == 0)
 			return;
@@ -114,7 +138,7 @@ public class ControllerDN implements Initializable {
 			tfResposta.setDisable(true);
 			// Chamar tela FimDeJogo e envia o ControllerDN para essa.
 			try {
-				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
+				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/om/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
 				Parent root1 = loaderFimDeJogo.load();
 				Scene scene = new Scene(root1);
 				ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
@@ -131,23 +155,12 @@ public class ControllerDN implements Initializable {
 				stageFimDeJogo.showAndWait();
 			}
 			catch (Exception e) {
-				try {
-				FXMLLoader fxml = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/tratamentoErros/view/erro.fxml"));
-				Parent rootErro = fxml.load();
-				ControllerErro ctrErro = fxml.getController();
-				ctrErro.chamaTelaErro("Não pode abrir a tela: "+e.getMessage(), rootErro, this.getStage());
-				} catch (Exception ee) {
-					System.out.println("Erro: "+ee.getMessage());
-					ee.printStackTrace();
-				}
+				new Erro ("Não pode abrir a tela: "+e.getMessage(), this.getStage());
 			}
 		}
 	}
 	public void gravaResultado() {
 		System.out.println("metodo gravaResultado");
-	}
-	public void chamaTelaPontuacao() {
-	
 	}
 	// Atualiza a hora que sera exibida na tela.
 	public String atualizaDisplayTempo (short segundos) {

@@ -97,7 +97,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Pontuação">
+                  <Button fx:id="btPontuacao" mnemonicParsing="false" onKeyPressed="#chamaTelaPontuacaoTeclaEnter" onMouseClicked="#chamaTelaPontuacaoClickDireito" text="Pontuação">
                      <font>
                         <Font size="18.0" />
                      </font>
