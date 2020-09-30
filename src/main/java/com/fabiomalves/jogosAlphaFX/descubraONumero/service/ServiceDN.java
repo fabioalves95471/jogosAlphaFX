@@ -62,6 +62,7 @@ public class ServiceDN implements IServiceDN {
 	public void finalizaJogoDN() {
 		jogo.setAcertosPorcentual((float)jogo.getAcertos()/jogo.getTotalQuestoes());
 		tempo.finalizaTempo();
+		jogo.printValores();
 	}
 	public String getOperadorNome() {
 		return questao.getOperador().getNome();

@@ -138,7 +138,7 @@ public class ControllerDN implements Initializable {
 			tfResposta.setDisable(true);
 			// Chamar tela FimDeJogo e envia o ControllerDN para essa.
 			try {
-				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/om/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
+				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
 				Parent root1 = loaderFimDeJogo.load();
 				Scene scene = new Scene(root1);
 				ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();

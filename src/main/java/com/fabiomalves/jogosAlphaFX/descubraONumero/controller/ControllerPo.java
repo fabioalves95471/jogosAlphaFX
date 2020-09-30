@@ -5,7 +5,9 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -15,7 +17,17 @@ import javafx.stage.Stage;
 public class ControllerPo implements Initializable  {
 
 	@FXML
-	Label lbOperador;
+	ComboBox cbOperador;
+	@FXML
+	TableColumn coPosicao;
+	@FXML
+	TableColumn coNome;
+	@FXML
+	TableColumn coAcertosPorcentual; 
+	@FXML
+	TableColumn coTotalQuestoes;
+	@FXML
+	TableColumn coTempoFinalDeJogo;
 
 	Stage stage;
 
@@ -34,9 +46,6 @@ public class ControllerPo implements Initializable  {
 	}
 	public void setStage (Stage stage) {
 		this.stage = stage;
-	}
-	public void setDados (String operador, String score, String tempo) {
-		lbOperador.setText(operador);
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -8,27 +8,27 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerPo">
    <children>
-      <TableView fx:id="tvPontuacao" layoutX="20.0" layoutY="112.0" prefHeight="299.0" prefWidth="410.0">
-        <columns>
-            <TableColumn prefWidth="63.0" text="Pos." />
-          <TableColumn prefWidth="142.0" text="Nome" />
-          <TableColumn prefWidth="50.0" text="Acertos" />
-            <TableColumn prefWidth="58.0" text="Questões" />
-            <TableColumn prefWidth="104.0" text="Tempo" />
-        </columns>
-      </TableView>
-      <Label contentDisplay="CENTER" layoutX="181.0" layoutY="14.0" text="Pontuaçao">
+      <Label contentDisplay="CENTER" layoutX="168.0" layoutY="10.0" prefWidth="115.0" text="Pontuaçao">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbOperadores" layoutX="106.0" layoutY="70.0" prefHeight="29.0" prefWidth="159.0" style="-fx-font-size: 18px; -fx-padding: -5;" />
-      <Label contentDisplay="CENTER" layoutX="20.0" layoutY="71.0" text="Operação: ">
+      <ComboBox fx:id="cbOperador" layoutX="106.0" layoutY="60.0" prefHeight="29.0" prefWidth="159.0" style="-fx-font-size: 18px; -fx-padding: -5;" />
+      <Label contentDisplay="CENTER" layoutX="20.0" layoutY="60.0" text="Operação: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btSair" layoutX="334.0" layoutY="434.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="96.0" text="Sair">
+      <TableView fx:id="tvPontuacao" layoutX="20.0" layoutY="105.0" prefHeight="320.0" prefWidth="410.0">
+        <columns>
+            <TableColumn fx:id="coPosicao" prefWidth="63.0" text="Pos." />
+          <TableColumn fx:id="coNome" prefWidth="142.0" text="Nome" />
+          <TableColumn fx:id="coAcertosPorcentual" prefWidth="50.0" text="Acertos" />
+            <TableColumn fx:id="coTotalQuestoes" prefWidth="58.0" text="Questões" />
+            <TableColumn fx:id="coTempoFinalDeJogo" prefWidth="104.0" text="Tempo" />
+        </columns>
+      </TableView>
+      <Button fx:id="btSair" layoutX="334.0" layoutY="442.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="96.0" text="Sair">
          <font>
             <Font size="18.0" />
          </font>

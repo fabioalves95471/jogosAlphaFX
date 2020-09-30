@@ -33,6 +33,19 @@ public class JogoDN {
 		this.posicao = posicao;
 	}
 
+	public void printValores () {
+		System.out.println(	  " id:\t\t"		+this.id+
+							"\n usuario:\t"		+this.usuario+
+							"\n operador:\t"	+this.operador+
+							"\n erros:\t\t"		+this.erros+
+							"\n acertos:\t"		+this.acertos+
+							"\n acertosPorc:\t"	+this.acertosPorcentual+
+							"\n totalQuestoes:\t"+this.totalQuestoes+
+							"\n tempoFinalJog:\t"+this.tempoFinalDeJogo+
+							"\n dataHora:\t"	+this.dataHora+
+							"\n posicao:\t"		+this.posicao
+							);
+	}
 
 // Getters e Setters ---
 
