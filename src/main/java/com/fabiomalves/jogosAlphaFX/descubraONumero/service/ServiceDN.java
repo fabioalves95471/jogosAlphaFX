@@ -1,6 +1,10 @@
 package com.fabiomalves.jogosAlphaFX.descubraONumero.service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
@@ -15,6 +19,7 @@ public class ServiceDN implements IServiceDN {
 
 	public ServiceDN (String operadorNome, int totalQuestoes) {
 		jogo = new JogoDN();
+		jogo.setOperador(operadorNome);
 		jogo.setErros(0);
 		jogo.setAcertos(0);
 		jogo.setAcertosPorcentual(0.0f);
@@ -62,6 +67,8 @@ public class ServiceDN implements IServiceDN {
 	public void finalizaJogoDN() {
 		jogo.setAcertosPorcentual((float)jogo.getAcertos()/jogo.getTotalQuestoes());
 		tempo.finalizaTempo();
+		jogo.setUsuario("Visitante");
+		jogo.setTempoFinalDeJogo(tempo.getTempoFinalDeJogo());
 		jogo.printValores();
 	}
 	public String getOperadorNome() {
@@ -77,8 +84,8 @@ public class ServiceDN implements IServiceDN {
 	public String getQuestaoString() {
 		return questao.getQuestaoString();
 	}
-	public String getTempoFinalStr() {
-		return tempo.getTempoFinalStr();
+	public String getTempoFinalDeJogoStr() {
+		return tempo.getTempoFinalDeJogoStr();
 	}
 
 // Getters e Setters JogoDN ---
@@ -96,21 +103,26 @@ public class ServiceDN implements IServiceDN {
 class Tempo {
 	private Long inicio;
 	private Long fim;
+	private int tempoFinalDeJogoInt;
+	private LocalTime tempoFinalDeJogo;
 	
 	Tempo () {
 		inicio = fim = System.currentTimeMillis();
+		tempoFinalDeJogo = LocalTime.of(0,0);
 	}
 	public void finalizaTempo() {
 		fim = System.currentTimeMillis();
 		if ((fim-inicio) >= 3_600_000)
-			fim = inicio + 3_599_999;
+			tempoFinalDeJogoInt = 3_599_999;
+		else
+			tempoFinalDeJogoInt = (int)(fim-inicio);
+		tempoFinalDeJogo = tempoFinalDeJogo.plus(tempoFinalDeJogoInt, ChronoUnit.MILLIS);
 	}
-	public int getTempoFinalInt () {
-		return (int)(fim - inicio);
+	public String getTempoFinalDeJogoStr () {
+		return tempoFinalDeJogo.toString().substring(3);
 	}
-	public String getTempoFinalStr () {
-		SimpleDateFormat sdf = new SimpleDateFormat("mm:ss.SSS");
-		return sdf.format(new Date(fim-inicio+10_800_000));
+	public LocalTime getTempoFinalDeJogo () {
+		return tempoFinalDeJogo;
 	}
 }
 // ---------------------------------------------------------

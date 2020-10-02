@@ -34,7 +34,7 @@ public class JogoDN {
 	}
 
 	public void printValores () {
-		System.out.println(	  " id:\t\t"		+this.id+
+		System.out.println(	"\n id:\t\t"		+this.id+
 							"\n usuario:\t"		+this.usuario+
 							"\n operador:\t"	+this.operador+
 							"\n erros:\t\t"		+this.erros+
@@ -43,8 +43,8 @@ public class JogoDN {
 							"\n totalQuestoes:\t"+this.totalQuestoes+
 							"\n tempoFinalJog:\t"+this.tempoFinalDeJogo+
 							"\n dataHora:\t"	+this.dataHora+
-							"\n posicao:\t"		+this.posicao
-							);
+							"\n posicao:\t"		+this.posicao+
+							"\n");
 	}
 
 // Getters e Setters ---

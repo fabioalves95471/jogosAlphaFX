@@ -145,7 +145,7 @@ public class ControllerDN implements Initializable {
 				ctrFimDeJogo.setControllerDN(this);
 				String operadorNome = service.getOperadorNome();
 				String score = (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
-				String tempo = service.getTempoFinalStr();
+				String tempo = service.getTempoFinalDeJogoStr();
 				ctrFimDeJogo.setDados(operadorNome, score, tempo);
 				Stage stageFimDeJogo = new Stage();
 				ctrFimDeJogo.setStage(stageFimDeJogo);

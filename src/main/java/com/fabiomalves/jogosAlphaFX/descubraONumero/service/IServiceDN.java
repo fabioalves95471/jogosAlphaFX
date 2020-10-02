@@ -8,7 +8,7 @@ public interface IServiceDN {
 	public int getErros();
 	public String getOperadorNome();
 	public String getQuestaoString();
-	public String getTempoFinalStr();
+	public String getTempoFinalDeJogoStr();
 	public void incrementaPontuacao (boolean resp);
 	public void rodaProximaQuestao();
 	public boolean temProximaQuestao();
