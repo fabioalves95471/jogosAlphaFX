@@ -74,13 +74,6 @@ public class ServiceDN implements IServiceDN {
 	public String getOperadorNome() {
 		return questao.getOperador().getNome();
 	}
-	public static String[] getOperadorNomes() {
-		Operador[] ops = Operador.values();
-		String[] opsStr = new String[ops.length];
-		for (int i=0; i<ops.length; i++) 
-			opsStr[i] = ops[i].getNome();
-		return opsStr;
-	}
 	public String getQuestaoString() {
 		return questao.getQuestaoString();
 	}
@@ -112,7 +105,7 @@ class Tempo {
 	}
 	public void finalizaTempo() {
 		fim = System.currentTimeMillis();
-		if ((fim-inicio) >= 3_600_000)
+		if  ((fim-inicio) >= 3_600_000)
 			tempoFinalDeJogoInt = 3_599_999;
 		else
 			tempoFinalDeJogoInt = (int)(fim-inicio);

@@ -3,6 +3,8 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -29,8 +31,12 @@ public class ControllerPo implements Initializable  {
 	@FXML
 	TableColumn coTempoFinalDeJogo;
 
+	IServiceDN service;
 	Stage stage;
 
+	public void setService (IServiceDN service) {
+		this.service = service;
+	}
 	@FXML
 	public void fechaTelaTeclaEnter(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.ENTER))
@@ -49,6 +55,8 @@ public class ControllerPo implements Initializable  {
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
+		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());
+		cbOperador.getSelectionModel().select(0);
 	}
 }
 

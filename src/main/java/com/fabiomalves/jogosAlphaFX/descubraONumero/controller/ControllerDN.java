@@ -111,8 +111,10 @@ public class ControllerDN implements Initializable {
 		Parent rootPo = loaderPo.load();
 		Scene scenePo = new Scene(rootPo);
 		Stage stagePo = new Stage();
-		stagePo.initModality(Modality.WINDOW_MODAL);
 		stagePo.setScene(scenePo);
+		ControllerPo controllerPo = loaderPo.getController();
+
+		stagePo.initModality(Modality.WINDOW_MODAL);
 		stagePo.initOwner(this.getStage());
 		stagePo.showAndWait();
 		} catch (Exception e) {
@@ -189,7 +191,7 @@ public class ControllerDN implements Initializable {
 		// Insere lista na caixa de selecao.
 //		ObservableList<String> operadores = FXCollections.observableArrayList("Adicao", "Subtracao", "Multiplicacao", "Divis�o");
 //		cbOperadores.setItems(operadores);
-		cbOperadores.getItems().addAll(ServiceDN.getOperadorNomes());
+		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperadores.getSelectionModel().select(0);
 		// Aplica Ouvidor ao campo.
 		CamposDeEntrada.numero4Dig(tfResposta);
