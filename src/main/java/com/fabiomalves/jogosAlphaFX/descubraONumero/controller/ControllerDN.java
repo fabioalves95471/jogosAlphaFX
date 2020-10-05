@@ -58,7 +58,6 @@ public class ControllerDN implements Initializable {
 	private KeyFrame kf;
 
 	public ControllerDN() {
-		numeroQuestoes = 12;
 		tl = null;
 	}
 	@FXML
@@ -66,6 +65,7 @@ public class ControllerDN implements Initializable {
 		btIniciar.requestFocus();
 	}	
 	public void iniciarJogo() {
+		numeroQuestoes = 12;
 		// Tempo de jogo
 		if (tl != null) tl.stop();
 		tempoCorrente = 0;
@@ -76,11 +76,14 @@ public class ControllerDN implements Initializable {
 		tl = new Timeline(kf);
 		tl.setCycleCount(3599);
 		// Inicia o Jogo.
+		if (service == null) {
+			vbQuadroCentral.setVisible(true);
+			service = new ServiceDN (cbOperadores.getValue(), numeroQuestoes);
+		} else
+			service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
 		tl.play();
-		service = new ServiceDN (cbOperadores.getValue(), numeroQuestoes);
 		lbOperadorNome.setText(service.getOperadorNome());
 		atualizaTela();
-		vbQuadroCentral.setVisible(true);
 		tfResposta.setDisable(false);
 		tfResposta.setText("");
 		tfResposta.requestFocus();

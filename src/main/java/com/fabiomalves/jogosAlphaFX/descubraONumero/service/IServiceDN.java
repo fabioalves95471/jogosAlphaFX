@@ -4,13 +4,14 @@ import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 public interface IServiceDN {
 
-	public void finalizaJogoDN();
 	public int getAcertos();
 	public float getAcertosPorcentual();
 	public int getErros();
 	public String getOperadorNome();
 	public String getQuestaoString();
 	public String getTempoFinalDeJogoStr();
+	public void iniciarJogoDN(String operadorNome, int totalQuestoes);
+	public void finalizaJogoDN();
 	public void incrementaPontuacao (boolean resp);
 	public void rodaProximaQuestao();
 	public boolean temProximaQuestao();

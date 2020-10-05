@@ -8,35 +8,22 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.ListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
+
+import javafx.collections.ObservableList;
 
 public class ServiceDN implements IServiceDN {
 
-	private int questaoCorrente;
+	private ListsJogos listsJogos;
+	private ObservableList<JogoDN> listAtual;
 	private JogoDN jogo;
 	private Questao questao;
 	private Tempo tempo;
+	private int questaoCorrente;
 
 	public ServiceDN (String operadorNome, int totalQuestoes) {
-		jogo = new JogoDN();
-		jogo.setOperador(operadorNome);
-		jogo.setErros(0);
-		jogo.setAcertos(0);
-		jogo.setAcertosPorcentual(0.0f);
-		jogo.setTotalQuestoes(totalQuestoes);
-		questaoCorrente = 0;
-		if 		(Operador.ADICAO.getNome().equals(operadorNome))
-			questao = new Adicao();
-		else if (Operador.SUBTRACAO.getNome().equals(operadorNome))
-			questao = new Subtracao();
-		else if (Operador.MULTIPLICACAO.getNome().equals(operadorNome))
-			questao = new Multiplicacao();
-		else if (Operador.DIVISAO.getNome().equals(operadorNome))
-			questao = new Divisao();
-		else 
-			questao = new Adicao();
-		rodaProximaQuestao();
-		tempo = new Tempo();
+		iniciarJogoDN(operadorNome, totalQuestoes);
 	}
 	public boolean temProximaQuestao() {
 		if (questaoCorrente >= jogo.getTotalQuestoes())
@@ -64,12 +51,45 @@ public class ServiceDN implements IServiceDN {
 				jogo.setErros(++erros);
 		}
 	}
+	public void iniciarJogoDN (String operadorNome, int totalQuestoes) {
+		jogo = new JogoDN();
+		jogo.setOperador(operadorNome);
+		jogo.setErros(0);
+		jogo.setAcertos(0);
+		jogo.setAcertosPorcentual(0.0f);
+		jogo.setTotalQuestoes(totalQuestoes);
+		questaoCorrente = 0;
+		if 		(Operador.ADICAO.getNome().equals(operadorNome))
+			questao = new Adicao();
+		else if (Operador.SUBTRACAO.getNome().equals(operadorNome))
+			questao = new Subtracao();
+		else if (Operador.MULTIPLICACAO.getNome().equals(operadorNome))
+			questao = new Multiplicacao();
+		else if (Operador.DIVISAO.getNome().equals(operadorNome))
+			questao = new Divisao();
+		else 
+			questao = new Adicao();
+		rodaProximaQuestao();
+		tempo = new Tempo();
+	}
 	public void finalizaJogoDN() {
 		jogo.setAcertosPorcentual((float)jogo.getAcertos()/jogo.getTotalQuestoes());
 		tempo.finalizaTempo();
 		jogo.setUsuario("Visitante");
 		jogo.setTempoFinalDeJogo(tempo.getTempoFinalDeJogo());
-		jogo.printValores();
+		if (listsJogos == null)
+			listsJogos = new ListsJogos();
+		listAtual = listsJogos.getListUsuario(jogo.getOperador());
+		listAtual.add(jogo);
+		JogoDN jg;
+		for (short i=0; i<listAtual.size(); i++) {
+			System.out.print("jogo"+i+": ");
+			jg = listAtual.get(i);
+			listAtual.set(i, jg);
+			jg.printValores();
+		}
+//		listsJogos.getList(jogo.getOperador()).add(jogo);
+//		jogo.printValores();
 	}
 	public String getOperadorNome() {
 		return questao.getOperador().getNome();

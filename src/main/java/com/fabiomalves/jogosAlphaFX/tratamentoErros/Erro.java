@@ -6,12 +6,12 @@ import javafx.stage.Stage;
 
 public class Erro {
 
-	public Erro (String msg, Stage stage) {
+	public Erro (String msg, Stage stageOwner) {
 		try {
 		FXMLLoader fxml = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/tratamentoErros/view/erro.fxml"));
 		Parent rootErro = fxml.load();
 		ControllerErro ctrErro = fxml.getController();
-		ctrErro.chamaTelaErro(msg, rootErro, stage);
+		ctrErro.chamaTelaErro(msg, rootErro, stageOwner);
 		} catch (Exception ee) {
 			System.out.println("Erro: "+ee.getMessage());
 			ee.printStackTrace();
