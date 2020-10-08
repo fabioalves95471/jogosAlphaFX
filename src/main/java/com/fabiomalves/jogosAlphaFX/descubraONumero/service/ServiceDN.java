@@ -7,24 +7,27 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.IListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.ListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 public class ServiceDN implements IServiceDN {
 
-	private ListsJogos listsJogos;
+	private IListsJogos listsJogos;
 	private ObservableList<JogoDN> listAtual;
 	private JogoDN jogo;
 	private Questao questao;
 	private Tempo tempo;
 	private int questaoCorrente;
 
-	public ServiceDN (String operadorNome, int totalQuestoes) {
-		iniciarJogoDN(operadorNome, totalQuestoes);
+	public ServiceDN () {
+		listsJogos = new ListsJogos();
 	}
+
 	public boolean temProximaQuestao() {
 		if (questaoCorrente >= jogo.getTotalQuestoes())
 			return false;
@@ -77,8 +80,6 @@ public class ServiceDN implements IServiceDN {
 		tempo.finalizaTempo();
 		jogo.setUsuario("Visitante");
 		jogo.setTempoFinalDeJogo(tempo.getTempoFinalDeJogo());
-		if (listsJogos == null)
-			listsJogos = new ListsJogos();
 		listAtual = listsJogos.getListUsuario(jogo.getOperador());
 		listAtual.add(jogo);
 		JogoDN jg;
@@ -88,11 +89,6 @@ public class ServiceDN implements IServiceDN {
 			listAtual.set(i, jg);
 			jg.printValores();
 		}
-//		listsJogos.getList(jogo.getOperador()).add(jogo);
-//		jogo.printValores();
-	}
-	public String getOperadorNome() {
-		return questao.getOperador().getNome();
 	}
 	public String getQuestaoString() {
 		return questao.getQuestaoString();
@@ -101,6 +97,9 @@ public class ServiceDN implements IServiceDN {
 		return tempo.getTempoFinalDeJogoStr();
 	}
 
+	public IListsJogos getListsJogos () {
+		return listsJogos;
+	}
 // Getters e Setters JogoDN ---
 	public int getErros() {
 		return jogo.getErros();
@@ -110,6 +109,11 @@ public class ServiceDN implements IServiceDN {
 	}
 	public float getAcertosPorcentual() {
 		return jogo.getAcertosPorcentual();
+	}
+	public String getOperadorNome() {
+		if (jogo == null)
+			return Operador.ADICAO.getNome();
+		return jogo.getOperador();
 	}
 }
 //---------------------------------------------------------
@@ -138,7 +142,7 @@ class Tempo {
 		return tempoFinalDeJogo;
 	}
 }
-// ---------------------------------------------------------
+//---------------------------------------------------------
 abstract class Questao {
 
 	Operador op;

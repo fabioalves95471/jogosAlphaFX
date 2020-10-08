@@ -1,5 +1,6 @@
 package com.fabiomalves.jogosAlphaFX.descubraONumero.service;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.IListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 public interface IServiceDN {
@@ -10,6 +11,7 @@ public interface IServiceDN {
 	public String getOperadorNome();
 	public String getQuestaoString();
 	public String getTempoFinalDeJogoStr();
+	public IListsJogos getListsJogos();
 	public void iniciarJogoDN(String operadorNome, int totalQuestoes);
 	public void finalizaJogoDN();
 	public void incrementaPontuacao (boolean resp);

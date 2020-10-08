@@ -28,7 +28,7 @@
             <TableColumn fx:id="coTempoFinalDeJogo" prefWidth="104.0" text="Tempo" />
         </columns>
       </TableView>
-      <Button fx:id="btSair" layoutX="334.0" layoutY="442.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="96.0" text="Sair">
+      <Button fx:id="btSair" layoutX="334.0" layoutY="442.0" mnemonicParsing="false" onAction="#fechaTela" onKeyPressed="#fechaTelaTeclaEnter" prefHeight="39.0" prefWidth="96.0" text="Sair">
          <font>
             <Font size="18.0" />
          </font>

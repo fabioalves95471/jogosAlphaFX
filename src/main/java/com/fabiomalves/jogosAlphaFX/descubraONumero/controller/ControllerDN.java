@@ -3,6 +3,7 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.IListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
@@ -58,12 +59,13 @@ public class ControllerDN implements Initializable {
 	private KeyFrame kf;
 
 	public ControllerDN() {
-		tl = null;
+		service = new ServiceDN();
 	}
 	@FXML
 	public void focusIniciar() {
 		btIniciar.requestFocus();
 	}	
+	@FXML
 	public void iniciarJogo() {
 		numeroQuestoes = 12;
 		// Tempo de jogo
@@ -76,11 +78,8 @@ public class ControllerDN implements Initializable {
 		tl = new Timeline(kf);
 		tl.setCycleCount(3599);
 		// Inicia o Jogo.
-		if (service == null) {
-			vbQuadroCentral.setVisible(true);
-			service = new ServiceDN (cbOperadores.getValue(), numeroQuestoes);
-		} else
-			service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
+		vbQuadroCentral.setVisible(true);
+		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
 		tl.play();
 		lbOperadorNome.setText(service.getOperadorNome());
 		atualizaTela();
@@ -88,14 +87,31 @@ public class ControllerDN implements Initializable {
 		tfResposta.setText("");
 		tfResposta.requestFocus();
 	}
+	public void chamaTelaFimDeJogo() {
+		try {
+			FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
+			Parent root1 = loaderFimDeJogo.load();
+			Scene scene = new Scene(root1);
+			ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
+			ctrFimDeJogo.setControllerDN(this);
+			String operadorNome = service.getOperadorNome();
+			String score = (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
+			String tempo = service.getTempoFinalDeJogoStr();
+			ctrFimDeJogo.setDados(operadorNome, score, tempo);
+			Stage stageFimDeJogo = new Stage();
+			ctrFimDeJogo.setStage(stageFimDeJogo);
+			stageFimDeJogo.initModality(Modality.WINDOW_MODAL);
+			stageFimDeJogo.setScene(scene);
+			stageFimDeJogo.initOwner(this.getStage());
+			stageFimDeJogo.showAndWait();
+		}
+		catch (Exception e) {
+			new Erro ("Não pode abrir a tela: "+e.getMessage(), this.getStage());
+		}
+	}
 	@FXML
 	public void iniciarJogoTeclaEnter(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.ENTER))
-			iniciarJogo();
-    }
-	@FXML
-	public void iniciarJogoClickDireito(MouseEvent me) {
-		if (me.getButton().equals(MouseButton.PRIMARY))
 			iniciarJogo();
     }
 	@FXML
@@ -104,10 +120,6 @@ public class ControllerDN implements Initializable {
 			chamaTelaPontuacao();
     }
 	@FXML
-	public void chamaTelaPontuacaoClickDireito(MouseEvent me) {
-		if (me.getButton().equals(MouseButton.PRIMARY))
-			chamaTelaPontuacao();
-    }
 	public void chamaTelaPontuacao() {
 		try {
 		FXMLLoader loaderPo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml"));
@@ -116,7 +128,8 @@ public class ControllerDN implements Initializable {
 		Stage stagePo = new Stage();
 		stagePo.setScene(scenePo);
 		ControllerPo controllerPo = loaderPo.getController();
-
+		controllerPo.setConfig(stagePo, service);
+		controllerPo.runPontuacao();
 		stagePo.initModality(Modality.WINDOW_MODAL);
 		stagePo.initOwner(this.getStage());
 		stagePo.showAndWait();
@@ -141,27 +154,8 @@ public class ControllerDN implements Initializable {
 			tl.stop();
 			tl = null;
 			tfResposta.setDisable(true);
-			// Chamar tela FimDeJogo e envia o ControllerDN para essa.
-			try {
-				FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
-				Parent root1 = loaderFimDeJogo.load();
-				Scene scene = new Scene(root1);
-				ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
-				ctrFimDeJogo.setControllerDN(this);
-				String operadorNome = service.getOperadorNome();
-				String score = (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
-				String tempo = service.getTempoFinalDeJogoStr();
-				ctrFimDeJogo.setDados(operadorNome, score, tempo);
-				Stage stageFimDeJogo = new Stage();
-				ctrFimDeJogo.setStage(stageFimDeJogo);
-				stageFimDeJogo.initModality(Modality.WINDOW_MODAL);
-				stageFimDeJogo.setScene(scene);
-				stageFimDeJogo.initOwner(this.getStage());
-				stageFimDeJogo.showAndWait();
-			}
-			catch (Exception e) {
-				new Erro ("Não pode abrir a tela: "+e.getMessage(), this.getStage());
-			}
+			chamaTelaFimDeJogo();
+			chamaTelaPontuacao();
 		}
 	}
 	public void gravaResultado() {

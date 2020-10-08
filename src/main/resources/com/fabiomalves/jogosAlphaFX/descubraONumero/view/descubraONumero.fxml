@@ -87,7 +87,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 40;">
                <children>
-                  <Button fx:id="btIniciar" mnemonicParsing="false" onKeyPressed="#iniciarJogoTeclaEnter" onMouseClicked="#iniciarJogoClickDireito" text="Iniciar"> <!---->
+                  <Button fx:id="btIniciar" mnemonicParsing="false" onAction="#iniciarJogo" onKeyPressed="#iniciarJogoTeclaEnter" text="Iniciar"> <!---->
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -95,7 +95,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btPontuacao" mnemonicParsing="false" onKeyPressed="#chamaTelaPontuacaoTeclaEnter" onMouseClicked="#chamaTelaPontuacaoClickDireito" text="Pontuação">
+                  <Button fx:id="btPontuacao" mnemonicParsing="false" onAction="#chamaTelaPontuacao" onKeyPressed="#chamaTelaPontuacaoTeclaEnter" text="Pontuação">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -3,13 +3,18 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -19,23 +24,42 @@ import javafx.stage.Stage;
 public class ControllerPo implements Initializable  {
 
 	@FXML
-	ComboBox cbOperador;
+	ComboBox<String> cbOperador;
 	@FXML
-	TableColumn coPosicao;
+	TableView tvPontuacao;
 	@FXML
-	TableColumn coNome;
+	TableColumn<Integer, JogoDN> coPosicao;
 	@FXML
-	TableColumn coAcertosPorcentual; 
+	TableColumn<String, JogoDN>coNome;
 	@FXML
-	TableColumn coTotalQuestoes;
+	TableColumn<Short, JogoDN> coAcertosPorcentual; 
 	@FXML
-	TableColumn coTempoFinalDeJogo;
+	TableColumn<Short, JogoDN> coTotalQuestoes;
+	@FXML
+	TableColumn<String, JogoDN> coTempoFinalDeJogo;
+	@FXML
+	
+	private IServiceDN service;
+	private ObservableList<JogoDN> listAtual;
+	private Stage stage;
 
-	IServiceDN service;
-	Stage stage;
-
+	public void setConfig(Stage stage, IServiceDN service) {
+		setService(service);
+		setStage(stage);
+	}
 	public void setService (IServiceDN service) {
 		this.service = service;
+	}
+	public void setStage (Stage stage) {
+		this.stage = stage;
+	}
+	public void runPontuacao() {
+		cbOperador.getSelectionModel().select(service.getOperadorNome());
+		listAtual = service.getListsJogos().getListUsuario((String)cbOperador.getValue());
+		for (int i=0; i<listAtual.size(); i++) {
+			listAtual.get(i).setPosicao(i+1);
+		}
+		tvPontuacao.getItems().addAll(listAtual.sorted());
 	}
 	@FXML
 	public void fechaTelaTeclaEnter(KeyEvent ke) {
@@ -43,20 +67,23 @@ public class ControllerPo implements Initializable  {
 			fechaTela();
     }
 	@FXML
-	public void fechaTelaClickDireito(MouseEvent me) {
+	public void fechaTelaClickEsquerdo(MouseEvent me) {
 		if (me.getButton().equals(MouseButton.PRIMARY))
 			fechaTela();
-    }
+	}
+	@FXML
 	public void fechaTela () {
 		stage.close();
-	}
-	public void setStage (Stage stage) {
-		this.stage = stage;
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperador.getSelectionModel().select(0);
+		coNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormated"));
+		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
+		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormated"));
+		coPosicao.setCellValueFactory(new PropertyValueFactory<>("posicao"));
 	}
 }
 

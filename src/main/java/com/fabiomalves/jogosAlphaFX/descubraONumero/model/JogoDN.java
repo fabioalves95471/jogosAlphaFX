@@ -47,7 +47,16 @@ public class JogoDN {
 							"\n");
 	}
 
-// Getters e Setters ---
+// Getters: Especiais
+
+	public short getAcertosPorcentualFormated () {
+		return (short)(Math.rint(acertosPorcentual*100));
+	}
+	public String getTempoFinalDeJogoFormated () {
+		return tempoFinalDeJogo.toString().substring(3);
+	}
+
+// Getters e Setters: Padrões---
 
 	public int getId() {
 		return id;

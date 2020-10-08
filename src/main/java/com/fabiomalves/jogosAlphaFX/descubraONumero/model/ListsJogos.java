@@ -8,9 +8,9 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ListsJogos {
+public class ListsJogos implements IListsJogos {
 
-	ObservableList<JogoDN>[] lists = new ObservableList[8];
+	private ObservableList<JogoDN>[] lists = new ObservableList[8];
 	
 	public ListsJogos () {
 		for (short i=0; i<lists.length; i++)
