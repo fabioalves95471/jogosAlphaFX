@@ -3,7 +3,6 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.fabiomalves.jogosAlphaFX.descubraONumero.model.IListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
@@ -186,8 +185,6 @@ public class ControllerDN implements Initializable {
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		// Insere lista na caixa de selecao.
-//		ObservableList<String> operadores = FXCollections.observableArrayList("Adicao", "Subtracao", "Multiplicacao", "Divis�o");
-//		cbOperadores.setItems(operadores);
 		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperadores.getSelectionModel().select(0);
 		// Aplica Ouvidor ao campo.

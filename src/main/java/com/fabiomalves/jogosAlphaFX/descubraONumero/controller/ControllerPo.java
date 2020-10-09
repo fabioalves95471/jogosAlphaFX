@@ -1,6 +1,7 @@
 package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
@@ -8,8 +9,10 @@ import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -25,6 +28,8 @@ public class ControllerPo implements Initializable  {
 
 	@FXML
 	ComboBox<String> cbOperador;
+	@FXML
+	Button btSair;
 	@FXML
 	TableView tvPontuacao;
 	@FXML
@@ -55,11 +60,12 @@ public class ControllerPo implements Initializable  {
 	}
 	public void runPontuacao() {
 		cbOperador.getSelectionModel().select(service.getOperadorNome());
-		listAtual = service.getListsJogos().getListUsuario((String)cbOperador.getValue());
+		listAtual = service.getListUsuario((String)cbOperador.getValue());
 		for (int i=0; i<listAtual.size(); i++) {
 			listAtual.get(i).setPosicao(i+1);
 		}
-		tvPontuacao.getItems().addAll(listAtual.sorted());
+		tvPontuacao.getItems().addAll(listAtual);
+		btSair.requestFocus();
 	}
 	@FXML
 	public void fechaTelaTeclaEnter(KeyEvent ke) {

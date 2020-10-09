@@ -5,19 +5,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Date;
 
-import com.fabiomalves.jogosAlphaFX.descubraONumero.model.IListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
-import com.fabiomalves.jogosAlphaFX.descubraONumero.model.ListsJogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
 public class ServiceDN implements IServiceDN {
 
-	private IListsJogos listsJogos;
+	private ListsJogos listsJogos;
 	private ObservableList<JogoDN> listAtual;
 	private JogoDN jogo;
 	private Questao questao;
@@ -25,7 +25,7 @@ public class ServiceDN implements IServiceDN {
 	private int questaoCorrente;
 
 	public ServiceDN () {
-		listsJogos = new ListsJogos();
+		listsJogos = new ListsJogos(new ComparatorJogoDN());
 	}
 
 	public boolean temProximaQuestao() {
@@ -96,9 +96,8 @@ public class ServiceDN implements IServiceDN {
 	public String getTempoFinalDeJogoStr() {
 		return tempo.getTempoFinalDeJogoStr();
 	}
-
-	public IListsJogos getListsJogos () {
-		return listsJogos;
+	public ObservableList<JogoDN> getListUsuario (String operadorNome) {
+		return listsJogos.getListUsuario(operadorNome);
 	}
 // Getters e Setters JogoDN ---
 	public int getErros() {
@@ -237,4 +236,41 @@ class Divisao extends Questao {
 		}
 	}
 }
-// ---------------------------------------------------------
+//---------------------------------------------------------
+class ListsJogos {
+
+	private ObservableList<JogoDN>[] lists = new ObservableList[8];
+	
+	public ListsJogos (Comparator<JogoDN> comparator) {
+		for (short i=0; i<lists.length; i++) {
+			lists[i] = FXCollections.observableArrayList();
+		}
+	}
+	
+	public ObservableList<JogoDN> getListUsuario (String operadorNome) {
+		if		(Operador.ADICAO.getNome().equals(operadorNome))
+			return lists[0];
+		else if	(Operador.SUBTRACAO.getNome().equals(operadorNome))
+			return lists[1];
+		else if	(Operador.MULTIPLICACAO.getNome().equals(operadorNome))
+			return lists[2];
+		else if	(Operador.DIVISAO.getNome().equals(operadorNome))
+			return lists[3];
+		return null;
+	}
+}
+//---------------------------------------------------------
+class ComparatorJogoDN implements Comparator<JogoDN> {
+	
+	@Override
+	public int compare (JogoDN jg1, JogoDN jg2) {
+		if (jg1.getAcertosPorcentual() < jg2.getAcertosPorcentual()) return 1;
+		else if (jg1.getAcertosPorcentual() > jg2.getAcertosPorcentual()) return -1;
+		else if (jg1.getTotalQuestoes() < jg2.getTotalQuestoes()) return 1;
+		else if (jg1.getTotalQuestoes() > jg2.getTotalQuestoes()) return -1;
+		else if (jg1.getTempoFinalDeJogo().isBefore(jg2.getTempoFinalDeJogo())) return -1;
+		else if (jg1.getTempoFinalDeJogo().isAfter(jg2.getTempoFinalDeJogo())) return 1;
+		else return 0;
+	}
+}
+
