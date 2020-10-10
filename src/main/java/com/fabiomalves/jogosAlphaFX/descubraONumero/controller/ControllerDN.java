@@ -22,8 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.animation.KeyFrame;
 
 public class ControllerDN implements Initializable {
@@ -52,6 +50,10 @@ public class ControllerDN implements Initializable {
 	private ComboBox<String> cbOperadores;
 
 	private IServiceDN service;
+	private Stage stagePo;
+	private Stage stageFJ;
+	private ControllerPo controllerPo;
+	private ControllerFJ controllerFJ;
 	private short numeroQuestoes;
 	private short tempoCorrente;
 	private Timeline tl;
@@ -86,27 +88,29 @@ public class ControllerDN implements Initializable {
 		tfResposta.setText("");
 		tfResposta.requestFocus();
 	}
-	public void chamaTelaFimDeJogo() {
+	public void carregaTelaFimDeJogo() {
 		try {
 			FXMLLoader loaderFimDeJogo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml"));
 			Parent root1 = loaderFimDeJogo.load();
 			Scene scene = new Scene(root1);
-			ControllerFJ ctrFimDeJogo = loaderFimDeJogo.getController();
-			ctrFimDeJogo.setControllerDN(this);
-			String operadorNome = service.getOperadorNome();
-			String score = (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
-			String tempo = service.getTempoFinalDeJogoStr();
-			ctrFimDeJogo.setDados(operadorNome, score, tempo);
-			Stage stageFimDeJogo = new Stage();
-			ctrFimDeJogo.setStage(stageFimDeJogo);
-			stageFimDeJogo.initModality(Modality.WINDOW_MODAL);
-			stageFimDeJogo.setScene(scene);
-			stageFimDeJogo.initOwner(this.getStage());
-			stageFimDeJogo.showAndWait();
+			stageFJ = new Stage();
+			stageFJ.setScene(scene);
+			controllerFJ = loaderFimDeJogo.getController();
+			controllerFJ.setStage(stageFJ);
+			stageFJ.initModality(Modality.WINDOW_MODAL);
+			stageFJ.initOwner(this.getStage());
 		}
 		catch (Exception e) {
-			new Erro ("Não pode abrir a tela: "+e.getMessage(), this.getStage());
+			e.printStackTrace();
+			new Erro ("Não pode carregar a Tela de \"Fim De Jogo\": "+e.getMessage(), this.getStage());
 		}
+	}
+	public void chamaTelaFimDeJogo() {
+		String operadorNome	= service.getOperadorNome();
+		String score		= (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
+		String tempo		= service.getTempoFinalDeJogoStr();
+		controllerFJ.setDados(operadorNome, score, tempo);
+		stageFJ.showAndWait();
 	}
 	@FXML
 	public void iniciarJogoTeclaEnter(KeyEvent ke) {
@@ -118,24 +122,30 @@ public class ControllerDN implements Initializable {
 		if (ke.getCode().equals(KeyCode.ENTER))
 			chamaTelaPontuacao();
     }
-	@FXML
-	public void chamaTelaPontuacao() {
+	private void carregaTelaPontuacao() {
 		try {
 		FXMLLoader loaderPo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml"));
 		Parent rootPo = loaderPo.load();
 		Scene scenePo = new Scene(rootPo);
-		Stage stagePo = new Stage();
+		stagePo = new Stage();
 		stagePo.setScene(scenePo);
-		ControllerPo controllerPo = loaderPo.getController();
+		controllerPo = loaderPo.getController();
 		controllerPo.setConfig(stagePo, service);
-		controllerPo.runPontuacao();
 		stagePo.initModality(Modality.WINDOW_MODAL);
 		stagePo.initOwner(this.getStage());
-		stagePo.showAndWait();
 		} catch (Exception e) {
 			e.printStackTrace();
-			new Erro ("Não pode abrir a Tela: "+e.getMessage(), this.getStage());
+			new Erro ("Não pode carregar a Tela de Pontuacao: "+e.getMessage(), this.getStage());
 		}
+	}
+	@FXML
+	public void chamaTelaPontuacaoComOperador() {
+		controllerPo.runPontuacao(service.getOperadorNome());
+		stagePo.showAndWait();
+	}
+	public void chamaTelaPontuacao() {
+		controllerPo.runPontuacao();
+		stagePo.showAndWait();
 	}
 	@FXML
 	public void responde() {
@@ -154,7 +164,7 @@ public class ControllerDN implements Initializable {
 			tl = null;
 			tfResposta.setDisable(true);
 			chamaTelaFimDeJogo();
-			chamaTelaPontuacao();
+			chamaTelaPontuacaoComOperador();
 		}
 	}
 	public void gravaResultado() {
@@ -184,13 +194,13 @@ public class ControllerDN implements Initializable {
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-		// Insere lista na caixa de selecao.
-		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes());
+		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes()); // Insere lista na caixa de selecao.
 		cbOperadores.getSelectionModel().select(0);
-		// Aplica Ouvidor ao campo.
-		CamposDeEntrada.numero4Dig(tfResposta);
+		CamposDeEntrada.numero4Dig(tfResposta); // Aplica Ouvidor ao campo de resposta.
 		Platform.runLater (() -> {
 			btIniciar.requestFocus();
+			carregaTelaFimDeJogo();
+			carregaTelaPontuacao();
 		});
 	}
 }

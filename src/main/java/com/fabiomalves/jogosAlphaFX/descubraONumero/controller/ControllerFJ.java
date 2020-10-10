@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 public class ControllerFJ implements Initializable  {
 
-	ControllerDN controllerDN;
 	@FXML
 	AnchorPane noPrincipal;
 	@FXML
@@ -41,9 +40,6 @@ public class ControllerFJ implements Initializable  {
     }
 	public void fechaTela () {
 		stage.close();
-	}
-	public void setControllerDN (ControllerDN controllerDN) {
-		this.controllerDN = controllerDN;
 	}
 	public void setStage (Stage stage) {
 		this.stage = stage;

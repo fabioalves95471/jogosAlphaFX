@@ -4,7 +4,6 @@ import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 
 public interface IServiceDN {
 

@@ -1,31 +1,28 @@
 package com.fabiomalves.jogosAlphaFX.descubraONumero.service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
-import java.util.Date;
 
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 
 public class ServiceDN implements IServiceDN {
 
 	private ListsJogos listsJogos;
 	private ObservableList<JogoDN> listAtual;
+	private Comparator<JogoDN> comparator;
 	private JogoDN jogo;
 	private Questao questao;
 	private Tempo tempo;
 	private int questaoCorrente;
 
 	public ServiceDN () {
-		listsJogos = new ListsJogos(new ComparatorJogoDN());
+		listsJogos = new ListsJogos();
+		comparator = new ComparatorJogoDN();
 	}
 
 	public boolean temProximaQuestao() {
@@ -82,13 +79,12 @@ public class ServiceDN implements IServiceDN {
 		jogo.setTempoFinalDeJogo(tempo.getTempoFinalDeJogo());
 		listAtual = listsJogos.getListUsuario(jogo.getOperador());
 		listAtual.add(jogo);
-		JogoDN jg;
-		for (short i=0; i<listAtual.size(); i++) {
-			System.out.print("jogo"+i+": ");
-			jg = listAtual.get(i);
-			listAtual.set(i, jg);
-			jg.printValores();
-		}
+		ordenarLista(listAtual);
+	}
+	private void ordenarLista (ObservableList<JogoDN> ol) {
+		ol.sort(comparator);
+		for (int i=0; i<ol.size(); i++)
+			ol.get(i).setPosicao(i+1);
 	}
 	public String getQuestaoString() {
 		return questao.getQuestaoString();
@@ -240,13 +236,12 @@ class Divisao extends Questao {
 class ListsJogos {
 
 	private ObservableList<JogoDN>[] lists = new ObservableList[8];
-	
-	public ListsJogos (Comparator<JogoDN> comparator) {
+
+	public ListsJogos () {
 		for (short i=0; i<lists.length; i++) {
 			lists[i] = FXCollections.observableArrayList();
 		}
 	}
-	
 	public ObservableList<JogoDN> getListUsuario (String operadorNome) {
 		if		(Operador.ADICAO.getNome().equals(operadorNome))
 			return lists[0];
@@ -263,7 +258,7 @@ class ListsJogos {
 class ComparatorJogoDN implements Comparator<JogoDN> {
 	
 	@Override
-	public int compare (JogoDN jg1, JogoDN jg2) {
+	public synchronized int compare (JogoDN jg1, JogoDN jg2) {
 		if (jg1.getAcertosPorcentual() < jg2.getAcertosPorcentual()) return 1;
 		else if (jg1.getAcertosPorcentual() > jg2.getAcertosPorcentual()) return -1;
 		else if (jg1.getTotalQuestoes() < jg2.getTotalQuestoes()) return 1;
