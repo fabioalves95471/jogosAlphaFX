@@ -68,7 +68,7 @@ public class ControllerDN implements Initializable {
 	}	
 	@FXML
 	public void iniciarJogo() {
-		numeroQuestoes = 12;
+		numeroQuestoes = 5;
 		// Tempo de jogo
 		if (tl != null) tl.stop();
 		tempoCorrente = 0;
@@ -127,6 +127,7 @@ public class ControllerDN implements Initializable {
 		FXMLLoader loaderPo = new FXMLLoader(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml"));
 		Parent rootPo = loaderPo.load();
 		Scene scenePo = new Scene(rootPo);
+		scenePo.getStylesheets().add("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacaoStyle.css");
 		stagePo = new Stage();
 		stagePo.setScene(scenePo);
 		controllerPo = loaderPo.getController();

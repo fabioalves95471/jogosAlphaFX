@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -88,6 +90,7 @@ public class ControllerPo implements Initializable  {
 		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
 		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormated"));
 		coPosicao.setCellValueFactory(new PropertyValueFactory<>("posicao"));
+		tvPontuacao.setPlaceholder(new Label("Nenhum jogo aqui."));
 	}
 }
 
