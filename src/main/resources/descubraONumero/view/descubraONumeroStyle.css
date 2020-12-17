@@ -23,8 +23,12 @@
 	-fx-max-height: 32;
 }
 #vbQuadroCentral {
+	visibility: hidden;
+}
+#vbQuadroQuestao {
 	-fx-border-style: solid;
 	-fx-border-radius: 10;
+	-fx-spacing: 8;
 }
 #hbRodape {
 	-fx-spacing: 40;

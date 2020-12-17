@@ -24,7 +24,6 @@ public class ServiceDN implements IServiceDN {
 		listsJogos = new ListsJogos();
 		comparator = new ComparatorJogoDN();
 	}
-
 	public boolean temProximaQuestao() {
 		if (questaoCorrente >= jogo.getTotalQuestoes())
 			return false;
@@ -86,25 +85,15 @@ public class ServiceDN implements IServiceDN {
 		for (int i=0; i<ol.size(); i++)
 			ol.get(i).setPosicao(i+1);
 	}
-	public String getQuestaoString() {
-		return questao.getQuestaoString();
-	}
-	public String getTempoFinalDeJogoStr() {
-		return tempo.getTempoFinalDeJogoStr();
-	}
-	public ObservableList<JogoDN> getListUsuario (String operadorNome) {
-		return listsJogos.getListUsuario(operadorNome);
-	}
+	public String getQuestaoString() { return questao.getQuestaoString();}
+	public String getTempoFinalDeJogoStr() { return tempo.getTempoFinalDeJogoStr();}
+	public ObservableList<JogoDN> getListUsuario (String operadorNome) { return listsJogos.getListUsuario(operadorNome);}
 // Getters e Setters JogoDN ---
-	public int getErros() {
-		return jogo.getErros();
-	}
-	public int getAcertos() {
-		return jogo.getAcertos();
-	}
-	public float getAcertosPorcentual() {
-		return jogo.getAcertosPorcentual();
-	}
+	public int getErros() { return jogo.getErros();}
+	public int getAcertos() { return jogo.getAcertos();}
+	public float getAcertosPorcentual() { return jogo.getAcertosPorcentual();}
+	public int getQuestaoCorrente() { return questaoCorrente;};
+	public int getTotalQuestoes() { return jogo.getTotalQuestoes();};
 	public String getOperadorNome() {
 		if (jogo == null)
 			return Operador.ADICAO.getNome();

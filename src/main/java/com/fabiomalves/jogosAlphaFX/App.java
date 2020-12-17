@@ -14,7 +14,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/descubraONumero.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/descubraONumero/view/descubraONumero.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
