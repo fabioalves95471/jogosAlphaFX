@@ -164,7 +164,7 @@ class Adicao extends Questao {
 	}
 
 	public void calculaQuestao() {
-		x = (short)Math.floor(Math.random()*(10+1));
+		x = (short)Math.floor((Math.random()*(10))+1);
 		y = (short)Math.floor(Math.random()*(10+1));
 		resp = x + y + "";
 	}

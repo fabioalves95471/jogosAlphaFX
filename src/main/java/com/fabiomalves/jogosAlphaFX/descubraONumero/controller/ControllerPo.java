@@ -86,9 +86,9 @@ public class ControllerPo implements Initializable  {
 		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperador.getSelectionModel().select(0);
 		coNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormated"));
+		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormatado"));
 		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
-		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormated"));
+		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormatado"));
 		coPosicao.setCellValueFactory(new PropertyValueFactory<>("posicao"));
 		tvPontuacao.setPlaceholder(new Label("Nenhum jogo aqui."));
 	}

@@ -52,10 +52,6 @@ public class ControllerDN implements Initializable {
 	private Button btPontuacao;
 
 	private IServiceDN service = new ServiceDN();
-//	private Stage stagePo;
-//	private Stage stageFJ;
-//	private ControllerPo controllerPo;
-//	private ControllerFJ controllerFJ;
 	private MyGroup<ControllerPo> groupPo = new MyGroup<>();
 	private MyGroup<ControllerFJ> groupFJ = new MyGroup<>();
 	private short tempoCorrente;
@@ -213,8 +209,8 @@ public class ControllerDN implements Initializable {
 
 		Platform.runLater (() -> {
 			btIniciar.requestFocus(); // Focus no botão "Iniciar".
-			carregaGroup( groupPo,"/descubraONumero/view/pontuacao.fxml", "/descubraONumero/view/pontuacaoStyle.css");
-			carregaGroup( groupFJ,"/descubraONumero/view/fimDeJogo.fxml", null);
+			carregaGroup( groupPo, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacaoStyle.css");
+			carregaGroup( groupFJ, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml", null);
 			groupPo.getController().setConfig(groupPo.getStage(), service);
 			groupFJ.getController().setStage(groupFJ.getStage());
 

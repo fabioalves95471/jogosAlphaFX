@@ -42,10 +42,10 @@ public class JogoDN {
 
 // Getters: Especiais
 
-	public short getAcertosPorcentualFormated () {
+	public short getAcertosPorcentualFormatado () {
 		return (short)(Math.rint(acertosPorcentual*100));
 	}
-	public String getTempoFinalDeJogoFormated () {
+	public String getTempoFinalDeJogoFormatado () {
 		return tempoFinalDeJogo.toString().substring(3);
 	}
 

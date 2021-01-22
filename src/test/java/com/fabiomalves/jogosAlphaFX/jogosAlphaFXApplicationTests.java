@@ -1,10 +1,10 @@
-package com.fabiomalves.PrtDescubraONumeroFX_1_1;
+package com.fabiomalves.jogosAlphaFX;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PrtDescubraONumeroFx11ApplicationTests {
+class jogosAlphaFXApplicationTests {
 
 	@Test
 	void contextLoads() {
