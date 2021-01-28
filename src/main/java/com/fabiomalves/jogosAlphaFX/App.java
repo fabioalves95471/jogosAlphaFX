@@ -14,6 +14,8 @@ public class App extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/descubraONumero.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setMaxHeight(500);
+			primaryStage.setMaxWidth(700);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
