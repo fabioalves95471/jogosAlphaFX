@@ -135,7 +135,7 @@ public class ControllerDN implements Initializable {
 		groupPo.getController().runPontuacao();
 		groupPo.getStage().showAndWait();
 	}
-	private void eventoError() {
+	private void chamaEventoError() {
 		reErros.setHeight(getStage().getHeight());
 		reErros.setWidth(getStage().getWidth());
 		reErros.setStyle("visibility: visible");
@@ -148,7 +148,7 @@ public class ControllerDN implements Initializable {
 		erros = service.getErros();
 		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
 		if (erros != service.getErros())
-			eventoError();
+			chamaEventoError();
 		if (service.temProximaQuestao()) {
 			service.rodaProximaQuestao();
 			atualizaTela();
@@ -190,6 +190,13 @@ public class ControllerDN implements Initializable {
 	public Stage getStage () {
 		return (Stage)spPrimario.getScene().getWindow();
 	}
+	private void preparaEfeitoErrar() {
+		kfError = new KeyFrame(Duration.millis(80), e -> {
+			reErros.setStyle("visibility: hidden");
+		});
+		tlError = new Timeline(kfError);
+		tlError.setCycleCount(1);
+	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes()); // Insere lista na caixa de selecao.
@@ -197,13 +204,7 @@ public class ControllerDN implements Initializable {
 		cbQuestoes.getItems().addAll(5,10,15,20); // Insere lista na caixa de seleção.
 		cbQuestoes.getSelectionModel().select(1); // Seleciona o segundo item da caixa de seleção.
 		CamposDeEntrada.numero4Dig(tfResposta); // Aplica Ouvidor ao campo de resposta para retirar caracteres invalidos.
-		// Efeito ao errar.
-		kfError = new KeyFrame(Duration.millis(80), e -> {
-			reErros.setStyle("visibility: hidden");
-		});
-		tlError = new Timeline(kfError);
-		tlError.setCycleCount(1);
-
+		preparaEfeitoErrar();
 		Platform.runLater (() -> {
 			btIniciar.requestFocus(); // Focus no botão "Iniciar".
 			carregaGroup( groupPo, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacaoStyle.css");
