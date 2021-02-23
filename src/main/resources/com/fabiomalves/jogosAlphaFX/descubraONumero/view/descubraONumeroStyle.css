@@ -27,7 +27,7 @@
 	-fx-max-height: 32;
 }
 #vbQuadroCentral {
-	visibility: hidden;
+	visibility: hidden; /**/
 }
 #vbQuadroQuestao {
 	-fx-border-style: none;

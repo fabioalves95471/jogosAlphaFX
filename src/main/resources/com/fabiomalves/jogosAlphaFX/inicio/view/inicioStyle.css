@@ -1,0 +1,9 @@
+#gpPrimario {
+	-fx-pref-height: 400px;
+	-fx-pref-width: 600px;
+	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #e6ffe6, #fff);
+}
+
+/*
+	-fx-background-color: ladder(yellow, yellow, yellow);
+/*

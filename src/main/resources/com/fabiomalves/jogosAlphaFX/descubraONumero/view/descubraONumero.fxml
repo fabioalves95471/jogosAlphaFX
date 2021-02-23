@@ -163,8 +163,6 @@
 			  </Label>
 		   </top>
 		</BorderPane>
-	</children>
-	<children>
 		<Rectangle fx:id="reErros" height="400.0" width="600.0" />
 	</children>
 	<stylesheets>
