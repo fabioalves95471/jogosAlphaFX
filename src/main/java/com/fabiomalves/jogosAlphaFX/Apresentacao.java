@@ -1,13 +1,11 @@
-package com.fabiomalves.jogosAlphaFX.inicio.controller;
+package com.fabiomalves.jogosAlphaFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.App2;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -18,14 +16,22 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-public class Apresentacao implements Initializable {
+public class Apresentacao {
 
 	private int count = 0, i = 0;
     private AnimationTimer caminha, apresenta;
+    private Stage stage;
+    private GridPane root;
+    private String pathProgram;
 
+    Apresentacao (Stage stage, GridPane root, String pathProgram) {
+        this.stage = stage;
+        this.root = root;
+        this.pathProgram = pathProgram;
+    }
 
-	public void start (Stage stage, GridPane root, String pathProgram) {
-        // Carrega as imagens do personagem.
+	public synchronized void run () throws IOException {
+        // Carrega as imagens do personagem e fala.
         Image[] imgsCaminha = new Image[8];
         for (short i=0; i<imgsCaminha.length; i++) {
             imgsCaminha[i] = new Image(getClass().getResourceAsStream(pathProgram+"inicio/view/personagem/personagemLado0"+i+".png"));
@@ -38,38 +44,48 @@ public class Apresentacao implements Initializable {
         for (short i=0; i<imgsFalaDoPersonagem.length; i++) {
             imgsFalaDoPersonagem[i] = new Image(getClass().getResourceAsStream(pathProgram+"inicio/view/personagem/Fala0"+i+".png"));
         }
-        // Carrega as imagens inicial do personagem e fala.
         ImageView personagem = new ImageView(imgsCaminha[0]);
         ImageView falaDoPersonagem = new ImageView(imgsFalaDoPersonagem[0]);
         // Posição inicial do personagem e fala na tela.
-        personagem.setLayoutX(-80);
-        personagem.setLayoutY(130);
-        falaDoPersonagem.setLayoutX(200);
-        falaDoPersonagem.setLayoutY(70);
+        personagem.setX(-80);
+        personagem.setY(100);
+        falaDoPersonagem.setX(215);
+        falaDoPersonagem.setY(40);
         falaDoPersonagem.setVisible(false);
         // Insere o personagem e a fala.
-        root.add(personagem, 0, 1);
-        root.add(falaDoPersonagem, 0, 1);
+        AnchorPane ap = new AnchorPane();
+        ap.getChildren().addAll(personagem, falaDoPersonagem);
+        root.add(ap, 0, 1);
 
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(
-        new KeyFrame(new Duration(1000), new KeyValue(personagem.translateXProperty(), -80)),
-        new KeyFrame(new Duration(3000), e-> {
+        TranslateTransition mov01 = new TranslateTransition(Duration.seconds(2), personagem);
+        mov01.setToX(250);
+        mov01.setOnFinished(e -> {
             caminha.stop();
             count = i = 0;
             apresenta.start();
-        }, new KeyValue(personagem.translateXProperty(), 230)),
-        new KeyFrame(new Duration(10000), e-> {
+        });
+
+        PauseTransition pause01 = new PauseTransition(Duration.seconds(7));
+        pause01.setOnFinished(e -> {
             apresenta.stop();
             count = i = 0;
             caminha.start();
             personagem.setScaleX(-1);
-        },new KeyValue(personagem.translateXProperty(), 230)),
-        new KeyFrame(new Duration(12000), e -> {
+        });
+
+        TranslateTransition mov02 = new TranslateTransition(Duration.seconds(3),personagem);
+        mov02.setToX(-120);
+        mov02.setOnFinished(e -> {
             caminha.stop();
-            carregaInicio(stage);
-        }, new KeyValue(personagem.translateXProperty(), -80))
-        );
+        });
+
+        PauseTransition pause02 = new PauseTransition(Duration.seconds(1));
+        pause02.setOnFinished(e -> {
+            rodaInicio(stage);
+        });
+
+        SequentialTransition sequentialAnimation = new SequentialTransition(mov01, pause01, mov02, pause02);
+
         caminha = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -106,21 +122,11 @@ public class Apresentacao implements Initializable {
             }
         };
         stage.show();
-        timeline.play();
+        sequentialAnimation.play();
         caminha.start();
 	}
-    private void carregaInicio(Stage stage) {
-        Stage newStage = new Stage();
-        newStage.setHeight(500);
-        newStage.setMinHeight(500);
-        newStage.setMaxHeight(500);
-        newStage.setWidth(700);
-        newStage.setMinWidth(700);
-        newStage.setMaxWidth(700);
+    private void rodaInicio(Stage stage) {
+        stage.close();
+        App2.rodaInicio();
     }
-    public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater( () -> {
-//            start();
-        });
-	}
 }

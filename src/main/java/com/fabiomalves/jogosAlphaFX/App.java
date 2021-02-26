@@ -60,7 +60,7 @@ public class App extends Application {
 			e.printStackTrace();
 		}
     }
-	private void apresentacaoInicial(Stage primaryStage) {
+	private synchronized void apresentacaoInicial(Stage primaryStage) {
         String path = "/com/fabiomalves/jogosAlphaFX/apresentacaoInicial/view/";
         AnchorPane root = new AnchorPane();
         // insere imagem em plano de fundo.

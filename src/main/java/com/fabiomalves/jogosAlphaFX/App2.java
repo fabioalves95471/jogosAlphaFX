@@ -1,24 +1,15 @@
 package com.fabiomalves.jogosAlphaFX;
 
-import com.fabiomalves.jogosAlphaFX.inicio.controller.Apresentacao;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-
-import static com.fabiomalves.jogosAlphaFX.Jogos.DESCUBRAONUMERO;
 
 //@SpringBootApplication
 public class App2 extends Application {
@@ -28,33 +19,55 @@ public class App2 extends Application {
     private static Parent   inicio = null,
                             descubraonumero = null,
                             labirinto = null;
-    private Apresentacao apresentacao;
+    private Apresentacao apresentacao = null;
     static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        carregaApresentacao();
-        apresentacao.start(stage, (GridPane)inicio, pathJogosAlphaFX);
-
+        rodaInicioComApresentacao();
 	}
-    private void carregaApresentacao() throws IOException {
+    private void rodaInicioComApresentacao() throws IOException {
         stage.setHeight(400);
         stage.setMinHeight(400);
-        stage.setMaxHeight(400);
+//        stage.setMaxHeight(400);
         stage.setWidth(600);
         stage.setMinWidth(600);
-        stage.setMaxWidth(600);
+//        stage.setMaxWidth(600);
         stage.initStyle(StageStyle.UNDECORATED);
-        apresentacao = new Apresentacao();
-        inicio = FXML_load(Jogos.INICIO, apresentacao);
+        inicio = FXML_load(Jogos.INICIO, null);
         scene = new Scene(inicio);
         stage.setScene(scene);
+        apresentacao = new Apresentacao(stage, (GridPane)inicio, pathJogosAlphaFX);
+        apresentacao.run();
     }
-    public static void setStage (Stage newStage) {
-        stage = newStage;
-        stage.show();
+    static void rodaInicio()  {
+        try {
+            stage = new Stage();
+            stage.setHeight(500);
+            stage.setMinHeight(500);
+            stage.setMaxHeight(500);
+            stage.setWidth(700);
+            stage.setMinWidth(700);
+            stage.setMaxWidth(700);
+            inicio = FXML_load(Jogos.INICIO, null);
+            if (scene == null)
+                scene = new Scene(inicio);
+            else
+                scene.setRoot(inicio);
+            stage.setScene(scene);
+            stage.show();
+            System.out.println(stage.getY());
+            System.out.println(stage.getX());
+//            stage.setY(stage.getY());
+//            stage.setX(stage.getX());
+        } catch (IOException e) {
+            new Erro("Não pode carregar a Tela: "+"\t\n"+e.getMessage(), stage);
+        }
     }
+//    public static void setStage (Stage newStage) {
+//        stage = newStage;
+//    }
 	private static Parent FXML_load (Jogos jogos, Object controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(App2.class.getResource(pathJogosAlphaFX+jogos.getPath()));
         if (controller != null)
@@ -62,25 +75,34 @@ public class App2 extends Application {
         return loader.load();
 	}
 
+    /**
+     * Coloca root na scene principal.
+     * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se controller for diferente de "null", carrega novamente o root com o controller informado.
+     * @param jogos
+     * @param controller
+     * @throws IOException
+     */
 	public static void setRoot (Jogos jogos, Object controller) throws IOException {
-        Parent root = null;
         switch (jogos) {
             case DESCUBRAONUMERO :
                 System.out.println("descubraonumero");
-                root = descubraonumero;
-                if (root == null || controller != null)
-                    root = descubraonumero = FXML_load(jogos, controller);
+                if (descubraonumero == null || controller != null)
+                    descubraonumero = FXML_load(jogos, controller);
+                scene.setRoot(descubraonumero);
             case INICIO :
                 System.out.println("inicio");
-                root = inicio;
-                if (root == null || controller != null)
-                    root = inicio = FXML_load(jogos, controller);
+                if (inicio == null || controller != null)
+                    inicio = FXML_load(jogos, controller);
+                scene.setRoot(inicio);
         }
-        if (scene == null)
-            scene = new Scene(root);
-        else
-		    scene.setRoot(root);
 	}
+
+    /**
+     * Coloca o root na scene principal.
+     * Carrega, caso não exista, o root selecionado pelo enum Jogos.
+     * @param jogos
+     * @throws IOException
+     */
     public static void setRoot(Jogos jogos) throws IOException {
         setRoot(jogos, null);
     }
