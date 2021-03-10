@@ -1,0 +1,205 @@
+.root {
+	color-a4: #4d4d4d;
+	color-a6: #949494;
+	color-a8: #cacaca;
+	color-a9: #dbdbdb;
+	color-b5: #3353ff;
+	color-b6: #667eff;
+	color-b8: #b3bfff;
+	color-b9: #ccd4ff;
+	color-c3: #e60000;
+	color-c5: #ff3333;
+	color-c8: #ffb3b3;
+	color-c9: #ffcccc;
+	color-d1: #b37f00;
+	color-d3: #e6a400;
+	color-d8: #ffe9b3;
+	color-d9: #fff0cc;
+	color-e0: #999400;
+	color-e2: #ccc600;
+	color-e8: #fffdb3;
+	color-e9: #fffdcc;
+	color-f1: #00b300;
+	color-f3: #00e600;
+	color-f8: #b3ffb3;
+	color-f9: #ccffcc;
+}
+
+@font-face {
+	font-family: "Poetsen One";
+	src: url("../../fonts/PoetsenOne-Regular.ttf");
+}
+* {
+	-fx-font-family: "Poetsen One";
+	-fx-font-size: 18px;
+}
+
+/* Botões ========================== /
+
+/* Estrutura do Botão --------------*/
+.button { 
+	-fx-border-width: 2px;
+	-fx-border-radius: 10px;
+	-fx-background-radius: 12px;
+	-fx-background-insets: 1px;
+	-fx-pref-width: 100px;
+	-fx-pref-height: 35px;
+}
+
+/* Cor: Botão padrão / cinza --------------*/
+.button, .button.cinza {
+	-fx-text-fill: #4d4d4d;
+	-fx-border-color: #4d4d4d;
+	-fx-background-color: #cacaca;
+}
+
+.button:focused, .button.cinza:focused {
+	-fx-background-color: #949494, #cacaca;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button:hover, .button.cinza:hover {
+	-fx-background-color: #dbdbdb;
+	-fx-background-insets: 0px;
+}
+
+.button:armed, .button.cinza:armed {
+	-fx-text-fill: #cacaca; 
+	-fx-background-color: #4d4d4d;
+	-fx-background-insets: 0px;
+}
+
+/* Cor: Botão verde --------------*/
+.button.verde {
+	-fx-text-fill: #00b300;
+	-fx-border-color: #00b300;
+	-fx-background-color: #b3ffb3;
+}
+
+.button.verde:focused {
+	-fx-background-color: #00e600, #b3ffb3;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button.verde:hover {
+	-fx-background-color: #ccffcc;
+	-fx-background-insets: 0px;
+}
+
+.button.verde:armed {
+	-fx-text-fill: #b3ffb3; 
+	-fx-background-color: #00b300;
+	-fx-background-insets: 0px;
+}
+
+/* Cor: Botão azul --------------*/
+.button.azul {
+	-fx-text-fill: #3353ff;
+	-fx-border-color: #3353ff;
+	-fx-background-color: #b3bfff;
+}
+
+.button.azul:focused {
+	-fx-background-color: #667eff, #b3bfff;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button.azul:hover {
+	-fx-background-color: #ccd4ff;
+	-fx-background-insets: 0px;
+}
+
+.button.azul:armed {
+	-fx-text-fill: #b3bfff; 
+	-fx-background-color: #3353ff;
+	-fx-background-insets: 0px;
+}
+
+/* Cor: Botão vermelho --------------*/
+.button.vermelho {
+	-fx-text-fill: #e60000;
+	-fx-border-color: #e60000;
+	-fx-background-color: #ffb3b3;
+}
+
+.button.vermelho:focused {
+	-fx-background-color: #ff3333, #ffb3b3;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button.vermelho:hover {
+	-fx-background-color: #ffcccc;
+	-fx-background-insets: 0px;
+}
+
+.button.vermelho:armed {
+	-fx-text-fill: #ffb3b3; 
+	-fx-background-color: #e60000;
+	-fx-background-insets: 0px;
+}
+
+/* Cor: Botão laranja --------------*/
+.button.laranja {
+	-fx-text-fill: #b37f00;
+	-fx-border-color: #b37f00;
+	-fx-background-color: #ffe9b3;
+}
+
+.button.laranja:focused {
+	-fx-background-color: #e6a400, #ffe9b3;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button.laranja:hover {
+	-fx-background-color: #fff0cc;
+	-fx-background-insets: 0px;
+}
+
+.button.laranja:armed {
+	-fx-text-fill: #ffe9b3; 
+	-fx-background-color: #b37f00;
+	-fx-background-insets: 0px;
+}
+
+/* Cor: Botão amarelo --------------*/
+.button.amarelo {
+	-fx-text-fill: #999400;
+	-fx-border-color: #999400;
+	-fx-background-color: #fffdb3;
+}
+
+.button.amarelo:focused {
+	-fx-background-color: #ccc600, #fffdb3;
+	-fx-background-insets: -2px, 0px;
+}
+
+.button.amarelo:hover {
+	-fx-background-color: #fffdcc;
+	-fx-background-insets: 0px;
+}
+
+.button.amarelo:armed {
+	-fx-text-fill: #fffdb3; 
+	-fx-background-color: #999400;
+	-fx-background-insets: 0px;
+}
+
+/* Daqui para baixo deve ser revisto */
+/* -------------- */
+
+.combo-box {
+	-fx-font-size: 18px;
+	-fx-padding: 0;
+}
+.combo-box .list-cell{
+	-fx-text-overrun: clip;
+	-fx-padding: 0px 0px 0px 7px;
+}
+.combo-box .arrow-button{
+	-fx-padding: 5;
+}
+.combo-box .list-view .list-cell {
+	-fx-padding: 2px 2px 2px 7px;
+	-fx-label-padding: 0px;
+}
+

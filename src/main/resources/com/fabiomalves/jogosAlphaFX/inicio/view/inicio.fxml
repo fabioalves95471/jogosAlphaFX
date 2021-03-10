@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane id="gpPrimario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@inicioStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane id="gpPrimario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints prefHeight="120.0" valignment="BOTTOM" vgrow="NEVER" />
+    <RowConstraints prefHeight="130.0" valignment="BOTTOM" vgrow="NEVER" />
       <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -18,5 +21,31 @@
          <image>
             <Image url="@inicio_titulo.png" />
          </image></ImageView>
+      <GridPane fx:id="gpCorpo" alignment="CENTER" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <children>
+            <Button mnemonicParsing="false" prefHeight="90.0" prefWidth="160.0" styleClass="verde" text="Descubra o Número" />
+            <Button disable="true" mnemonicParsing="false" GridPane.rowIndex="1" />
+            <Button disable="true" mnemonicParsing="false" styleClass="azul" text="Serpente" GridPane.columnIndex="1" />
+            <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="2" />
+            <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@standardStyle.css" />
+      <URL value="@inicioStyle.css" />
+   </stylesheets>
 </GridPane>

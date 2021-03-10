@@ -1,9 +1,42 @@
 #gpPrimario {
-	-fx-pref-height: 400px;
-	-fx-pref-width: 600px;
 	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #e6ffe6, #fff);
 }
 
+#gpCorpo {
+	-fx-padding: 70 30 30 30;
+}
+
+.button > * {
+	-fx-font-size: 25px;
+}
+.button {
+	-fx-padding: 5px;
+	-fx-text-alignment: center;
+	-fx-wrap-text: true;
+	-fx-border-width: 3px;
+	-fx-border-radius: 14px;
+	-fx-background-radius: 15px;
+	-fx-background-insets: 1px;
+	-fx-pref-width: 160px;
+	-fx-pref-height: 90px;
+}
+
+.button.verde:focused {
+	-fx-background-color: #b3ffb3;
+	-fx-background-insets: 0px;
+}
+
+.button.verde:hover {
+	-fx-background-color: #ccffcc;
+	-fx-background-insets: 0px;
+}
+
+.button.verde:armed {
+	-fx-text-fill: #b3ffb3; 
+	-fx-background-color: #00b300;
+	-fx-background-insets: 0px;
+}
+
 /*
-	-fx-background-color: ladder(yellow, yellow, yellow);
+
 /*

@@ -26,6 +26,7 @@ public class App2 extends Application {
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         rodaInicioComApresentacao();
+//        rodaInicio();
 	}
     private void rodaInicioComApresentacao() throws IOException {
         stage.setHeight(400);
@@ -41,9 +42,17 @@ public class App2 extends Application {
         apresentacao = new Apresentacao(stage, (GridPane)inicio, pathJogosAlphaFX);
         apresentacao.run();
     }
-    static void rodaInicio()  {
+
+    static void rodaInicio() {
+        rodaInicio(-1, -1);
+    }
+    static void rodaInicio(int x, int y)  {
         try {
             stage = new Stage();
+            if (x >= 0 && y >= 0) {
+                stage.setX(x);
+                stage.setY(y);
+            }
             stage.setHeight(500);
             stage.setMinHeight(500);
             stage.setMaxHeight(500);
@@ -56,6 +65,8 @@ public class App2 extends Application {
             else
                 scene.setRoot(inicio);
             stage.setScene(scene);
+            System.out.println(stage.getY());
+            System.out.println(stage.getX());
             stage.show();
             System.out.println(stage.getY());
             System.out.println(stage.getX());

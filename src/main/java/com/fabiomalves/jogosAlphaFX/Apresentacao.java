@@ -80,11 +80,48 @@ public class Apresentacao {
         });
 
         PauseTransition pause02 = new PauseTransition(Duration.seconds(1));
-        pause02.setOnFinished(e -> {
-            rodaInicio(stage);
+
+        Animation aumenta01 = new Transition() {
+            int length = 100;
+            boolean primeiraVez = true;
+            int rootHeight = (int)root.getPrefHeight(),
+                rootWidth = (int)root.getPrefWidth(),
+                stageHeight,
+                stageWidth,
+                stageX;
+            {
+                setCycleDuration(Duration.seconds(1));
+                setOnFinished(e -> {
+                });
+            }
+            protected void interpolate (double frac) {
+                if (primeiraVez) {
+                    stageHeight = (int)stage.getHeight();
+                    stageWidth = (int)stage.getWidth();
+                    stageX = (int)stage.getX();
+                    primeiraVez = false;
+                }
+
+                final int n = Math.round(length * (float) frac);
+                stage.setHeight(stageHeight+n);
+                stage.setWidth(stageWidth+n);
+                root.setPrefHeight(rootHeight+n);
+                root.setPrefWidth(rootWidth+n);
+                if (n%2 == 0) {
+                    stage.setX(stageX-(n/2));
+//                  stage.setY(stage.getY()-1);
+                }
+            }
+        };
+
+        PauseTransition pause03 = new PauseTransition(Duration.seconds(1));
+        pause03.setOnFinished(e -> {
+            stage.close();
+            App2.rodaInicio((int)stage.getX(), (int)stage.getY()-30);
         });
 
-        SequentialTransition sequentialAnimation = new SequentialTransition(mov01, pause01, mov02, pause02);
+        SequentialTransition sequentialAnimation = new SequentialTransition(mov01, pause01, mov02, pause02, aumenta01, pause03);
+//        SequentialTransition sequentialAnimation = new SequentialTransition(aumenta01);
 
         caminha = new AnimationTimer() {
             @Override
@@ -125,8 +162,4 @@ public class Apresentacao {
         sequentialAnimation.play();
         caminha.start();
 	}
-    private void rodaInicio(Stage stage) {
-        stage.close();
-        App2.rodaInicio();
-    }
 }
