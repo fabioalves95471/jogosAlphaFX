@@ -41,6 +41,7 @@
             <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="2" />
             <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelEmBreve" GridPane.columnIndex="1" text="Em&#10;breve" />
          </children>
       </GridPane>
    </children>

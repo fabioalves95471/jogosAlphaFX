@@ -24,6 +24,9 @@
 	color-f8: #b3ffb3;
 	color-f9: #ccffcc;
 }
+.rootElement {
+	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #e6ffe6, #fff);
+}
 
 @font-face {
 	font-family: "Poetsen One";
@@ -32,6 +35,7 @@
 * {
 	-fx-font-family: "Poetsen One";
 	-fx-font-size: 18px;
+	-fx-text-fill: #4d4d4d;
 }
 
 /* Botões ========================== /
@@ -46,6 +50,15 @@
 	-fx-pref-height: 35px;
 }
 
+.button.icone {
+	-fx-padding: 0 0 0 0;
+	-fx-border-radius: 5px;
+	-fx-border-width: 1.5px;
+	-fx-background-radius: 7px;
+	-fx-pref-width: 10px;
+	-fx-pref-height: 10px;
+}
+
 /* Cor: Botão padrão / cinza --------------*/
 .button, .button.cinza {
 	-fx-text-fill: #4d4d4d;
@@ -55,7 +68,7 @@
 
 .button:focused, .button.cinza:focused {
 	-fx-background-color: #949494, #cacaca;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button:hover, .button.cinza:hover {
@@ -78,7 +91,7 @@
 
 .button.verde:focused {
 	-fx-background-color: #00e600, #b3ffb3;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button.verde:hover {
@@ -101,7 +114,7 @@
 
 .button.azul:focused {
 	-fx-background-color: #667eff, #b3bfff;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button.azul:hover {
@@ -124,7 +137,7 @@
 
 .button.vermelho:focused {
 	-fx-background-color: #ff3333, #ffb3b3;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button.vermelho:hover {
@@ -147,7 +160,7 @@
 
 .button.laranja:focused {
 	-fx-background-color: #e6a400, #ffe9b3;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button.laranja:hover {
@@ -161,7 +174,8 @@
 	-fx-background-insets: 0px;
 }
 
-/* Cor: Botão amarelo --------------*/
+/* Botão: cor amarelo
+-----------------------------------------*/
 .button.amarelo {
 	-fx-text-fill: #999400;
 	-fx-border-color: #999400;
@@ -170,7 +184,7 @@
 
 .button.amarelo:focused {
 	-fx-background-color: #ccc600, #fffdb3;
-	-fx-background-insets: -2px, 0px;
+	-fx-background-insets: -1.5px, 0px;
 }
 
 .button.amarelo:hover {
@@ -184,13 +198,59 @@
 	-fx-background-insets: 0px;
 }
 
+/* ComboBox 
+-------------------------------------------*/
+
+.combo-box, .text-field {
+	-fx-padding: 0;
+	-fx-pref-height: 30;
+	-fx-border-radius: 6px;
+	-fx-border-style: solid;
+	-fx-border-width: 1.5px;
+	-fx-border-color: #4d4d4d;
+	-fx-background-radius: 7px;
+	-fx-background-color: #fff;
+}
+
+.combo-box:focused, .combo-box.cinza:focused, .text-field:focused, .text-field.cinza:focused {
+	-fx-background-color: #949494, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
+.combo-box.verde:focused, .text-field.verde:focused{
+	-fx-background-color: #00e600, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
+.combo-box.azul:focused, .text-field.azul:focused {
+	-fx-background-color: #99a9ff, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
+.combo-box.vermelho:focused, .text-field.vermelho:focused {
+	-fx-background-color: #ff9999, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
+.combo-box.laranja:focused, .text-field.laranja:focused {
+	-fx-background-color: #ffc533, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
+.combo-box.amarelo:focused, .text-field.amarelo:focused {
+	-fx-background-color: #ccc600, #fff;
+	-fx-background-insets: -1.5px, 0px;
+	
+}
+
 /* Daqui para baixo deve ser revisto */
 /* -------------- */
 
-.combo-box {
-	-fx-font-size: 18px;
-	-fx-padding: 0;
-}
 .combo-box .list-cell{
 	-fx-text-overrun: clip;
 	-fx-padding: 0px 0px 0px 7px;

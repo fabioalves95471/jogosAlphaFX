@@ -1,39 +1,40 @@
-#lbErros {
-	-fx-background-color:  rgba(255,0,0,0.5);
-	-fx-background-radius: 5;
-	-fx-border-radius: 5;
-	-fx-border-style: solid;
-	-fx-border-color: rgba(100,100,100,0.5);
+.button {
+	-fx-pref-width: 120px;
+	-fx-pref-height: 40px;	
 }
-#reErros {
-	-fx-fill: rgba(255,0,0,0.1);
+
+.lbCabecalhoEsquerda {
+	-fx-pref-width: 95px;
+}
+
+.hbCabecalhoColuna1Linha {
+	-fx-max-height: 30px;
+}
+
+#lbErros > * {
+	-fx-fill: #ff3333;
+	-fx-font-size: 25px;
+}
+
+#lbAcertos > * {
+	-fx-fill: #0024e6;
+	-fx-font-size: 25px;
+}
+
+#rtErros {
+	-fx-fill: ff000019;
 	visibility: hidden;
 }
-#lbAcertos {
-	-fx-background-color:  rgba(0,100,255,0.5);
-	-fx-background-radius: 5px;
-	-fx-border-radius: 5px;
-	-fx-border-style: solid;
-	-fx-border-color: rgba(100,100,100,0.5);
-}
-#vbCabecalhoColuna1 {
-	-fx-padding: 0 0 0 0;
-	-fx-spacing: 0;
-	-fx-alignment: bottom-left;
-}
-#vbCabecalhoColuna1 HBox{
-	-fx-alignment: center-left;
-	-fx-padding: 0;
-	-fx-max-height: 32;
-}
-#vbQuadroCentral {
-	visibility: hidden; /**/
-}
-#vbQuadroQuestao {
-	-fx-border-style: none;
-	-fx-border-radius: 10;
-	-fx-spacing: 8;
-}
+
 #hbRodape {
-	-fx-spacing: 40;
+	-fx-alignment: TOP-CENTER;
+}
+
+#lbPergunta > * {
+	-fx-font-size: 18px;
+}
+
+#tfResposta {
+	-fx-pref-height: 35px;
+	-fx-pref-width: 80px;
 }

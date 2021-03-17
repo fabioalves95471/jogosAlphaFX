@@ -9,7 +9,7 @@
 .button > * {
 	-fx-font-size: 25px;
 }
-.button {
+.button, #labelEmBreve {
 	-fx-padding: 5px;
 	-fx-text-alignment: center;
 	-fx-wrap-text: true;
@@ -37,6 +37,18 @@
 	-fx-background-insets: 0px;
 }
 
+#labelEmBreve {
+	-fx-background-color: #b8b8b8;
+	-fx-text-fill: #2e2e2e;
+	-fx-opacity: 0.7;
+	-fx-alignment: center;
+}
+
+#labelEmBreve > * {
+	-fx-font-size: 25px;
+	-fx-text-alignment: center;
+	-fx-wrap-text: true;
+}
 /*
 
 /*
