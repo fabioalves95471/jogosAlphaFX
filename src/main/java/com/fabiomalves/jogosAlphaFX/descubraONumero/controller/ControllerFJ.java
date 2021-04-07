@@ -16,13 +16,13 @@ import javafx.stage.Stage;
 public class ControllerFJ implements Initializable  {
 
 	@FXML
-	AnchorPane noPrincipal;
+	AnchorPane apPrimario;
 	@FXML
-	Label lbOperador;
+	Label lOperador;
 	@FXML
-	Label lbScore;
+	Label lScore;
 	@FXML
-	Label lbTempo;
+	Label lTempo;
 	
 	Stage stage;
 
@@ -45,9 +45,9 @@ public class ControllerFJ implements Initializable  {
 		this.stage = stage;
 	}
 	public void setDados (String operador, String score, String tempo) {
-		lbOperador.setText(operador);
-		lbScore.setText(score);
-		lbTempo.setText(tempo);
+		lOperador.setText(operador);
+		lScore.setText(score);
+		lTempo.setText(tempo);
 	}
 	@Override
     public void initialize(URL location, ResourceBundle resources) {

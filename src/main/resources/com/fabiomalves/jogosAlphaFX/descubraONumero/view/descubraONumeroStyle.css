@@ -11,23 +11,19 @@
 	-fx-max-height: 30px;
 }
 
-#lbErros > * {
+#lErros > * {
 	-fx-fill: #ff3333;
 	-fx-font-size: 25px;
 }
 
-#lbAcertos > * {
+#lAcertos > * {
 	-fx-fill: #0024e6;
 	-fx-font-size: 25px;
 }
 
-#rtErros {
+#rErros {
 	-fx-fill: ff000019;
 	visibility: hidden;
-}
-
-#hbRodape {
-	-fx-alignment: TOP-CENTER;
 }
 
 #lbPergunta > * {

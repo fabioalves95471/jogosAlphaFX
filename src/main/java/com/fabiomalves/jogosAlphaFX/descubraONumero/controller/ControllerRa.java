@@ -22,14 +22,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ControllerPo implements Initializable  {
+public class ControllerRa implements Initializable  {
 
 	@FXML
 	ComboBox<String> cbOperador;
 	@FXML
-	Button btSair;
+	Label lOperador;
 	@FXML
-	TableView<JogoDN> tvPontuacao;
+	Button bSair;
+	@FXML
+	TableView<JogoDN> tvRanking;
 	@FXML
 	TableColumn<Integer, JogoDN> coPosicao;
 	@FXML
@@ -57,15 +59,17 @@ public class ControllerPo implements Initializable  {
 		this.stage = stage;
 	}
 	@FXML
-	public void runPontuacao() {
-		listAtual = service.getListUsuario((String)cbOperador.getValue());
-		tvPontuacao.getItems().clear();
-		tvPontuacao.getItems().addAll(listAtual);
-		btSair.requestFocus();
+	public void runRanking() {
+		String operador = (String)cbOperador.getValue();
+		listAtual = service.getListUsuario(operador);
+		lOperador.setText(operador);
+		tvRanking.getItems().clear();
+		tvRanking.getItems().addAll(listAtual);
+		bSair.requestFocus();
 	}
-	public void runPontuacao(String operador) {
+	public void runRanking(String operador) {
 		cbOperador.getSelectionModel().select(operador);
-		runPontuacao();
+		runRanking();
 	}
 	@FXML
 	public void fechaTelaTeclaEnter(KeyEvent ke) {
@@ -89,8 +93,8 @@ public class ControllerPo implements Initializable  {
 		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormatado"));
 		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
 		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormatado"));
-		coPosicao.setCellValueFactory(new PropertyValueFactory<>("posicao"));
-		tvPontuacao.setPlaceholder(new Label("Nenhum jogo aqui."));
+		coPosicao.setCellValueFactory(new PropertyValueFactory<>("posicaoFormatada"));
+		tvRanking.setPlaceholder(new Label("Nenhum jogo aqui."));
 	}
 }
 

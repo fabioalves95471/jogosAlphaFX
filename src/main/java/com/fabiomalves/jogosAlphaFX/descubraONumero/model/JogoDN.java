@@ -42,8 +42,20 @@ public class JogoDN {
 
 // Getters: Especiais
 
-	public short getAcertosPorcentualFormatado () {
-		return (short)(Math.rint(acertosPorcentual*100));
+	public String getPosicaoFormatada () {
+		return posicao+"º";
+	}
+
+	public String getAcertosPorcentualFormatado () {
+		short porcentual = (short)Math.rint(acertosPorcentual*100);
+		if (porcentual < 10)
+			return "  "+porcentual+"%";
+		if (porcentual >=10 && porcentual <100)
+			return " "+porcentual+"%";
+		if (porcentual == 100)
+			return ""+porcentual+"%";
+		else
+			return "valor desconhecido";
 	}
 	public String getTempoFinalDeJogoFormatado () {
 		return tempoFinalDeJogo.toString().substring(3);

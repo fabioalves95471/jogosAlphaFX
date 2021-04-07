@@ -3,6 +3,8 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fabiomalves.jogosAlphaFX.App;
+import com.fabiomalves.jogosAlphaFX.Jogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
@@ -30,7 +32,7 @@ public class ControllerDN implements Initializable {
 	@FXML
 	private StackPane spPrimario;
 	@FXML
-	private Rectangle reErros;
+	private Rectangle rErros;
 	@FXML
 	private VBox vbQuadroCentral;
 	@FXML
@@ -40,22 +42,24 @@ public class ControllerDN implements Initializable {
 	@FXML
 	private TextField tfResposta;
 	@FXML
-	private Label lbTempo;
+	private Label lTempo;
 	@FXML
-	private Label lbErros;
+	private Label lErros;
 	@FXML
-	private Label lbAcertos;
+	private Label lAcertos;
 	@FXML
-	private Label lbOperadorNome;
+	private Label lOperadorNome;
 	@FXML
-	private Label lbPergunta;
+	private Label lPergunta;
 	@FXML
-	private Button btIniciar;
+	private Button bIniciar;
 	@FXML
-	private Button btPontuacao;
+	private Button bRanking;
+	@FXML
+	private Button bHome;
 
 	private IServiceDN service = new ServiceDN();
-	private MyGroup<ControllerPo> groupPo = new MyGroup<>();
+	private MyGroup<ControllerRa> groupPo = new MyGroup<>();
 	private MyGroup<ControllerFJ> groupFJ = new MyGroup<>();
 	private short tempoCorrente;
 	private int erros;
@@ -63,17 +67,17 @@ public class ControllerDN implements Initializable {
 	private KeyFrame kfTempoTela, kfError;
 
 	@FXML
-	public void focusIniciar() {
-		btIniciar.requestFocus();
+	private void focusIniciar() {
+		bIniciar.requestFocus();
 	}	
 	@FXML
-	public void iniciarJogo() {
+	private void iniciarJogo() {
 		// Tempo de jogo
 		if (tlTempoTela != null) tlTempoTela.stop();
 		tempoCorrente = 0;
-		lbTempo.setText("00:00");
+		lTempo.setText("00:00");
 		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
-			lbTempo.setText(atualizaDisplayTempo((short)1));
+			lTempo.setText(atualizaDisplayTempo((short)1));
 		});
 		tlTempoTela = new Timeline(kfTempoTela);
 		tlTempoTela.setCycleCount(3599);
@@ -102,9 +106,10 @@ public class ControllerDN implements Initializable {
 			group.getStage().setScene(scene);
 			group.setController(loader.getController());
 			group.getStage().initModality(Modality.WINDOW_MODAL);
-			group.getStage().initOwner(this.getStage());
+			group.getStage().initOwner(App.getStage());
 		} catch (Exception e) {
-			new Erro ("Não pode carregar a Tela: "+resource+"\t\n"+e.getMessage(), this.getStage());
+			e.printStackTrace();
+			new Erro ("Não pode carregar a Tela: \t"+resource+"\t\n"+e.getMessage(), App.getStage());
 			System.exit(0);
 		}
 	}
@@ -122,33 +127,45 @@ public class ControllerDN implements Initializable {
 			iniciarJogo();
     }
 	@FXML
-	public void chamaStagePontuacaoTeclaEnter(KeyEvent ke) {
+	public void chamaStageRankingTeclaEnter(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.ENTER))
-			chamaStagePontuacao();
+			chamaStageRanking();
     }
 	@FXML
-	public void chamaStagePontuacaoComOperador() {
-		groupPo.getController().runPontuacao(service.getOperadorNome());
+	public void chamaStageRankingComOperador() {
+		groupPo.getController().runRanking(service.getOperadorNome());
 		groupPo.getStage().showAndWait();
 	}
-	public void chamaStagePontuacao() {
-		groupPo.getController().runPontuacao();
+	public void chamaStageRanking() {
+		groupPo.getController().runRanking();
 		groupPo.getStage().showAndWait();
 	}
 	private void chamaEventoError() {
-		reErros.setHeight(getStage().getHeight());
-		reErros.setWidth(getStage().getWidth());
-		reErros.setStyle("visibility: visible");
+		rErros.setHeight(App.getStage().getHeight());
+		rErros.setWidth(App.getStage().getWidth());
+		rErros.setStyle("visibility: visible");
 		tlError.play();
+	}
+	@FXML
+	private void chamaHome() {
+		vbQuadroCentral.setVisible(false);
+		if(tlTempoTela != null)
+			tlTempoTela.stop();
+		lErros.setText("0");
+		lAcertos.setText("0");
+		lTempo.setText("00:00");
+		App.setRoot(Jogos.INICIO);
 	}
 	@FXML
 	public void responde() {
 		if (tfResposta.getText().length() == 0)
 			return;
+		// Verifica a resposta: caso errada chamaEventoError();
 		erros = service.getErros();
 		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
 		if (erros != service.getErros())
 			chamaEventoError();
+		// Roda próxima questão.
 		if (service.temProximaQuestao()) {
 			service.rodaProximaQuestao();
 			atualizaTela();
@@ -161,7 +178,7 @@ public class ControllerDN implements Initializable {
 			tlTempoTela = null;
 			tfResposta.setDisable(true);
 			chamaStageFimDeJogo();
-			chamaStagePontuacaoComOperador();
+			chamaStageRankingComOperador();
 		}
 	}
 	public void gravaResultado() {
@@ -182,17 +199,17 @@ public class ControllerDN implements Initializable {
 		return minStr+":"+secStr;
 	}
 	public void atualizaTela () {
-		lbOperadorNome.setText(service.getOperadorNome()+" - Questão:  "+service.getQuestaoCorrente()+" / "+service.getTotalQuestoes());
-		lbErros.setText(""+service.getErros());
-		lbAcertos.setText(""+service.getAcertos());
-		lbPergunta.setText(service.getQuestaoString());
+		lOperadorNome.setText(service.getOperadorNome()+" - Questão:  "+service.getQuestaoCorrente()+" / "+service.getTotalQuestoes());
+		lErros.setText(""+service.getErros());
+		lAcertos.setText(""+service.getAcertos());
+		lPergunta.setText(service.getQuestaoString());
 	}
-	public Stage getStage () {
-		return (Stage)spPrimario.getScene().getWindow();
-	}
+//	public Stage getStage () {
+//		return (Stage)spPrimario.getScene().getWindow();
+//	}
 	private void preparaEfeitoErrar() {
 		kfError = new KeyFrame(Duration.millis(80), e -> {
-			reErros.setStyle("visibility: hidden");
+			rErros.setStyle("visibility: hidden");
 		});
 		tlError = new Timeline(kfError);
 		tlError.setCycleCount(1);
@@ -202,12 +219,12 @@ public class ControllerDN implements Initializable {
 		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes()); // Insere lista na caixa de selecao.
 		cbOperadores.getSelectionModel().select(0); // Seleciona um item da caixa de seleção.
 		cbQuestoes.getItems().addAll(5,10,15,20); // Insere lista na caixa de seleção.
-		cbQuestoes.getSelectionModel().select(1); // Seleciona o segundo item da caixa de seleção.
+		cbQuestoes.getSelectionModel().select(0); // Seleciona o segundo item da caixa de seleção.
 		CamposDeEntrada.numero4Dig(tfResposta); // Aplica Ouvidor ao campo de resposta para retirar caracteres invalidos.
 		preparaEfeitoErrar();
 		Platform.runLater (() -> {
-			btIniciar.requestFocus(); // Focus no botão "Iniciar".
-			carregaGroup( groupPo, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacao.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/pontuacaoStyle.css");
+			bIniciar.requestFocus(); // Focus no botão "Iniciar".
+			carregaGroup( groupPo, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/ranking.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/rankingStyle.css");
 			carregaGroup( groupFJ, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml", null);
 			groupPo.getController().setConfig(groupPo.getStage(), service);
 			groupFJ.getController().setStage(groupFJ.getStage());

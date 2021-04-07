@@ -1,15 +1,12 @@
 package com.fabiomalves.jogosAlphaFX;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import com.fabiomalves.jogosAlphaFX.inicio.controller.ControllerInicio;
+import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -20,145 +17,142 @@ import java.io.IOException;
 //@SpringBootApplication
 public class App extends Application {
 
-	private int count = 0, i = 0; // apresentacaoInicial
-    private AnimationTimer caminha, apresenta; // apresentacaoInicial;
     static Stage stage;
-	static Scene scene;
+	static Scene scene = null;
+    private static Parent   inicio = null,
+                            descubraonumero = null;
+    private Apresentacao apresentacao = null;
+    static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-		apresentacaoInicial(primaryStage);
+        carregaScenesJogos();
 
-//		try {
-//			//scene = new Scene(FXML_load("descubraONumero/view/descubraONumero.fxml"));
-//			scene = new Scene(FXML_load("apresentacao/view/primary.fxml"));
-//			primaryStage.setScene(scene);
-//			primaryStage.setMaxHeight(500);
-//			primaryStage.setMaxWidth(700);
-//			primaryStage.show();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
+        rodaInicioComApresentacao();
+//        rodaInicio();
+//        rodaDescubraONumero();
 	}
-	private static Parent FXML_load (String resource) throws IOException {
-		return FXMLLoader.load(App.class.getResource("/com/fabiomalves/jogosAlphaFX/"+resource));
-	}
-	public static void setRoot (String resource) throws IOException {
-		Parent root = FXML_load(resource);
-		scene.setRoot(root);
-	}
-    private void telaDeInicio () {
-		try {
-			scene.setRoot(FXML_load("descubraONumero/view/descubraONumero.fxml"));
-            stage = new Stage();
-			stage.setScene(scene);
-			stage.setMaxHeight(500);
-			stage.setMaxWidth(700);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+
+    /**
+     * O aplicativo inicia por esse método.
+     */
+    private void rodaInicioComApresentacao() throws IOException {
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.initStyle(StageStyle.UNDECORATED);
+        inicio = FXML_load(Jogos.INICIO);
+        scene = new Scene(inicio);
+        stage.setScene(scene);
+        apresentacao = new Apresentacao(stage, (GridPane)inicio, pathJogosAlphaFX);
+        apresentacao.run();
     }
-	private synchronized void apresentacaoInicial(Stage primaryStage) {
-        String path = "/com/fabiomalves/jogosAlphaFX/apresentacaoInicial/view/";
-        AnchorPane root = new AnchorPane();
-        // insere imagem em plano de fundo.
-        Image imageBG = new Image(getClass().getResourceAsStream(path+"telaInicial.png"));
-        root.setBackground(new Background(new BackgroundImage(imageBG, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        // Prepara a cena e a janela.
-        scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setHeight(imageBG.getHeight());
-        primaryStage.setWidth(imageBG.getWidth());
-        primaryStage.show();
-        // Carrega as imagens do personagem.
-        Image[] imgsCaminha = new Image[8];
-        for (short i=0; i<imgsCaminha.length; i++) {
-            imgsCaminha[i] = new Image(getClass().getResourceAsStream(path+"personagem/personagemLado0"+i+".png"));
-        }
-        Image[] imgsApresenta = new Image[3];
-        for (short i=0; i<imgsApresenta.length; i++) {
-            imgsApresenta[i] = new Image(getClass().getResourceAsStream(path+"personagem/personagemApresentacao0"+i+".png"));
-        }
-        Image[] imgsFalaDoPersonagem = new Image[2];
-        for (short i=0; i<imgsFalaDoPersonagem.length; i++) {
-            imgsFalaDoPersonagem[i] = new Image(getClass().getResourceAsStream(path+"personagem/Fala0"+i+".png"));
-        }
-        // Carrega as imagens inicial do personagem e fala.
-        ImageView personagem = new ImageView(imgsCaminha[0]);
-        ImageView falaDoPersonagem = new ImageView(imgsFalaDoPersonagem[0]);
-        // Posição inicial do personagem e fala na tela.
-        personagem.setLayoutX(-80);
-        personagem.setLayoutY(230);
-        falaDoPersonagem.setLayoutX(200);
-        falaDoPersonagem.setLayoutY(170);
-        falaDoPersonagem.setVisible(false);
-        // Insere o personagem.
-        root.getChildren().addAll(personagem, falaDoPersonagem);
 
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(
-        new KeyFrame(new Duration(1000), new KeyValue(personagem.translateXProperty(), -80)),
-        new KeyFrame(new Duration(3000), e-> {
-            caminha.stop();
-            count = i = 0;
-            apresenta.start();
-        }, new KeyValue(personagem.translateXProperty(), 230)),
-        new KeyFrame(new Duration(10000), e-> {
-            apresenta.stop();
-            count = i = 0;
-            caminha.start();
-            personagem.setScaleX(-1);
-        },new KeyValue(personagem.translateXProperty(), 230)),
-        new KeyFrame(new Duration(12000), e -> {
-            caminha.stop();
-            stage.close();
-            telaDeInicio();
-        }, new KeyValue(personagem.translateXProperty(), -80))
-        );
-        caminha = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                if (0==count%8) {
-                    personagem.setImage(imgsCaminha[i%8]);
-                    i++;
-                }
-                count++;
+    static void rodaInicio() {
+        rodaInicio(-1, -1);
+    }
+    /**
+     * É chamado após rodaInicioComApresentacao().
+     * Também pode iniciar o aplicativo sem rodoInicioComApresentacao().
+     */
+    static void rodaInicio(int x, int y)  {
+        try {
+            stage = new Stage();
+            if (x >= 0 && y >= 0) {
+                stage.setX(x);
+                stage.setY(y);
             }
-        };
-        apresenta = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                if ((i!=imgsApresenta.length) && (0==count%6) && (count ==0 || count > 23)) {
-                    personagem.setImage(imgsApresenta[i]);
-                    i++;
-                }
-                if (count == 55) {
-                    falaDoPersonagem.setVisible(true);
-                }
-                if (count == 170) {
-                    falaDoPersonagem.setVisible(false);
-                }
-                if (count == 220) {
-                    falaDoPersonagem.setImage(imgsFalaDoPersonagem[1]);
-                    falaDoPersonagem.setTranslateX(-10);
-                    falaDoPersonagem.setTranslateY(-30);
-                    falaDoPersonagem.setVisible(true);
-                }
-                if (count == 420) {
-                    falaDoPersonagem.setVisible(false);
-                }
-                count++;
-            }
-        };
-        timeline.play();
-        caminha.start();
+            FXMLLoader loader = FXML_loader(Jogos.INICIO);
+            inicio = loader.load();
+            ControllerInicio controllerInicio = loader.getController();
+            if (scene == null)
+                scene = new Scene(inicio);
+            else
+                scene.setRoot(inicio);
+            stage.setScene(scene);
+            stage.show();
+            stage.setMinHeight(stage.getHeight());
+            stage.setMaxHeight(stage.getHeight());
+            stage.setMinWidth(stage.getWidth());
+            stage.setMaxWidth(stage.getWidth());
+            controllerInicio.mostraCorpoDaTela();
+        } catch (IOException e) {
+            new Erro("Não pode carregar a Tela: "+"\t\n"+e.getMessage(), stage);
+        }
+    }
+    private static void rodaDescubraONumero()  {
+        stage = new Stage();
+        inicio = FXML_load(Jogos.DESCUBRAONUMERO);
+        scene = new Scene(inicio);
+        stage.setScene(scene);
+        stage.show();
+    }
+//    public static void setStage (Stage newStage) {
+//        stage = newStage;
+//    }
+
+    public static FXMLLoader FXML_loader (Jogos jogos) {
+        return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
+    }
+
+	public static Parent FXML_load (Jogos jogos) {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
+            return loader.load();
+        } catch (IOException e) {
+			new Erro ("Não pode carregar a Tela: \t"+jogos.name()+"\t\n"+e.getMessage(), stage);
+			System.exit(0);
+            return null;
+        }
 	}
+
+    /**
+     * Coloca o root na scene principal.
+     * Carrega, caso não exista, o root selecionado pelo enum Jogos.
+     * @param jogos
+     * @throws IOException
+     */
+    public static void setRoot(Jogos jogos) {
+        setRoot(jogos, null);
+    }
+
+    /**
+     * Coloca root na scene principal.
+     * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se controller for diferente de "null", carrega novamente o root com o controller informado.
+     * @param jogos
+     * @param controller
+     * @throws IOException
+     */
+	public static void setRoot (Jogos jogos, Object controller) {
+        switch (jogos) {
+            case INICIO :
+//                if (inicio == null || controller != null)
+//                    inicio = FXML_load(jogos, controller);
+                scene.setRoot(inicio);
+                break;
+            case DESCUBRAONUMERO :
+//                if (descubraonumero == null || controller != null)
+//                    descubraonumero = FXML_load(jogos, controller);
+                scene.setRoot(descubraonumero);
+                break;
+        }
+	}
+
+    private void carregaScenesJogos() {
+        PauseTransition pause01 = new PauseTransition(Duration.seconds(1));
+        pause01.setOnFinished (e -> {
+            descubraonumero = FXML_load(Jogos.DESCUBRAONUMERO);
+        });
+        pause01.play();
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
 
 	public static void main(String[] args) {
 //		SpringApplication.run(App.class, args);
 		launch(args);
 	}
 }
+

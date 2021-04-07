@@ -17,7 +17,7 @@
 				 <children>
 					<HBox fx:id="hbCabecalho" alignment="CENTER_LEFT" fillHeight="false" prefHeight="80.0" prefWidth="180.0" spacing="8.0">
 					   <children>
-						  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="280.0" spacing="2.0">
+						  <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="280.0" spacing="8.0">
 							 <children>
 								<HBox alignment="CENTER_LEFT" styleClass="hbCabecalhoColuna1Linha">
 								   <children>
@@ -26,7 +26,7 @@
 											<Font size="18.0" />
 										 </font>
 									  </Label>
-									  <ComboBox fx:id="cbQuestoes" prefWidth="55.0" />
+									  <ComboBox fx:id="cbQuestoes" prefWidth="60.0" />
 								   </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -42,7 +42,7 @@
 											<Insets />
 										 </HBox.margin>
 									  </Label>
-									  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="150.0">
+									  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="160.0">
 										 <HBox.margin>
 											<Insets />
 										 </HBox.margin>
@@ -61,7 +61,7 @@
 									  <Font size="18.0" />
 								   </font>
 								</Label>
-								<Label fx:id="lbAcertos" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="0" textAlignment="CENTER">
+								<Label fx:id="lAcertos" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="0" textAlignment="CENTER">
 								   <font>
 									  <Font size="18.0" />
 								   </font>
@@ -75,7 +75,7 @@
 									  <Font size="18.0" />
 								   </font>
 								</Label>
-								<Label fx:id="lbErros" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="0">
+								<Label fx:id="lErros" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="0">
 								   <font>
 									  <Font size="18.0" />
 								   </font>
@@ -93,17 +93,17 @@
                         <Insets left="40.0" right="40.0" />
                      </padding>
 					</HBox>
-					<VBox fx:id="vbQuadroCentral" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="150.0" prefWidth="350.0" spacing="10.0">
+					<VBox fx:id="vbQuadroCentral" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="150.0" prefWidth="350.0" spacing="10.0" visible="false">
 					   <children>
-						  <Label fx:id="lbOperadorNome" text="Adiçao">
+						  <Label fx:id="lOperadorNome" text="Adiçao - Questão 15 / 20">
 							 <font>
 								<Font size="18.0" />
 							 </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" top="10.0" />
+                              <Insets bottom="25.0" top="10.0" />
                            </VBox.margin>
 						  </Label>
-								<Label fx:id="lbPergunta" text="5 + ? = 13">
+								<Label fx:id="lPergunta" text="5 + ? = 13">
 								   <font>
 									  <Font size="18.0" />
 								   </font>
@@ -118,7 +118,7 @@
 								</TextField>
 					   </children>
 					   <VBox.margin>
-						  <Insets top="10.0" />
+						  <Insets top="30.0" />
 					   </VBox.margin>
 					</VBox>
 				 </children>
@@ -130,14 +130,14 @@
                   <Image url="@Titulo.png" />
                </image>
                <BorderPane.margin>
-                  <Insets bottom="30.0" top="25.0" />
+                  <Insets bottom="20.0" top="10.0" />
                </BorderPane.margin>
             </ImageView>
          </top>
          <bottom>
-					<HBox fx:id="hbRodape" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="TOP_CENTER">
+					<HBox fx:id="hbRodape" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="TOP_CENTER">
 					   <children>
-						  <Button fx:id="btIniciar" mnemonicParsing="false" onAction="#iniciarJogo" onKeyPressed="#iniciarJogoTeclaEnter" prefHeight="35.0" styleClass="verde" text="Iniciar"> <!---->
+						  <Button fx:id="bIniciar" mnemonicParsing="false" onAction="#iniciarJogo" onKeyPressed="#iniciarJogoTeclaEnter" prefHeight="35.0" styleClass="verde" text="Iniciar"> <!---->
 							 <font>
 								<Font size="18.0" />
 							 </font>
@@ -145,7 +145,7 @@
 								<Insets />
 							 </HBox.margin>
 						  </Button>
-						  <Button fx:id="btPontuacao" mnemonicParsing="false" onAction="#chamaStagePontuacao" onKeyPressed="#chamaStagePontuacaoTeclaEnter" prefHeight="35.0" styleClass="amarelo" text="Ranking">
+						  <Button fx:id="bRanking" mnemonicParsing="false" onAction="#chamaStageRanking" onKeyPressed="#chamaStageRankingTeclaEnter" prefHeight="35.0" styleClass="amarelo" text="Ranking">
 							 <font>
 								<Font size="18.0" />
 							 </font>
@@ -153,14 +153,14 @@
 								<Insets left="60.0" right="60.0" />
 							 </HBox.margin>
 						  </Button>
-						  <HBox alignment="CENTER" maxHeight="35.0" prefHeight="35.0">
+						  <HBox alignment="CENTER_LEFT" maxHeight="35.0" prefHeight="35.0" prefWidth="125.0">
 							 <children>
 								<Label text="Tempo: ">
 								   <font>
 									  <Font size="18.0" />
 								   </font>
 								</Label>
-								<Label fx:id="lbTempo" text="00:00">
+								<Label fx:id="lTempo" text="00:00">
 								   <font>
 									  <Font size="18.0" />
 								   </font>
@@ -177,10 +177,13 @@
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
 					</HBox>
          </bottom>
 		</BorderPane>
-      <Button mnemonicParsing="false">
+      <Button fx:id="bHome" mnemonicParsing="false" onAction="#chamaHome">
          <StackPane.margin>
             <Insets left="10.0" top="10.0" />
          </StackPane.margin>
@@ -196,10 +199,10 @@
             </ImageView>
          </graphic>
       </Button>
-		<Rectangle fx:id="rtErros" height="500.0" width="700.0" />
+		<Rectangle fx:id="rErros" height="500.0" width="700.0" />
 	</children>
    <stylesheets>
-      <URL value="@../../inicio/view/standardStyle.css" />
+      <URL value="@../../standard/standardStyle.css" />
       <URL value="@descubraONumeroStyle.css" />
    </stylesheets>
 </StackPane>
