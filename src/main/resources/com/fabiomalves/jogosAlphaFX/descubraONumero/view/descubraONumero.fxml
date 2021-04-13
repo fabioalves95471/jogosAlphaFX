@@ -26,7 +26,7 @@
 											<Font size="18.0" />
 										 </font>
 									  </Label>
-									  <ComboBox fx:id="cbQuestoes" prefWidth="60.0" />
+									  <ComboBox fx:id="cbQuestoes" prefWidth="60.0" styleClass="azul" />
 								   </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -42,7 +42,7 @@
 											<Insets />
 										 </HBox.margin>
 									  </Label>
-									  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="160.0">
+									  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="160.0" styleClass="azul">
 										 <HBox.margin>
 											<Insets />
 										 </HBox.margin>
@@ -183,7 +183,7 @@
 					</HBox>
          </bottom>
 		</BorderPane>
-      <Button fx:id="bHome" mnemonicParsing="false" onAction="#chamaHome">
+      <Button fx:id="bHome" mnemonicParsing="false" onAction="#chamaHome" onKeyPressed="#chamaHomeEnter">
          <StackPane.margin>
             <Insets left="10.0" top="10.0" />
          </StackPane.margin>
@@ -192,7 +192,7 @@
             <String fx:value="verde" />
          </styleClass>
          <graphic>
-            <ImageView focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+            <ImageView pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../standard/IconeHome.png" />
                </image>

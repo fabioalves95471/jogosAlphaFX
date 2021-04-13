@@ -21,11 +21,6 @@
 	-fx-pref-height: 90px;
 }
 
-.button.verde:focused {
-	-fx-background-color: #b3ffb3;
-	-fx-background-insets: 0px;
-}
-
 .button.verde:hover {
 	-fx-background-color: #ccffcc;
 	-fx-background-insets: 0px;

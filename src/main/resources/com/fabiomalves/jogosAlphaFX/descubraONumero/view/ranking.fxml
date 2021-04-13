@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="491.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="490.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerRa">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="491.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerRa">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -40,13 +40,13 @@
       </Label>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="tvRanking" prefHeight="100.0" prefWidth="450.0" HBox.hgrow="NEVER">
+            <TableView fx:id="tvRanking" prefHeight="100.0" prefWidth="460.0" HBox.hgrow="NEVER">
               <columns>
-                  <TableColumn fx:id="coPosicao" prefWidth="77.0" text="Posição" />
-                <TableColumn fx:id="coNome" prefWidth="125.0" text="Nome" />
-                <TableColumn fx:id="coAcertosPorcentual" prefWidth="78.0" text="Acertos (%)" />
-                  <TableColumn fx:id="coTotalQuestoes" prefWidth="77.0" text="Total Questões" />
-                  <TableColumn fx:id="coTempoFinalDeJogo" prefWidth="88.0" text="Tempo" />
+                  <TableColumn fx:id="coPosicao" prefWidth="68.0" text="Posição" />
+                <TableColumn fx:id="coNome" prefWidth="134.0" text="Nome" />
+                <TableColumn fx:id="coAcertosPorcentual" prefWidth="69.0" text="Acertos" />
+                  <TableColumn fx:id="coTotalQuestoes" prefWidth="82.0" text="Total Questões" />
+                  <TableColumn fx:id="coTempoFinalDeJogo" prefWidth="100.0" text="Tempo" />
               </columns>
             </TableView>
          </children>

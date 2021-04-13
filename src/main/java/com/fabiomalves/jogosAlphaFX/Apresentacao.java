@@ -50,10 +50,11 @@ public class Apresentacao {
         ap.getChildren().addAll(personagem, falaDoPersonagem);
         root.add(ap, 0, 1);
 
-        PauseTransition pause01 = new PauseTransition(Duration.seconds(1));
+        PauseTransition pause01 = new PauseTransition(Duration.seconds(1.5));
 
-        TranslateTransition mov01 = new TranslateTransition(Duration.seconds(2), personagem);
+        TranslateTransition mov01 = new TranslateTransition(Duration.seconds(1.5), personagem);
         mov01.setToX(250);
+        mov01.setInterpolator(Interpolator.LINEAR);
         mov01.setOnFinished(e -> {
             caminha.stop();
             count = i = 0;
@@ -68,8 +69,9 @@ public class Apresentacao {
             personagem.setScaleX(-1);
         });
 
-        TranslateTransition mov02 = new TranslateTransition(Duration.seconds(3),personagem);
+        TranslateTransition mov02 = new TranslateTransition(Duration.seconds(2.5),personagem);
         mov02.setToX(-120);
+        mov02.setInterpolator(Interpolator.LINEAR);
         mov02.setOnFinished(e -> {
             caminha.stop();
         });
@@ -77,13 +79,9 @@ public class Apresentacao {
         PauseTransition pause03 = new PauseTransition(Duration.seconds(1));
 
         Animation aumenta01 = new Transition() {
-            int length = 100;
+            int aumenta = 100;
             boolean primeiraVez = true;
-            int rootHeight = (int)root.getPrefHeight(),
-                rootWidth = (int)root.getPrefWidth(),
-                stageHeight,
-                stageWidth,
-                stageX;
+            int stageHeight, stageWidth, stageX;
             {
                 setCycleDuration(Duration.seconds(1));
                 setOnFinished(e -> {
@@ -96,18 +94,13 @@ public class Apresentacao {
                     stageX = (int)stage.getX();
                     primeiraVez = false;
                 }
-
-                final int n = Math.round(length * (float) frac);
+                final int n = Math.round(aumenta * (float) frac);
                 stage.setHeight(stageHeight+n);
                 stage.setWidth(stageWidth+n);
-                root.setPrefHeight(rootHeight+n);
-                root.setPrefWidth(rootWidth+n);
-                if (n%2 == 0) {
-                    stage.setX(stageX-(n/2));
-//                  stage.setY(stage.getY()-1);
-                }
+                stage.setX(stageX-(n/2));
             }
         };
+
 
         PauseTransition pause04 = new PauseTransition(Duration.seconds(1));
         pause04.setOnFinished(e -> {
@@ -116,7 +109,6 @@ public class Apresentacao {
         });
 
         SequentialTransition sequentialAnimation = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
-//        SequentialTransition sequentialAnimation = new SequentialTransition(aumenta01);
 
         caminha = new AnimationTimer() {
             @Override

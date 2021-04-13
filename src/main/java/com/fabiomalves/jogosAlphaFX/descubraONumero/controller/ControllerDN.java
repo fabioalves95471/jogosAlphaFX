@@ -123,12 +123,12 @@ public class ControllerDN implements Initializable {
 
 	@FXML
 	public void iniciarJogoTeclaEnter(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER))
+		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
 			iniciarJogo();
     }
 	@FXML
 	public void chamaStageRankingTeclaEnter(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER))
+		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
 			chamaStageRanking();
     }
 	@FXML
@@ -155,6 +155,11 @@ public class ControllerDN implements Initializable {
 		lAcertos.setText("0");
 		lTempo.setText("00:00");
 		App.setRoot(Jogos.INICIO);
+	}
+	@FXML
+	private void chamaHomeEnter (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
+			chamaHome();
 	}
 	@FXML
 	public void responde() {

@@ -28,7 +28,6 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         carregaScenesJogos();
-
         rodaInicioComApresentacao();
 //        rodaInicio();
 //        rodaDescubraONumero();

@@ -35,7 +35,7 @@
             <Insets />
          </GridPane.margin>
          <children>
-            <Button fx:id="bDescubraONumero" mnemonicParsing="false" onAction="#chamaTelaDescubraONumero" prefHeight="90.0" prefWidth="160.0" styleClass="verde" text="Descubra o Número" />
+            <Button fx:id="bDescubraONumero" mnemonicParsing="false" onAction="#chamaTelaDescubraONumero" onKeyPressed="#chamaTelaDescubraONumeroEnter" prefHeight="90.0" prefWidth="160.0" styleClass="verde" text="Descubra o Número" />
             <Button disable="true" mnemonicParsing="false" GridPane.rowIndex="1" />
             <Button disable="true" mnemonicParsing="false" styleClass="azul" text="Serpente" GridPane.columnIndex="1" />
             <Button disable="true" mnemonicParsing="false" GridPane.columnIndex="2" />
