@@ -53,7 +53,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="80.0" prefWidth="200.0">
          <children>
-            <Button fx:id="bSair" mnemonicParsing="false" onAction="#fechaTela" onKeyPressed="#fechaTelaTeclaEnter" prefHeight="39.0" prefWidth="96.0" text="Sair">
+            <Button fx:id="bSair" mnemonicParsing="false" onAction="#fechaTela" onKeyPressed="#fechaTelaTeclaEnter" prefHeight="39.0" prefWidth="96.0" text="Sair" styleClass="verde">
                <font>
                   <Font size="18.0" />
                </font>

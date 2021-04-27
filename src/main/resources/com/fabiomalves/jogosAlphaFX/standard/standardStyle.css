@@ -63,21 +63,21 @@
 .button, .button.cinza {
 	-fx-text-fill: #4d4d4d;
 	-fx-border-color: #4d4d4d;
-	-fx-background-color: #cacaca;
+	-fx-background-color: #dbdbdb;
 }
 
 .button:focused, .button.cinza:focused {
-	-fx-background-color: #949494, #cacaca;
+	-fx-background-color: #949494, #dbdbdb;
 	-fx-background-insets: -1.5px, 0px;
 }
 
 .button:hover, .button.cinza:hover {
-	-fx-background-color: #dbdbdb;
+	-fx-background-color: #ededed;
 	-fx-background-insets: 0px;
 }
 
 .button:armed, .button.cinza:armed {
-	-fx-text-fill: #cacaca; 
+	-fx-text-fill: #dbdbdb; 
 	-fx-background-color: #4d4d4d;
 	-fx-background-insets: 0px;
 }
@@ -188,7 +188,7 @@
 }
 
 .button.amarelo:hover {
-	-fx-background-color: #fffdcc;
+	-fx-background-color: #fffee6;
 	-fx-background-insets: 0px;
 }
 
@@ -204,12 +204,32 @@
 .combo-box, .text-field {
 	-fx-padding: 0;
 	-fx-pref-height: 30;
-	-fx-border-radius: 6px;
 	-fx-border-style: solid;
 	-fx-border-width: 1.5px;
 	-fx-border-color: #4d4d4d;
-	-fx-background-radius: 7px;
+	-fx-border-radius: 6px;
 	-fx-background-color: #fff;
+	-fx-background-radius: 7px;
+}
+.combo-box .arrow-button{
+	-fx-padding: 5;
+}
+.combo-box .list-cell {
+	-fx-text-overrun: clip;
+	-fx-padding: 2px 2px 2px 7px;
+	-fx-label-padding: 0px;
+	-fx-border-radius: 4px;	
+	-fx-background-color: transparent;
+	-fx-background-radius: 5px;
+}
+.combo-box .combo-box-popup .list-view {
+	-fx-border-radius: 4px;	
+	-fx-background-color: #fff;
+	-fx-background-radius: 5px;
+}
+.combo-box .combo-box-popup .list-cell:hover {
+	-fx-background-color: #3353ff;
+	-fx-text-fill: #ededed;
 }
 
 .combo-box:focused, .combo-box.cinza:focused, .text-field:focused, .text-field.cinza:focused {
@@ -219,13 +239,18 @@
 }
 
 .combo-box.verde:focused, .text-field.verde:focused{
-	-fx-background-color: #00e600, #fff;
+	-fx-background-color: #00cc00, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
 .combo-box.azul:focused, .text-field.azul:focused {
-	-fx-background-color: #99a9ff, #fff;
+	-fx-background-color: #3353ff, #fff;
+	-fx-background-insets: -1.5px, 0px;
+}
+
+.combo-box.ciano:focused, .text-field.ciano:focused {
+	-fx-background-color: #00c6c6, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
@@ -243,23 +268,7 @@
 }
 
 .combo-box.amarelo:focused, .text-field.amarelo:focused {
-	-fx-background-color: #ccc600, #fff;
+	-fx-background-color: #fff700, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
-
-/* Daqui para baixo deve ser revisto */
-/* -------------- */
-
-.combo-box .list-cell{
-	-fx-text-overrun: clip;
-	-fx-padding: 0px 0px 0px 7px;
-}
-.combo-box .arrow-button{
-	-fx-padding: 5;
-}
-.combo-box .list-view .list-cell {
-	-fx-padding: 2px 2px 2px 7px;
-	-fx-label-padding: 0px;
-}
-

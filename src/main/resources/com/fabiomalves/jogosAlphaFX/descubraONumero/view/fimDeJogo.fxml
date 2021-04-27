@@ -17,7 +17,7 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="bFechar" layoutX="150.0" layoutY="100.0" mnemonicParsing="false" onKeyPressed="#fechaTelaTeclaEnter" onMouseClicked="#fechaTelaClickDireito" text="Fechar">
+      <Button fx:id="bFechar" layoutX="150.0" layoutY="100.0" mnemonicParsing="false" onKeyPressed="#fechaTelaTeclaEnter" onMouseClicked="#fechaTelaClickDireito" text="Fechar" styleClass="verde">
          <font>
             <Font size="18.0" />
          </font>

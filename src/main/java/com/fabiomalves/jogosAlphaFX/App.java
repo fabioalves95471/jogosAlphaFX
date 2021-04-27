@@ -19,8 +19,8 @@ public class App extends Application {
 
     static Stage stage;
 	static Scene scene = null;
-    private static Parent   inicio = null,
-                            descubraonumero = null;
+    private static Parent   rootInicio = null,
+                            rootDescubraONumero = null;
     private Apresentacao apresentacao = null;
     static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
 
@@ -28,22 +28,21 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         carregaScenesJogos();
-        rodaInicioComApresentacao();
-//        rodaInicio();
-//        rodaDescubraONumero();
+//        rodaInicioComApresentacao();
+        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar rodaInicioComApresentação()).
 	}
 
     /**
-     * O aplicativo inicia por esse método.
+     * O aplicativo inicia aqui.
      */
     private void rodaInicioComApresentacao() throws IOException {
         stage.setHeight(400);
         stage.setWidth(600);
         stage.initStyle(StageStyle.UNDECORATED);
-        inicio = FXML_load(Jogos.INICIO);
-        scene = new Scene(inicio);
+        rootInicio = FXML_load(Jogos.INICIO);
+        scene = new Scene(rootInicio);
         stage.setScene(scene);
-        apresentacao = new Apresentacao(stage, (GridPane)inicio, pathJogosAlphaFX);
+        apresentacao = new Apresentacao(stage, (GridPane)rootInicio, pathJogosAlphaFX);
         apresentacao.run();
     }
 
@@ -62,12 +61,12 @@ public class App extends Application {
                 stage.setY(y);
             }
             FXMLLoader loader = FXML_loader(Jogos.INICIO);
-            inicio = loader.load();
+            rootInicio = loader.load();
             ControllerInicio controllerInicio = loader.getController();
             if (scene == null)
-                scene = new Scene(inicio);
+                scene = new Scene(rootInicio);
             else
-                scene.setRoot(inicio);
+                scene.setRoot(rootInicio);
             stage.setScene(scene);
             stage.show();
             stage.setMinHeight(stage.getHeight());
@@ -79,16 +78,6 @@ public class App extends Application {
             new Erro("Não pode carregar a Tela: "+"\t\n"+e.getMessage(), stage);
         }
     }
-    private static void rodaDescubraONumero()  {
-        stage = new Stage();
-        inicio = FXML_load(Jogos.DESCUBRAONUMERO);
-        scene = new Scene(inicio);
-        stage.setScene(scene);
-        stage.show();
-    }
-//    public static void setStage (Stage newStage) {
-//        stage = newStage;
-//    }
 
     public static FXMLLoader FXML_loader (Jogos jogos) {
         return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
@@ -107,7 +96,7 @@ public class App extends Application {
 
     /**
      * Coloca o root na scene principal.
-     * Carrega, caso não exista, o root selecionado pelo enum Jogos.
+     * O root selecionado pelo enum Jogos.
      * @param jogos
      * @throws IOException
      */
@@ -125,14 +114,14 @@ public class App extends Application {
 	public static void setRoot (Jogos jogos, Object controller) {
         switch (jogos) {
             case INICIO :
-//                if (inicio == null || controller != null)
-//                    inicio = FXML_load(jogos, controller);
-                scene.setRoot(inicio);
+//                if (rootInicio == null || controller != null)
+//                    rootInicio = FXML_load(jogos, controller);
+                scene.setRoot(rootInicio);
                 break;
             case DESCUBRAONUMERO :
-//                if (descubraonumero == null || controller != null)
-//                    descubraonumero = FXML_load(jogos, controller);
-                scene.setRoot(descubraonumero);
+//                if (rootDescubraONumero == null || controller != null)
+//                    rootDescubraONumero = FXML_load(jogos, controller);
+                scene.setRoot(rootDescubraONumero);
                 break;
         }
 	}
@@ -140,7 +129,7 @@ public class App extends Application {
     private void carregaScenesJogos() {
         PauseTransition pause01 = new PauseTransition(Duration.seconds(1));
         pause01.setOnFinished (e -> {
-            descubraonumero = FXML_load(Jogos.DESCUBRAONUMERO);
+            rootDescubraONumero = FXML_load(Jogos.DESCUBRAONUMERO);
         });
         pause01.play();
     }
