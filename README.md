@@ -1,4 +1,4 @@
-<h2>JogosAlphaFX</h2>
+# JogosAlphaFX
 ---
 Aplicativo de jogos em javaFX.<br/>
 <br/>
