@@ -1,4 +1,4 @@
-# JogosAlphaFX
+<p style="font-size:20px">JogosAlphaFX</p>
 ---
 Aplicativo de jogos em javaFX.<br/>
 <br/>
@@ -7,7 +7,7 @@ Executável -> [Download](https://github.com/fabioalves95472/jogosAlphaFX-deploy
 - Java 8:<br/>
 	- Execute:	`jogosAlphaFX.jar`<br/>
 - Java 9 (ou posterior):<br/>
-	- Execute:&#09;`executable.bat`	-> Windows<br/>
-	&#09;&#09;`executable.sh`		-> Linux / Mac<br/>
+	- Execute: `executable.bat`	-> Windows<br/>
+	&emsp;`executable.sh`		-> Linux / Mac<br/>
 
 <!-- <img src="imgs_git/dClasses.png"> -->
