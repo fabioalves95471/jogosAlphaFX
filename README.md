@@ -6,7 +6,7 @@ Executável -> [Download](https://github.com/fabioalves95472/jogosAlphaFX-deploy
 - Java 8:<br/>
 	- Execute: `jogosAlphaFX.jar`<br/>
 - Java 9 (ou posterior):<br/>
-	- Execute: `executable.bat` -> Windows<br/>
-	&emsp;&emsp;&emsp;&emsp;`executable.sh`&emsp;-> Linux / Mac<br/>
+	- Execute:&ensp;`executable.bat` -> Windows<br/>
+	&emsp;&emsp;&emsp;&emsp;`executable.sh`&ensp;-> Linux / Mac<br/>
 
 <!-- <img src="imgs_git/dClasses.png"> -->
