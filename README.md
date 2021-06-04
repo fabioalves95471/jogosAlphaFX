@@ -1,4 +1,4 @@
-## JogosAlphaFX
+# JogosAlphaFX
 Aplicativo de jogos em javaFX.<br/>
 <br/>
 Aplicativo executável -> [Download](https://github.com/fabioalves95472/jogosAlphaFX-deploy/archive/refs/heads/app.zip) (executa em java 8 e posterior, leia abaixo)
