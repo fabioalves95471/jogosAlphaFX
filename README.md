@@ -1,4 +1,6 @@
+<div>
 <p style="font-size:20px;">JogosAlphaFX</p>
+</div>
 ---
 Aplicativo de jogos em javaFX.<br/>
 <br/>
