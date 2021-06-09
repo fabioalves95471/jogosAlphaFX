@@ -11,6 +11,8 @@ import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -52,6 +54,8 @@ public class ControllerDN implements Initializable {
 	@FXML
 	private Label lPergunta;
 	@FXML
+	private ListView lvErros;
+	@FXML
 	private Button bIniciar;
 	@FXML
 	private Button bRanking;
@@ -88,6 +92,7 @@ public class ControllerDN implements Initializable {
 			numeroQuestoes = 50;
 		else numeroQuestoes = cbQuestoes.getValue();
 		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
+		lvErros.getItems().clear();
 		tlTempoTela.play();
 		atualizaTela();
 		tfResposta.setDisable(false);
@@ -168,8 +173,20 @@ public class ControllerDN implements Initializable {
 		// Verifica a resposta: caso errada chamaEventoError();
 		erros = service.getErros();
 		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
-		if (erros != service.getErros())
+		if (erros != service.getErros()) {
 			chamaEventoError();
+			// Inclue a resposta errada no listView para visualizacao do usuario.
+			String questaoString = service.getQuestaoString();
+			short ocorrencia1 = (short)questaoString.indexOf(" ");
+			short ocorrencia2 = (short)questaoString.indexOf(" ",ocorrencia1+1);
+			TextFlow tfRespostaErrada = new TextFlow();
+			Text t1 = new Text(questaoString.substring(0,ocorrencia2+1));
+			Text t2 = new Text(String.valueOf(CamposDeEntrada.getOnlyNumbers(tfResposta)));
+			Text t3 = new Text(questaoString.substring(ocorrencia2+2));
+			t2.setStyle("-fx-fill: #ff3333");
+			tfRespostaErrada.getChildren().addAll(t1,t2,t3);
+			lvErros.getItems().add(tfRespostaErrada);
+		}
 		// Roda próxima questão.
 		if (service.temProximaQuestao()) {
 			service.rodaProximaQuestao();

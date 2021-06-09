@@ -24,6 +24,8 @@ public class Apresentacao {
     }
 
 	public synchronized void run () throws IOException {
+        // Coloca borda na tela de apresentação.
+        root.setStyle("-fx-border-style: solid; -fx-border-color: grey;");
         // Carrega as imagens do personagem e fala.
         Image[] imgsCaminha = new Image[8];
         for (short i=0; i<imgsCaminha.length; i++) {
