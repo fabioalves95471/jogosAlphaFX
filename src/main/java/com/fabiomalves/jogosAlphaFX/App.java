@@ -51,7 +51,7 @@ public class App extends Application {
     }
     /**
      * É chamado após rodaInicioComApresentacao().
-     * Também pode iniciar o aplicativo sem rodoInicioComApresentacao().
+     * Pode-se também iniciar o aplicativo a partir daqui.
      */
     static void rodaInicio(int x, int y)  {
         try {

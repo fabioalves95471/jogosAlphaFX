@@ -34,3 +34,15 @@
 	-fx-pref-height: 35px;
 	-fx-pref-width: 80px;
 }
+
+#lvErros .cell.indexed-cell.list-cell {
+	-fx-background-color: transparent;
+	-fx-background-radius: 5;
+	-fx-padding: 0 0 0 0;
+}
+
+/* A pseudoClasse "aceso" usada no codigo java */
+.accordion > .titled-pane > .title > .text:aceso,
+.accordion > .titled-pane > .title > .arrow-button > .arrow:aceso {
+	-fx-effect: dropshadow( one-pass-box, red, 3, 0.5, 0, 0);
+}

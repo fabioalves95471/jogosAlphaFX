@@ -1,28 +1,5 @@
 .root {
-	color-a4: #4d4d4d;
-	color-a6: #949494;
-	color-a8: #cacaca;
-	color-a9: #dbdbdb;
-	color-b5: #3353ff;
-	color-b6: #667eff;
-	color-b8: #b3bfff;
-	color-b9: #ccd4ff;
-	color-c3: #e60000;
-	color-c5: #ff3333;
-	color-c8: #ffb3b3;
-	color-c9: #ffcccc;
-	color-d1: #b37f00;
-	color-d3: #e6a400;
-	color-d8: #ffe9b3;
-	color-d9: #fff0cc;
-	color-e0: #999400;
-	color-e2: #ccc600;
-	color-e8: #fffdb3;
-	color-e9: #fffdcc;
-	color-f1: #00b300;
-	color-f3: #00e600;
-	color-f8: #b3ffb3;
-	color-f9: #ccffcc;
+
 }
 .rootElement {
 	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #e6ffe6, #fff);
@@ -35,12 +12,77 @@
 * {
 	-fx-font-family: "Poetsen One";
 	-fx-font-size: 18px;
-	-fx-text-fill: #4d4d4d;
+	-fx-text-fill: #363636;
 }
 
-/* Botões ========================== /
+/* Accordion ----------------------------- */
 
-/* Estrutura do Botão --------------*/
+.accordion > .titled-pane > .title {
+	-fx-border-color: #363636;
+	-fx-border-width: 1px;
+	-fx-border-radius: 8px;
+	-fx-background-radius: 8px;
+	-fx-background-insets: 1px;
+	-fx-background-color: transparent;
+/*	-fx-background-color: #dbdbdb; */
+}
+
+.accordion > .titled-pane:expanded > .title {
+	-fx-background-color: transparent;
+}
+
+.accordion > .titled-pane:collapsed > .title{
+	-fx-background-color: transparent;
+/*	-fx-background-color: #dbdbdb; */
+}
+
+.accordion > .titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: #363636;
+	-fx-effect: none;
+}
+
+.accordion > .titled-pane:focused > .title > .arrow-button > .arrow {
+    -fx-background-color: #363636;
+    -fx-background-insets: 0;
+	-fx-effect: none;
+}
+
+.accordion > .titled-pane > .content {
+	-fx-background-color: transparent;
+	-fx-border-width: 0px;
+}
+
+.accordion > .titled-pane > .title:hover, .accordion > .titled-pane.cinza > .title:hover {
+	-fx-background-color: #cacacaff;
+}
+
+.accordion > .titled-pane.verde> .title:hover {
+	-fx-background-color: #b3ffb3ff;
+}
+
+.accordion > .titled-pane.azul > .title:hover {
+	-fx-background-color: #b3bfffff;
+}
+
+.accordion > .titled-pane.ciano > .title:hover {
+	-fx-background-color: #b3fdfdff;
+}
+
+.accordion > .titled-pane.vermelho > .title:hover {
+	-fx-background-color: #ffb3b3ff;
+}
+
+.accordion > .titled-pane.laranja > .title:hover {
+	-fx-background-color: #ffe9b3ff;
+}
+
+.accordion > .titled-pane.amarelo > .title:hover {
+	-fx-background-color: #fffdb3ff;
+}
+
+/* Botão
+------------------------------------------------------ */
+
 .button { 
 	-fx-border-width: 2px;
 	-fx-border-radius: 10px;
@@ -50,81 +92,89 @@
 	-fx-pref-height: 35px;
 }
 
+/* Icones dos botões -------------------*/
 .button.icone {
 	-fx-padding: 0 0 0 0;
 	-fx-border-radius: 5px;
 	-fx-border-width: 1.5px;
 	-fx-background-radius: 7px;
-	-fx-pref-width: 10px;
-	-fx-pref-height: 10px;
+	-fx-pref-width: 40px;
+	-fx-pref-height: 40px;
+	-fx-background-repeat: no-repeat;
 }
 
-/* Cor: Botão padrão / cinza --------------*/
+.button.icone.home {
+	-fx-background-image: url(IconeHome.png);
+}
+.button.icone.home:armed {
+	-fx-background-image: url(IconeHomeBranco.png);
+}
+.button.icone.som {
+	-fx-background-image: url(IconeSom.png);
+}
+.button.icone.som:armed {
+	-fx-background-image: url(IconeSomBranco.png);
+}
+.button.icone.som:semAudio {
+	-fx-background-image: url(IconeSomSemAudio.png);
+}
+.button.icone.som:semAudio:armed {
+	-fx-background-image: url(IconeSomSemAudioBranco.png);
+}
+/* Cores dos botões -------------------*/
 .button, .button.cinza {
-	-fx-text-fill: #4d4d4d;
-	-fx-border-color: #4d4d4d;
+	-fx-text-fill: #363636;
+	-fx-border-color: #363636;
 	-fx-background-color: #dbdbdb;
 }
 
-.button:focused, .button.cinza:focused {
+.button:focused, .button.cinza:focused,
+.button:hover, .button.cinza:hover {
 	-fx-background-color: #949494, #dbdbdb;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.button:hover, .button.cinza:hover {
-	-fx-background-color: #ededed;
-	-fx-background-insets: 0px;
-}
-
 .button:armed, .button.cinza:armed {
 	-fx-text-fill: #dbdbdb; 
-	-fx-background-color: #4d4d4d;
+	-fx-background-color: #363636;
 	-fx-background-insets: 0px;
 }
 
 /* Cor: Botão verde --------------*/
 .button.verde {
-	-fx-text-fill: #00b300;
-	-fx-border-color: #00b300;
+	-fx-text-fill: #009900;
+	-fx-border-color: #009900;
 	-fx-background-color: #b3ffb3;
 }
 
-.button.verde:focused {
+.button.verde:focused,
+.button.verde:hover {
 	-fx-background-color: #00e600, #b3ffb3;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.button.verde:hover {
-	-fx-background-color: #ccffcc;
-	-fx-background-insets: 0px;
-}
-
 .button.verde:armed {
 	-fx-text-fill: #b3ffb3; 
-	-fx-background-color: #00b300;
+	-fx-background-color: #009900;
 	-fx-background-insets: 0px;
 }
 
 /* Cor: Botão azul --------------*/
 .button.azul {
-	-fx-text-fill: #3353ff;
-	-fx-border-color: #3353ff;
+	-fx-text-fill: #0028ff;
+	-fx-border-color: #0028ff;
 	-fx-background-color: #b3bfff;
 }
 
-.button.azul:focused {
+.button.azul:focused,
+.button.azul:hover {
 	-fx-background-color: #667eff, #b3bfff;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.button.azul:hover {
-	-fx-background-color: #ccd4ff;
-	-fx-background-insets: 0px;
-}
-
 .button.azul:armed {
 	-fx-text-fill: #b3bfff; 
-	-fx-background-color: #3353ff;
+	-fx-background-color: #0028ff;
 	-fx-background-insets: 0px;
 }
 
@@ -135,14 +185,10 @@
 	-fx-background-color: #ffb3b3;
 }
 
-.button.vermelho:focused {
+.button.vermelho:focused,
+.button.vermelho:hover {
 	-fx-background-color: #ff3333, #ffb3b3;
 	-fx-background-insets: -1.5px, 0px;
-}
-
-.button.vermelho:hover {
-	-fx-background-color: #ffcccc;
-	-fx-background-insets: 0px;
 }
 
 .button.vermelho:armed {
@@ -153,48 +199,40 @@
 
 /* Cor: Botão laranja --------------*/
 .button.laranja {
-	-fx-text-fill: #b37f00;
-	-fx-border-color: #b37f00;
+	-fx-text-fill: #996d00;
+	-fx-border-color: #996d00;
 	-fx-background-color: #ffe9b3;
 }
 
-.button.laranja:focused {
+.button.laranja:focused,
+.button.laranja:hover {
 	-fx-background-color: #e6a400, #ffe9b3;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.button.laranja:hover {
-	-fx-background-color: #fff0cc;
-	-fx-background-insets: 0px;
-}
-
 .button.laranja:armed {
 	-fx-text-fill: #ffe9b3; 
-	-fx-background-color: #b37f00;
+	-fx-background-color: #996d00;
 	-fx-background-insets: 0px;
 }
 
 /* Botão: cor amarelo
 -----------------------------------------*/
 .button.amarelo {
-	-fx-text-fill: #999400;
-	-fx-border-color: #999400;
+	-fx-text-fill: #887c00;
+	-fx-border-color: #887c00;
 	-fx-background-color: #fffdb3;
 }
 
-.button.amarelo:focused {
+.button.amarelo:focused,
+.button.amarelo:hover {
 	-fx-background-color: #ccc600, #fffdb3;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.button.amarelo:hover {
-	-fx-background-color: #fffee6;
-	-fx-background-insets: 0px;
-}
-
 .button.amarelo:armed {
 	-fx-text-fill: #fffdb3; 
-	-fx-background-color: #999400;
+	-fx-background-color: #887c00;
 	-fx-background-insets: 0px;
 }
 
@@ -206,7 +244,7 @@
 	-fx-pref-height: 30;
 	-fx-border-style: solid;
 	-fx-border-width: 1.5px;
-	-fx-border-color: #4d4d4d;
+	-fx-border-color: #363636;
 	-fx-border-radius: 6px;
 	-fx-background-color: #fff;
 	-fx-background-radius: 7px;
@@ -228,50 +266,64 @@
 	-fx-background-radius: 5px;
 }
 .combo-box .combo-box-popup .list-cell:hover {
-	-fx-background-color: #3353ff;
-	-fx-text-fill: #ededed;
+	-fx-background-color: #0028ff;
+	-fx-text-fill: white;
 }
 
-.combo-box:focused, .combo-box.cinza:focused, .text-field:focused, .text-field.cinza:focused {
+/* Controles:focused e Controles:hover
+-------------------------------------------*/
+
+.combo-box:focused, .combo-box.cinza:focused, .combo-box.cinza:hover,
+.text-field:focused, .text-field.cinza:focused, .text-field.cinza:hover {
 	-fx-background-color: #949494, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
-.combo-box.verde:focused, .text-field.verde:focused{
+.combo-box.verde:focused, .combo-box.verde:hover,
+.text-field.verde:focused, .text-field.verde:hover{
 	-fx-background-color: #00cc00, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
-.combo-box.azul:focused, .text-field.azul:focused {
-	-fx-background-color: #3353ff, #fff;
+.combo-box.azul:focused, .combo-box.azul:hover,
+.text-field.azul:focused, .text-field.azul:hover {
+	-fx-background-color: #0028ff, #fff;
 	-fx-background-insets: -1.5px, 0px;
 }
 
-.combo-box.ciano:focused, .text-field.ciano:focused {
+.combo-box.ciano:focused, .combo-box.ciano:hover,
+.text-field.ciano:focused, .text-field.ciano:hover {
 	-fx-background-color: #00c6c6, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
-.combo-box.vermelho:focused, .text-field.vermelho:focused {
+.combo-box.vermelho:focused, .combo-box.vermelho:hover,
+.text-field.vermelho:focused, .text-field.vermelho:hover {
 	-fx-background-color: #ff9999, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
-.combo-box.laranja:focused, .text-field.laranja:focused {
+.combo-box.laranja:focused, .combo-box.laranja:hover,
+.text-field.laranja:focused, .text-field.laranja:hover {
 	-fx-background-color: #ffc533, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
 
-.combo-box.amarelo:focused, .text-field.amarelo:focused {
+.combo-box.amarelo:focused, .combo-box.amarelo:hover,
+.text-field.amarelo:focused, .text-field.amarelo:hover {
 	-fx-background-color: #fff700, #fff;
 	-fx-background-insets: -1.5px, 0px;
 	
 }
+
+/* ListView
+-------------------------------------------*/
+
 .list-view {
 	-fx-background-color: transparent;
 	-fx-background-radius: 8;

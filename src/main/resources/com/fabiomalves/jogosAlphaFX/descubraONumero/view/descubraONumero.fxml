@@ -93,8 +93,18 @@
                         <Insets left="40.0" right="40.0" />
                      </padding>
 					</HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="230.0" prefWidth="200.0">
+                  <HBox alignment="TOP_RIGHT" prefHeight="230.0" prefWidth="200.0">
                      <children>
+                        <Button fx:id="bSom" mnemonicParsing="false" onAction="#mudo">
+                           <styleClass>
+                              <String fx:value="icone" />
+                              <String fx:value="som" />
+                              <String fx:value="azul" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="160.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
       					<VBox fx:id="vbQuadroCentral" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="150.0" prefWidth="280.0" spacing="10.0" visible="false">
       					   <children>
       						  <Label fx:id="lOperadorNome" text="Multiplicação - Questão 100 / 100">
@@ -119,12 +129,25 @@
       								   </padding>
       								</TextField>
       					   </children>
-      					</VBox>
-                        <ListView fx:id="lvErros" prefHeight="200.0" prefWidth="150.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                            <HBox.margin>
-                              <Insets right="60.0" />
+                              <Insets right="10.0" top="40.0" />
                            </HBox.margin>
-                        </ListView>
+      					</VBox>
+                        <Accordion focusTraversable="false">
+                          <panes>
+                            <TitledPane fx:id="tpErros" animated="false" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" styleClass="vermelho" text="Erros">
+                                 <content>
+                                    <ListView fx:id="lvErros" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" />
+                                 </content>
+                            </TitledPane>
+                          </panes>
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </Accordion>
                      </children>
                   </HBox>
 				 </children>
@@ -195,13 +218,14 @@
          </StackPane.margin>
          <styleClass>
             <String fx:value="icone" />
+            <String fx:value="home" />
             <String fx:value="verde" />
          </styleClass>
          <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../standard/IconeHome.png" />
-               </image>
+               <!--image-->
+                  <!--Image url="@../../standard/IconeHome.png" /-->
+               <!--/image-->
             </ImageView>
          </graphic>
       </Button>

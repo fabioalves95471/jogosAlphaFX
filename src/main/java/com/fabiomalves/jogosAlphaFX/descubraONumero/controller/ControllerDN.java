@@ -10,6 +10,9 @@ import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
+import javafx.css.PseudoClass;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -54,6 +57,8 @@ public class ControllerDN implements Initializable {
 	@FXML
 	private Label lPergunta;
 	@FXML
+	private TitledPane tpErros;
+	@FXML
 	private ListView lvErros;
 	@FXML
 	private Button bIniciar;
@@ -61,14 +66,24 @@ public class ControllerDN implements Initializable {
 	private Button bRanking;
 	@FXML
 	private Button bHome;
+	@FXML
+	private Button bSom;
 
 	private IServiceDN service = new ServiceDN();
 	private MyGroup<ControllerRa> groupPo = new MyGroup<>();
 	private MyGroup<ControllerFJ> groupFJ = new MyGroup<>();
+	private boolean botaoErrosAceso = false;
+	private boolean mudo = false;
 	private short tempoCorrente;
 	private int erros;
 	private Timeline tlTempoTela, tlError;
 	private KeyFrame kfTempoTela, kfError;
+	private final PseudoClass PSEUDOCLASS_ACESO = PseudoClass.getPseudoClass("aceso");
+	private final PseudoClass PSEUDOCLASS_SEMAUDIO = PseudoClass.getPseudoClass("semAudio");
+	private final URL urlAudioAcerto = getClass().getResource("../view/acerto02.wav");
+	private final URL urlAudioErro = getClass().getResource("../view/erro.wav");
+	private final Media mediaAudioAcerto = new Media(urlAudioAcerto.toString());
+	private final Media mediaAudioErro = new Media(urlAudioErro.toString());
 
 	@FXML
 	private void focusIniciar() {
@@ -76,10 +91,9 @@ public class ControllerDN implements Initializable {
 	}	
 	@FXML
 	private void iniciarJogo() {
+		limpaTela();
 		// Tempo de jogo
-		if (tlTempoTela != null) tlTempoTela.stop();
 		tempoCorrente = 0;
-		lTempo.setText("00:00");
 		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
 			lTempo.setText(atualizaDisplayTempo((short)1));
 		});
@@ -99,7 +113,6 @@ public class ControllerDN implements Initializable {
 		tfResposta.setText("");
 		tfResposta.requestFocus();
 	}
-
 	private void carregaGroup(MyGroup<? extends Object> group, String resource, String resourceCss) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -125,7 +138,6 @@ public class ControllerDN implements Initializable {
 		groupFJ.getController().setDados(operadorNome, score, tempo);
 		groupFJ.getStage().showAndWait();
 	}
-
 	@FXML
 	public void iniciarJogoTeclaEnter(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
@@ -145,21 +157,61 @@ public class ControllerDN implements Initializable {
 		groupPo.getController().runRanking();
 		groupPo.getStage().showAndWait();
 	}
-	private void chamaEventoError() {
+	private void chamaEventoRespostaErrada() {
 		rErros.setHeight(App.getStage().getHeight());
 		rErros.setWidth(App.getStage().getWidth());
 		rErros.setStyle("visibility: visible");
 		tlError.play();
+		// Inclue a resposta errada no listView para visualizacao do usuario.
+		String questaoString = service.getQuestaoString();
+		short ocorrencia1 = (short)questaoString.indexOf(" ");
+		short ocorrencia2 = (short)questaoString.indexOf(" ",ocorrencia1+1);
+		TextFlow tfRespostaErrada = new TextFlow();
+		Text t1 = new Text(questaoString.substring(0,ocorrencia2+1));
+		Text t2 = new Text(String.valueOf(CamposDeEntrada.getOnlyNumbers(tfResposta)));
+		Text t3 = new Text(questaoString.substring(ocorrencia2+2));
+		t1.setStyle("-fx-fill: #363636;");
+		t2.setStyle("-fx-fill: #ff6666");
+		t3.setStyle("-fx-fill: #363636;");
+		tfRespostaErrada.getChildren().addAll(t1,t2,t3);
+		tfRespostaErrada.setStyle("	 -fx-background-color: transparent;" +
+									"-fx-background-radius: 5 5 0 0;" +
+									"-fx-padding: 2 5 2 5;");
+		lvErros.getItems().add(tfRespostaErrada);
+		if (!botaoErrosAceso) {
+			tpErros.lookup(".arrow").pseudoClassStateChanged(PSEUDOCLASS_ACESO, true);
+			tpErros.lookup(".text").pseudoClassStateChanged(PSEUDOCLASS_ACESO, true);
+			botaoErrosAceso = true;
+		}
 	}
 	@FXML
 	private void chamaHome() {
+		limpaTela();
 		vbQuadroCentral.setVisible(false);
+		App.setRoot(Jogos.INICIO);
+	}
+	@FXML
+	private void mudo() {
+		if (mudo) {
+			mudo = false;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		} else {
+			mudo = true;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		}
+	}
+	private void limpaTela() {
 		if(tlTempoTela != null)
 			tlTempoTela.stop();
 		lErros.setText("0");
 		lAcertos.setText("0");
 		lTempo.setText("00:00");
-		App.setRoot(Jogos.INICIO);
+		lvErros.getItems().clear();
+		if (botaoErrosAceso) {
+			tpErros.lookup(".arrow").pseudoClassStateChanged(PSEUDOCLASS_ACESO, false);
+			tpErros.lookup(".text").pseudoClassStateChanged(PSEUDOCLASS_ACESO, false);
+			botaoErrosAceso = false;
+		}
 	}
 	@FXML
 	private void chamaHomeEnter (KeyEvent ke) {
@@ -170,22 +222,16 @@ public class ControllerDN implements Initializable {
 	public void responde() {
 		if (tfResposta.getText().length() == 0)
 			return;
-		// Verifica a resposta: caso errada chamaEventoError();
 		erros = service.getErros();
 		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
+		// Verifica resposta (certa ou errada) e chama os eventos correspondentes.
 		if (erros != service.getErros()) {
-			chamaEventoError();
-			// Inclue a resposta errada no listView para visualizacao do usuario.
-			String questaoString = service.getQuestaoString();
-			short ocorrencia1 = (short)questaoString.indexOf(" ");
-			short ocorrencia2 = (short)questaoString.indexOf(" ",ocorrencia1+1);
-			TextFlow tfRespostaErrada = new TextFlow();
-			Text t1 = new Text(questaoString.substring(0,ocorrencia2+1));
-			Text t2 = new Text(String.valueOf(CamposDeEntrada.getOnlyNumbers(tfResposta)));
-			Text t3 = new Text(questaoString.substring(ocorrencia2+2));
-			t2.setStyle("-fx-fill: #ff3333");
-			tfRespostaErrada.getChildren().addAll(t1,t2,t3);
-			lvErros.getItems().add(tfRespostaErrada);
+			if (!mudo)
+				new MediaPlayer(mediaAudioErro).play();
+			chamaEventoRespostaErrada();
+		} else {
+			if (!mudo)
+				new MediaPlayer(mediaAudioAcerto).play();
 		}
 		// Roda próxima questão.
 		if (service.temProximaQuestao()) {
@@ -240,7 +286,7 @@ public class ControllerDN implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes()); // Insere lista na caixa de selecao.
 		cbOperadores.getSelectionModel().select(0); // Seleciona um item da caixa de seleção.
-		cbQuestoes.getItems().addAll(5,10,15,20); // Insere lista na caixa de seleção.
+		cbQuestoes.getItems().addAll(5,15,30); // Insere lista na caixa de seleção.
 		cbQuestoes.getSelectionModel().select(0); // Seleciona o segundo item da caixa de seleção.
 		CamposDeEntrada.numero4Dig(tfResposta); // Aplica Ouvidor ao campo de resposta para retirar caracteres invalidos.
 		preparaEfeitoErrar();
@@ -250,7 +296,6 @@ public class ControllerDN implements Initializable {
 			carregaGroup( groupFJ, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml", null);
 			groupPo.getController().setConfig(groupPo.getStage(), service);
 			groupFJ.getController().setStage(groupFJ.getStage());
-
 		});
 	}
 }
