@@ -11,6 +11,7 @@ import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.css.PseudoClass;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +32,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.animation.KeyFrame;
+
+import javax.swing.event.HyperlinkEvent;
 
 public class ControllerDN implements Initializable {
 
@@ -149,6 +152,28 @@ public class ControllerDN implements Initializable {
 			chamaStageRanking();
     }
 	@FXML
+	public void bSomEvent() {
+		if (mudo) {
+			mudo = false;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		} else {
+			mudo = true;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		}
+		tfResposta.requestFocus();
+	}
+	@FXML
+	public void bSomEventKey(KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bSomEvent();
+			}
+		}
+	}
+	@FXML
 	public void chamaStageRankingComOperador() {
 		groupPo.getController().runRanking(service.getOperadorNome());
 		groupPo.getStage().showAndWait();
@@ -189,16 +214,6 @@ public class ControllerDN implements Initializable {
 		limpaTela();
 		vbQuadroCentral.setVisible(false);
 		App.setRoot(Jogos.INICIO);
-	}
-	@FXML
-	private void mudo() {
-		if (mudo) {
-			mudo = false;
-			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
-		} else {
-			mudo = true;
-			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
-		}
 	}
 	private void limpaTela() {
 		if(tlTempoTela != null)

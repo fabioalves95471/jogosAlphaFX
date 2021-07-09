@@ -53,31 +53,31 @@
 }
 
 .accordion > .titled-pane > .title:hover, .accordion > .titled-pane.cinza > .title:hover {
-	-fx-background-color: #cacacaff;
+	-fx-background-color: #edededff;
 }
 
 .accordion > .titled-pane.verde> .title:hover {
-	-fx-background-color: #b3ffb3ff;
+	-fx-background-color: #e6ffe6ff;
 }
 
 .accordion > .titled-pane.azul > .title:hover {
-	-fx-background-color: #b3bfffff;
+	-fx-background-color: #e6eaffff;
 }
 
 .accordion > .titled-pane.ciano > .title:hover {
-	-fx-background-color: #b3fdfdff;
+	-fx-background-color: #e6fefeff;
 }
 
 .accordion > .titled-pane.vermelho > .title:hover {
-	-fx-background-color: #ffb3b3ff;
+	-fx-background-color: #ffe6e6ff;
 }
 
 .accordion > .titled-pane.laranja > .title:hover {
-	-fx-background-color: #ffe9b3ff;
+	-fx-background-color: #fff8e6ff;
 }
 
 .accordion > .titled-pane.amarelo > .title:hover {
-	-fx-background-color: #fffdb3ff;
+	-fx-background-color: #fffee6ff;
 }
 
 /* Botão
@@ -113,13 +113,13 @@
 	-fx-background-image: url(IconeSom.png);
 }
 .button.icone.som:armed {
-	-fx-background-image: url(IconeSomBranco.png);
+	-fx-background-image: url(IconeSomSemAudioBranco.png);
 }
 .button.icone.som:semAudio {
 	-fx-background-image: url(IconeSomSemAudio.png);
 }
 .button.icone.som:semAudio:armed {
-	-fx-background-image: url(IconeSomSemAudioBranco.png);
+	-fx-background-image: url(IconeSomBranco.png);
 }
 /* Cores dos botões -------------------*/
 .button, .button.cinza {

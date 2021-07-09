@@ -93,18 +93,30 @@
                         <Insets left="40.0" right="40.0" />
                      </padding>
 					</HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="230.0" prefWidth="200.0">
+                  <HBox alignment="TOP_RIGHT" fillHeight="false" prefHeight="230.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="bSom" mnemonicParsing="false" onAction="#mudo">
-                           <styleClass>
-                              <String fx:value="icone" />
-                              <String fx:value="som" />
-                              <String fx:value="azul" />
-                           </styleClass>
+                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="170.0">
+                           <children>
+                              <Button fx:id="bSom" mnemonicParsing="false" onAction="#bSomEvent" onKeyPressed="#bSomEventKey" onKeyReleased="#bSomEventKey">
+                                 <styleClass>
+                                    <String fx:value="icone" />
+                                    <String fx:value="som" />
+                                    <String fx:value="cinza" />
+                                 </styleClass>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Label text="Audio">
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
                            <HBox.margin>
-                              <Insets right="160.0" top="10.0" />
+                              <Insets top="10.0" />
                            </HBox.margin>
-                        </Button>
+                        </HBox>
       					<VBox fx:id="vbQuadroCentral" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="150.0" prefWidth="280.0" spacing="10.0" visible="false">
       					   <children>
       						  <Label fx:id="lOperadorNome" text="Multiplicação - Questão 100 / 100">
@@ -138,7 +150,7 @@
       					</VBox>
                         <Accordion focusTraversable="false">
                           <panes>
-                            <TitledPane fx:id="tpErros" animated="false" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" styleClass="vermelho" text="Erros">
+                            <TitledPane fx:id="tpErros" animated="false" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" styleClass="verde" text="Erros">
                                  <content>
                                     <ListView fx:id="lvErros" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" />
                                  </content>
