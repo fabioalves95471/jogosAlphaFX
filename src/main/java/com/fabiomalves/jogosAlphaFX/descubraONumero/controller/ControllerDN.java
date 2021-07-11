@@ -92,30 +92,6 @@ public class ControllerDN implements Initializable {
 	private void focusIniciar() {
 		bIniciar.requestFocus();
 	}	
-	@FXML
-	private void iniciarJogo() {
-		limpaTela();
-		// Tempo de jogo
-		tempoCorrente = 0;
-		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
-			lTempo.setText(atualizaDisplayTempo((short)1));
-		});
-		tlTempoTela = new Timeline(kfTempoTela);
-		tlTempoTela.setCycleCount(3599);
-		// Inicia o Jogo.
-		vbQuadroCentral.setVisible(true);
-		int numeroQuestoes;
-		if (cbQuestoes.getValue() > 50)
-			numeroQuestoes = 50;
-		else numeroQuestoes = cbQuestoes.getValue();
-		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
-		lvErros.getItems().clear();
-		tlTempoTela.play();
-		atualizaTela();
-		tfResposta.setDisable(false);
-		tfResposta.setText("");
-		tfResposta.requestFocus();
-	}
 	private void carregaGroup(MyGroup<? extends Object> group, String resource, String resourceCss) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -142,17 +118,84 @@ public class ControllerDN implements Initializable {
 		groupFJ.getStage().showAndWait();
 	}
 	@FXML
-	public void iniciarJogoTeclaEnter(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
-			iniciarJogo();
-    }
-	@FXML
 	public void chamaStageRankingTeclaEnter(KeyEvent ke) {
 		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
 			chamaStageRanking();
     }
+
+/*
 	@FXML
-	public void bSomEvent() {
+	public void bEventAction () {
+	}
+	@FXML
+	public void bEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+
+			}
+		}
+	}
+*/
+	@FXML
+	public void bHomeEventAction () {
+		limpaTela();
+		vbQuadroCentral.setVisible(false);
+		App.setRoot(Jogos.INICIO);
+	}
+	@FXML
+	public void bHomeEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bHomeEventAction();
+			}
+		}
+	}
+	@FXML
+	public void bIniciarEventAction () {
+		limpaTela();
+		// Tempo de jogo
+		tempoCorrente = 0;
+		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
+			lTempo.setText(atualizaDisplayTempo((short)1));
+		});
+		tlTempoTela = new Timeline(kfTempoTela);
+		tlTempoTela.setCycleCount(3599);
+		// Inicia o Jogo.
+		vbQuadroCentral.setVisible(true);
+		int numeroQuestoes;
+		if (cbQuestoes.getValue() > 50)
+			numeroQuestoes = 50;
+		else numeroQuestoes = cbQuestoes.getValue();
+		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
+		lvErros.getItems().clear();
+		tlTempoTela.play();
+		atualizaTela();
+		tfResposta.setDisable(false);
+		tfResposta.setText("");
+		tfResposta.requestFocus();
+	}
+	@FXML
+	public void bIniciarEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bIniciarEventAction();
+			}
+		}
+	}
+
+
+
+	@FXML
+	public void bSomEventAction() {
 		if (mudo) {
 			mudo = false;
 			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
@@ -169,7 +212,7 @@ public class ControllerDN implements Initializable {
 				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
 			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
 				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
-				bSomEvent();
+				bSomEventAction();
 			}
 		}
 	}
@@ -209,12 +252,6 @@ public class ControllerDN implements Initializable {
 			botaoErrosAceso = true;
 		}
 	}
-	@FXML
-	private void chamaHome() {
-		limpaTela();
-		vbQuadroCentral.setVisible(false);
-		App.setRoot(Jogos.INICIO);
-	}
 	private void limpaTela() {
 		if(tlTempoTela != null)
 			tlTempoTela.stop();
@@ -227,11 +264,6 @@ public class ControllerDN implements Initializable {
 			tpErros.lookup(".text").pseudoClassStateChanged(PSEUDOCLASS_ACESO, false);
 			botaoErrosAceso = false;
 		}
-	}
-	@FXML
-	private void chamaHomeEnter (KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
-			chamaHome();
 	}
 	@FXML
 	public void responde() {

@@ -97,7 +97,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="170.0">
                            <children>
-                              <Button fx:id="bSom" mnemonicParsing="false" onAction="#bSomEvent" onKeyPressed="#bSomEventKey" onKeyReleased="#bSomEventKey">
+                              <Button fx:id="bSom" mnemonicParsing="false" onAction="#bSomEventAction" onKeyPressed="#bSomEventKey" onKeyReleased="#bSomEventKey">
                                  <styleClass>
                                     <String fx:value="icone" />
                                     <String fx:value="som" />
@@ -178,7 +178,7 @@
          <bottom>
 					<HBox fx:id="hbRodape" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="TOP_CENTER">
 					   <children>
-						  <Button fx:id="bIniciar" mnemonicParsing="false" onAction="#iniciarJogo" onKeyPressed="#iniciarJogoTeclaEnter" prefHeight="35.0" styleClass="verde" text="Iniciar"> <!---->
+						  <Button fx:id="bIniciar" mnemonicParsing="false" onAction="#bIniciarEventAction" onKeyPressed="#bIniciarEventKey" onKeyReleased="#bIniciarEventKey" prefHeight="35.0" styleClass="verde" text="Iniciar"> <!---->
 							 <font>
 								<Font size="18.0" />
 							 </font>
@@ -224,7 +224,7 @@
 					</HBox>
          </bottom>
 		</BorderPane>
-      <Button fx:id="bHome" mnemonicParsing="false" onAction="#chamaHome" onKeyPressed="#chamaHomeEnter">
+      <Button fx:id="bHome" mnemonicParsing="false" onAction="#bHomeEventAction" onKeyPressed="#bHomeEventKey" onKeyReleased="#bHomeEventKey">
          <StackPane.margin>
             <Insets left="10.0" top="10.0" />
          </StackPane.margin>
