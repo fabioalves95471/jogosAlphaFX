@@ -27,8 +27,8 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        carregaScenesJogos();
-//        rodaInicioComApresentacao();
+//        carregaScenesJogos();
+        rodaInicioComApresentacao();
         rodaInicio(); // Roda o programa sem a apresentação inicial (comentar rodaInicioComApresentação()).
 	}
 
@@ -88,6 +88,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
             return loader.load();
         } catch (IOException e) {
+            e.printStackTrace();
 			new Erro ("Não pode carregar a Tela: \t"+jogos.name()+"\t\n"+e.getMessage(), stage);
 			System.exit(0);
             return null;

@@ -11,6 +11,7 @@ import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.css.PseudoClass;
+import javafx.event.Event;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -88,10 +89,6 @@ public class ControllerDN implements Initializable {
 	private final Media mediaAudioAcerto = new Media(urlAudioAcerto.toString());
 	private final Media mediaAudioErro = new Media(urlAudioErro.toString());
 
-	@FXML
-	private void focusIniciar() {
-		bIniciar.requestFocus();
-	}	
 	private void carregaGroup(MyGroup<? extends Object> group, String resource, String resourceCss) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -110,122 +107,23 @@ public class ControllerDN implements Initializable {
 			System.exit(0);
 		}
 	}
-	public void chamaStageFimDeJogo() {
+	private void chamaStageFimDeJogo() {
 		String operadorNome	= service.getOperadorNome();
 		String score		= (int)(Math.rint(service.getAcertosPorcentual()*100)) + "%";
 		String tempo		= service.getTempoFinalDeJogoStr();
 		groupFJ.getController().setDados(operadorNome, score, tempo);
 		groupFJ.getStage().showAndWait();
 	}
-	@FXML
-	public void chamaStageRankingTeclaEnter(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
-			chamaStageRanking();
-    }
-
-/*
-	@FXML
-	public void bEventAction () {
-	}
-	@FXML
-	public void bEventKey (KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER)) {
-			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
-				.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
-			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
-				.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
-
-			}
-		}
-	}
-*/
-	@FXML
-	public void bHomeEventAction () {
-		limpaTela();
-		vbQuadroCentral.setVisible(false);
-		App.setRoot(Jogos.INICIO);
-	}
-	@FXML
-	public void bHomeEventKey (KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER)) {
-			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
-				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
-			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
-				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
-				bHomeEventAction();
-			}
-		}
-	}
-	@FXML
-	public void bIniciarEventAction () {
-		limpaTela();
-		// Tempo de jogo
-		tempoCorrente = 0;
-		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
-			lTempo.setText(atualizaDisplayTempo((short)1));
-		});
-		tlTempoTela = new Timeline(kfTempoTela);
-		tlTempoTela.setCycleCount(3599);
-		// Inicia o Jogo.
-		vbQuadroCentral.setVisible(true);
-		int numeroQuestoes;
-		if (cbQuestoes.getValue() > 50)
-			numeroQuestoes = 50;
-		else numeroQuestoes = cbQuestoes.getValue();
-		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
-		lvErros.getItems().clear();
-		tlTempoTela.play();
-		atualizaTela();
-		tfResposta.setDisable(false);
-		tfResposta.setText("");
-		tfResposta.requestFocus();
-	}
-	@FXML
-	public void bIniciarEventKey (KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER)) {
-			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
-				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
-			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
-				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
-				bIniciarEventAction();
-			}
-		}
-	}
-
-
-
-	@FXML
-	public void bSomEventAction() {
-		if (mudo) {
-			mudo = false;
-			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
-		} else {
-			mudo = true;
-			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
-		}
-		tfResposta.requestFocus();
-	}
-	@FXML
-	public void bSomEventKey(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER)) {
-			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
-				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
-			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
-				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
-				bSomEventAction();
-			}
-		}
-	}
-	@FXML
-	public void chamaStageRankingComOperador() {
-		groupPo.getController().runRanking(service.getOperadorNome());
-		groupPo.getStage().showAndWait();
-	}
-	public void chamaStageRanking() {
-		groupPo.getController().runRanking();
+	private void chamaStageRanking(boolean passandoOperador) {
+		if (passandoOperador)
+			groupPo.getController().runRanking(service.getOperadorNome());
+		else
+			groupPo.getController().runRanking();
 		groupPo.getStage().showAndWait();
 	}
 	private void chamaEventoRespostaErrada() {
+		if (!mudo)
+			new MediaPlayer(mediaAudioErro).play();
 		rErros.setHeight(App.getStage().getHeight());
 		rErros.setWidth(App.getStage().getWidth());
 		rErros.setStyle("visibility: visible");
@@ -265,16 +163,160 @@ public class ControllerDN implements Initializable {
 			botaoErrosAceso = false;
 		}
 	}
+	private void gravaResultado() {
+		System.out.println("metodo gravaResultado");
+	}
+	private String atualizaDisplayTempo (short segundos) { // Atualiza a hora que sera exibida na tela.
+		if (segundos >= 3600 || tempoCorrente >= 3600)
+			return "00:00";
+		tempoCorrente += segundos;
+		byte min = (byte)(tempoCorrente/60);
+		byte sec = (byte)(tempoCorrente%60);
+		String minStr, secStr;
+		if (min < 10) 	minStr = "0"+min;
+		else 			minStr = "" +min;
+		if (sec < 10) 	secStr = "0"+sec;
+		else 			secStr = "" +sec;
+		return minStr+":"+secStr;
+	}
+	private void atualizaTela () {
+		lOperadorNome.setText(service.getOperadorNome()+" - Questão:  "+service.getQuestaoCorrente()+" / "+service.getTotalQuestoes());
+		lErros.setText(""+service.getErros());
+		lAcertos.setText(""+service.getAcertos());
+		lPergunta.setText(service.getQuestaoString());
+	}
+	private void preparaEfeitoErrar() {
+		kfError = new KeyFrame(Duration.millis(80), e -> {
+			rErros.setStyle("visibility: hidden");
+		});
+		tlError = new Timeline(kfError);
+		tlError.setCycleCount(1);
+	}
+
+//----------Eventos de interação direta com a tela----------
 	@FXML
-	public void responde() {
+	private void bHomeEventAction () {
+		limpaTela();
+		vbQuadroCentral.setVisible(false);
+		App.setRoot(Jogos.INICIO);
+	}
+	@FXML
+	private void bHomeEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bHome.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bHomeEventAction();
+			}
+		}
+	}
+	@FXML
+	private void bIniciarEventAction () {
+		limpaTela();
+		// Tempo de jogo
+		tempoCorrente = 0;
+		kfTempoTela = new KeyFrame(Duration.millis(1000), e -> {
+			lTempo.setText(atualizaDisplayTempo((short)1));
+		});
+		tlTempoTela = new Timeline(kfTempoTela);
+		tlTempoTela.setCycleCount(3599);
+		// Inicia o Jogo.
+		vbQuadroCentral.setVisible(true);
+		int numeroQuestoes;
+		if (cbQuestoes.getValue() > 50)
+			numeroQuestoes = 50;
+		else numeroQuestoes = cbQuestoes.getValue();
+		service.iniciarJogoDN(cbOperadores.getValue(), numeroQuestoes);
+		lvErros.getItems().clear();
+		tlTempoTela.play();
+		atualizaTela();
+		tfResposta.setDisable(false);
+		tfResposta.setText("");
+		tfResposta.requestFocus();
+	}
+	@FXML
+	private void bIniciarEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bIniciar.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bIniciarEventAction();
+			}
+		}
+	}
+	@FXML
+	private void bRankingEventAction () {
+		chamaStageRanking(false);
+	}
+	@FXML
+	private void bRankingEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bRanking.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bRanking.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bRankingEventAction();
+			}
+		}
+	}
+	@FXML
+	private void bSomEventAction() {
+		if (mudo) {
+			mudo = false;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		} else {
+			mudo = true;
+			bSom.pseudoClassStateChanged(PSEUDOCLASS_SEMAUDIO, mudo);
+		}
+		tfResposta.requestFocus();
+	}
+	@FXML
+	private void bSomEventKey(KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bSom.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bSomEventAction();
+			}
+		}
+	}
+	@FXML
+	private void cbOperadoresEventHiding() { bIniciar.requestFocus(); }
+	@FXML
+	private void cbOperadoresEventKey(KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				cbOperadores.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				cbOperadores.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				cbOperadoresEventHiding();
+			}
+		}
+	}
+	@FXML
+	private void cbQuestoesEventHiding() { cbOperadores.requestFocus(); }
+	@FXML
+	private void cbQuestoesEventKey(KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				cbQuestoes.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				cbQuestoes.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				cbQuestoesEventHiding();
+			}
+		}
+	}
+	@FXML
+	private void tfRespostaEventAction() {
 		if (tfResposta.getText().length() == 0)
 			return;
 		erros = service.getErros();
 		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
 		// Verifica resposta (certa ou errada) e chama os eventos correspondentes.
 		if (erros != service.getErros()) {
-			if (!mudo)
-				new MediaPlayer(mediaAudioErro).play();
 			chamaEventoRespostaErrada();
 		} else {
 			if (!mudo)
@@ -293,42 +335,10 @@ public class ControllerDN implements Initializable {
 			tlTempoTela = null;
 			tfResposta.setDisable(true);
 			chamaStageFimDeJogo();
-			chamaStageRankingComOperador();
+			chamaStageRanking(true);
 		}
 	}
-	public void gravaResultado() {
-		System.out.println("metodo gravaResultado");
-	}
-	// Atualiza a hora que sera exibida na tela.
-	public String atualizaDisplayTempo (short segundos) {
-		if (segundos >= 3600 || tempoCorrente >= 3600)
-			return "00:00";
-		tempoCorrente += segundos;
-		byte min = (byte)(tempoCorrente/60);
-		byte sec = (byte)(tempoCorrente%60);
-		String minStr, secStr;
-		if (min < 10) 	minStr = "0"+min;
-		else 			minStr = "" +min;
-		if (sec < 10) 	secStr = "0"+sec;
-		else 			secStr = "" +sec;
-		return minStr+":"+secStr;
-	}
-	public void atualizaTela () {
-		lOperadorNome.setText(service.getOperadorNome()+" - Questão:  "+service.getQuestaoCorrente()+" / "+service.getTotalQuestoes());
-		lErros.setText(""+service.getErros());
-		lAcertos.setText(""+service.getAcertos());
-		lPergunta.setText(service.getQuestaoString());
-	}
-//	public Stage getStage () {
-//		return (Stage)spPrimario.getScene().getWindow();
-//	}
-	private void preparaEfeitoErrar() {
-		kfError = new KeyFrame(Duration.millis(80), e -> {
-			rErros.setStyle("visibility: hidden");
-		});
-		tlError = new Timeline(kfError);
-		tlError.setCycleCount(1);
-	}
+
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperadores.getItems().addAll(IServiceDN.getOperadorNomes()); // Insere lista na caixa de selecao.

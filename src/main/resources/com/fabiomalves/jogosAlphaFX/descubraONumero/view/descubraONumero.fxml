@@ -26,7 +26,7 @@
 											<Font size="18.0" />
 										 </font>
 									  </Label>
-									  <ComboBox fx:id="cbQuestoes" prefWidth="60.0" styleClass="azul" />
+									  <ComboBox fx:id="cbQuestoes" onHiding="#cbQuestoesEventHiding" onKeyReleased="#cbQuestoesEventKey" prefWidth="60.0" styleClass="azul" />
 								   </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -42,7 +42,7 @@
 											<Insets />
 										 </HBox.margin>
 									  </Label>
-									  <ComboBox fx:id="cbOperadores" onHiding="#focusIniciar" prefWidth="160.0" styleClass="azul">
+									  <ComboBox fx:id="cbOperadores" onHiding="#cbOperadoresEventHiding" onKeyReleased="#cbOperadoresEventKey" prefWidth="160.0" styleClass="azul">
 										 <HBox.margin>
 											<Insets />
 										 </HBox.margin>
@@ -132,7 +132,7 @@
       									  <Font size="18.0" />
       								   </font>
       								</Label>
-      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onAction="#responde" prefHeight="37.0" prefWidth="65.0" styleClass="azul">
+      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onAction="#tfRespostaEventAction" prefHeight="37.0" prefWidth="65.0" styleClass="azul">
       								   <font>
       									  <Font size="18.0" />
       								   </font>
@@ -186,7 +186,7 @@
 								<Insets />
 							 </HBox.margin>
 						  </Button>
-						  <Button fx:id="bRanking" mnemonicParsing="false" onAction="#chamaStageRanking" onKeyPressed="#chamaStageRankingTeclaEnter" prefHeight="35.0" styleClass="amarelo" text="Ranking">
+						  <Button fx:id="bRanking" mnemonicParsing="false" onAction="#bRankingEventAction" onKeyPressed="#bRankingEventKey" onKeyReleased="#bRankingEventKey" prefHeight="35.0" styleClass="amarelo" text="Ranking">
 							 <font>
 								<Font size="18.0" />
 							 </font>
