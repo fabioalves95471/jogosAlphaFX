@@ -164,7 +164,7 @@ public class ControllerDN implements Initializable {
 		}
 	}
 	private void gravaResultado() {
-		System.out.println("metodo gravaResultado");
+		System.out.println("metodo gravaResultado não criado.");
 	}
 	private String atualizaDisplayTempo (short segundos) { // Atualiza a hora que sera exibida na tela.
 		if (segundos >= 3600 || tempoCorrente >= 3600)

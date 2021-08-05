@@ -53,31 +53,31 @@
 }
 
 .accordion > .titled-pane > .title:hover, .accordion > .titled-pane.cinza > .title:hover {
-	-fx-background-color: #edededff;
+	-fx-background-color: #dbdbdbff;
 }
 
 .accordion > .titled-pane.verde> .title:hover {
-	-fx-background-color: #e6ffe6ff;
+	-fx-background-color: #ccffccff;
 }
 
 .accordion > .titled-pane.azul > .title:hover {
-	-fx-background-color: #e6eaffff;
+	-fx-background-color: #ccd4ffff;
 }
 
 .accordion > .titled-pane.ciano > .title:hover {
-	-fx-background-color: #e6fefeff;
+	-fx-background-color: #ccfdfdff;
 }
 
 .accordion > .titled-pane.vermelho > .title:hover {
-	-fx-background-color: #ffe6e6ff;
+	-fx-background-color: #ffccccff;
 }
 
 .accordion > .titled-pane.laranja > .title:hover {
-	-fx-background-color: #fff8e6ff;
+	-fx-background-color: #fff0ccff;
 }
 
 .accordion > .titled-pane.amarelo > .title:hover {
-	-fx-background-color: #fffee6ff;
+	-fx-background-color: #fffdb3ff;
 }
 
 /* Botão
@@ -330,4 +330,49 @@
 	-fx-border-radius: 8;
 	-fx-border-color: #999;
 	-fx-border-width: 1px;
+}
+
+/* ScrollBar
+-------------------------------------------*/
+.scroll-bar{
+	-fx-pref-height: 20;
+	-fx-pref-width: 20;
+	-fx-background-color: transparent;
+}
+.scroll-bar .track{
+	-fx-border-radius: 8;
+	-fx-border-color: #738873ff;
+	-fx-border-width: 1px;
+	-fx-border-insets: 1;
+}
+.scroll-bar .thumb{
+	-fx-border-radius: 8;
+	-fx-border-color: #738873ff;
+	-fx-border-width: 1px;
+	-fx-border-insets: 1;
+	-fx-background-radius: 8;
+	-fx-background-color: #cfe6cf;
+}
+.corner {
+	-fx-background-radius: 0 0 8 0;
+	-fx-background-color: transparent;
+}
+.scroll-bar .decrement-button,
+.scroll-bar .increment-button {
+	-fx-background-radius: 3;
+	-fx-border-radius: 3;
+	-fx-border-width: 1px;
+	-fx-border-color: #738873ff;
+	-fx-border-insets: 1;
+	-fx-background-insets: 1;	
+}
+.scroll-bar:vertical,
+.scroll-bar:vertical .decrement-button {
+	-fx-background-radius: 3 7 3 3;
+	-fx-border-radius: 3 7 3 3;
+}
+.scroll-bar:horizontal,
+.scroll-bar:horizontal .decrement-button {
+	-fx-background-radius: 3 3 3 7;
+	-fx-border-radius: 3 3 3 7;
 }

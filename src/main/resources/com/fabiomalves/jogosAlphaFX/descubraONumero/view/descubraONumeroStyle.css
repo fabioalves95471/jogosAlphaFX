@@ -40,6 +40,11 @@
 	-fx-background-radius: 5;
 	-fx-padding: 0 0 0 0;
 }
+#lvErros .scroll-bar:vertical,
+#lvErros .scroll-bar:vertical .increment-button {
+	-fx-background-radius: 3 3 7 3;
+	-fx-border-radius: 3 3 7 3;
+}
 
 /* A pseudoClasse "aceso" usada no codigo java */
 .accordion > .titled-pane > .title > .text:aceso,

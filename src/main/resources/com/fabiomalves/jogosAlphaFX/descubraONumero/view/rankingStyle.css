@@ -62,39 +62,6 @@
 	-fx-alignment: CENTER;
 }
 
-.table-view .scroll-bar:horizontal .thumb,
-.table-view .scroll-bar:vertical .thumb {
-    -fx-background-color: #cfe6cf;
-	-fx-background-insets: 2, 0, 0;
-	-fx-background-radius: 2em;
-}
-
-.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track{
-	-fx-border-color:derive( #555,80%);
-	-fx-background-radius: 2em;
-	-fx-border-radius:2em;
-}
-
-.table-view .scroll-bar:horizontal {
-	-fx-pref-height: 15px;
-	-fx-background-radius: 0px 0px 0px 5px ;
-}
-
-.table-view .scroll-bar:vertical {
-	-fx-pref-width: 15px;
-}
-
-.table-view .scroll-bar .decrement-button,
-.table-view .scroll-bar .increment-button {
-	-fx-pref-width: 15px;
-	-fx-pref-height: 15px;
-}
-
-.table-view .corner {
-	-fx-background-radius: 0px 0px 5px 0px;
-}
-
 .table-view .placeholder {
 	-fx-font-size: 18px;
 	-fx-background-radius: 8;

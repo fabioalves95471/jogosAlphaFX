@@ -27,9 +27,9 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-//        carregaScenesJogos();
+        carregaScenesJogos();
         rodaInicioComApresentacao();
-        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar rodaInicioComApresentação()).
+//        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar rodaInicioComApresentação()).
 	}
 
     /**
