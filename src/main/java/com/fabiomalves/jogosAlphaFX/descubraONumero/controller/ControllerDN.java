@@ -193,7 +193,7 @@ public class ControllerDN implements Initializable {
 		tlError.setCycleCount(1);
 	}
 
-//----------Eventos de interação direta com a tela----------
+//----------Medotos com  interação direta com a tela----------
 	@FXML
 	private void bHomeEventAction () {
 		limpaTela();
@@ -310,32 +310,34 @@ public class ControllerDN implements Initializable {
 		}
 	}
 	@FXML
-	private void tfRespostaEventAction() {
-		if (tfResposta.getText().length() == 0)
-			return;
-		erros = service.getErros();
-		service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
-		// Verifica resposta (certa ou errada) e chama os eventos correspondentes.
-		if (erros != service.getErros()) {
-			chamaEventoRespostaErrada();
-		} else {
-			if (!mudo)
-				new MediaPlayer(mediaAudioAcerto).play();
-		}
-		// Roda próxima questão.
-		if (service.temProximaQuestao()) {
-			service.rodaProximaQuestao();
-			atualizaTela();
-			tfResposta.setText("");
-			tfResposta.requestFocus();
-		} else {
-			service.finalizaJogoDN();
-			atualizaTela();
-			tlTempoTela.stop();
-			tlTempoTela = null;
-			tfResposta.setDisable(true);
-			chamaStageFimDeJogo();
-			chamaStageRanking(true);
+	private void tfRespostaEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER) && ke.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+			if (tfResposta.getText().length() == 0)
+				return;
+			erros = service.getErros();
+			service.incrementaPontuacao(service.verificaResposta(CamposDeEntrada.getOnlyNumbers(tfResposta)));
+			// Verifica resposta (certa ou errada) e chama os eventos correspondentes.
+			if (erros != service.getErros()) {
+				chamaEventoRespostaErrada();
+			} else {
+				if (!mudo)
+					new MediaPlayer(mediaAudioAcerto).play();
+			}
+			// Roda próxima questão.
+			if (service.temProximaQuestao()) {
+				service.rodaProximaQuestao();
+				atualizaTela();
+				tfResposta.setText("");
+				tfResposta.requestFocus();
+			} else {
+				service.finalizaJogoDN();
+				atualizaTela();
+				tlTempoTela.stop();
+				tlTempoTela = null;
+				tfResposta.setDisable(true);
+				chamaStageFimDeJogo();
+				chamaStageRanking(true);
+			}
 		}
 	}
 

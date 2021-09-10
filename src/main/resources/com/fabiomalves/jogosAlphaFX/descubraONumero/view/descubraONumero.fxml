@@ -132,7 +132,7 @@
       									  <Font size="18.0" />
       								   </font>
       								</Label>
-      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onAction="#tfRespostaEventAction" prefHeight="37.0" prefWidth="65.0" styleClass="azul">
+      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onKeyPressed="#tfRespostaEventKey" onKeyReleased="#tfRespostaEventKey" prefHeight="37.0" prefWidth="65.0" styleClass="azul">
       								   <font>
       									  <Font size="18.0" />
       								   </font>

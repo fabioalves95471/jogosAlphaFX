@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.App;
 import com.fabiomalves.jogosAlphaFX.Jogos;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,22 +20,27 @@ public class ControllerInicio implements Initializable {
     @FXML
     GridPane gpCorpo;
 
-    @FXML
-    private void chamaTelaDescubraONumero() {
-        App.setRoot(Jogos.DESCUBRAONUMERO);
-    }
-
-    @FXML
-    private void chamaTelaDescubraONumeroEnter(KeyEvent ke) {
-        if (ke.getCode().equals(KeyCode.ENTER) || ke.getCode().equals(KeyCode.SPACE))
-            chamaTelaDescubraONumero();
-        return;
-    }
-
-    public void mostraCorpoDaTela() {
+    public void mostraCorpoDaTela () {
         gpCorpo.setVisible(true);
     }
+//----------Medotos com  interação direta com a tela----------
+	@FXML
+	private void bDescubraONumeroEventAction () {
+        App.setRoot(Jogos.DESCUBRAONUMERO);
+	}
+	@FXML
+	private void bDescubraONumeroEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bDescubraONumero.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bDescubraONumero.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bDescubraONumeroEventAction();
+			}
+		}
+	}
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
 	}
 

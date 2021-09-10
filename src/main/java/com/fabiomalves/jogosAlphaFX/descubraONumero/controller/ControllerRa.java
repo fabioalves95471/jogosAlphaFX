@@ -3,10 +3,13 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fabiomalves.jogosAlphaFX.App;
+import com.fabiomalves.jogosAlphaFX.Jogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,6 +51,40 @@ public class ControllerRa implements Initializable  {
 	private ObservableList<JogoDN> listAtual;
 	private Stage stage;
 
+	public void runRanking(String operador) {
+		cbOperador.getSelectionModel().select(operador);
+		runRanking();
+	}
+	public void runRanking() {
+		String operador = (String)cbOperador.getValue();
+		listAtual = service.getListUsuario(operador);
+		lOperador.setText(operador);
+		tvRanking.getItems().clear();
+		tvRanking.getItems().addAll(listAtual);
+		bSair.requestFocus();
+	}
+
+//----------Medotos com  interação direta com a tela----------
+	@FXML
+	private void cbOperadorEventOnHiding() {
+		runRanking();
+	}
+	@FXML
+	private void bSairEventAction () {
+		stage.close();
+	}
+	@FXML
+	private void bSairEventKey (KeyEvent ke) {
+		if (ke.getCode().equals(KeyCode.ENTER)) {
+			if(ke.getEventType().equals(KeyEvent.KEY_PRESSED))
+				bSair.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), true);
+			if(ke.getEventType().equals(KeyEvent.KEY_RELEASED)){
+				bSair.pseudoClassStateChanged(PseudoClass.getPseudoClass("armed"), false);
+				bSairEventAction();
+			}
+		}
+	}
+// -------------------Getters and Setters-----------------------
 	public void setConfig(Stage stage, IServiceDN service) {
 		setService(service);
 		setStage(stage);
@@ -58,33 +95,7 @@ public class ControllerRa implements Initializable  {
 	public void setStage (Stage stage) {
 		this.stage = stage;
 	}
-	@FXML
-	public void runRanking() {
-		String operador = (String)cbOperador.getValue();
-		listAtual = service.getListUsuario(operador);
-		lOperador.setText(operador);
-		tvRanking.getItems().clear();
-		tvRanking.getItems().addAll(listAtual);
-		bSair.requestFocus();
-	}
-	public void runRanking(String operador) {
-		cbOperador.getSelectionModel().select(operador);
-		runRanking();
-	}
-	@FXML
-	public void fechaTelaTeclaEnter(KeyEvent ke) {
-		if (ke.getCode().equals(KeyCode.ENTER))
-			fechaTela();
-    }
-	@FXML
-	public void fechaTelaClickEsquerdo(MouseEvent me) {
-		if (me.getButton().equals(MouseButton.PRIMARY))
-			fechaTela();
-	}
-	@FXML
-	public void fechaTela () {
-		stage.close();
-	}
+
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());

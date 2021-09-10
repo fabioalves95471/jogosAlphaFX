@@ -30,7 +30,7 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="cbOperador" onHiding="#runRanking" prefHeight="29.0" prefWidth="159.0" styleClass="azul" />
+            <ComboBox fx:id="cbOperador" onHiding="#cbOperadorEventOnHiding" prefHeight="29.0" prefWidth="159.0" styleClass="azul" />
          </children>
       </HBox>
       <Label fx:id="lOperador" text="Operador-nome">
@@ -53,7 +53,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="80.0" prefWidth="200.0">
          <children>
-            <Button fx:id="bSair" mnemonicParsing="false" onAction="#fechaTela" onKeyPressed="#fechaTelaTeclaEnter" prefHeight="39.0" prefWidth="96.0" styleClass="verde" text="Sair">
+            <Button fx:id="bSair" mnemonicParsing="false" onAction="#bSairEventAction" onKeyPressed="#bSairEventKey" onKeyReleased="#bSairEventKey" prefHeight="39.0" prefWidth="96.0" styleClass="verde" text="Sair">
                <font>
                   <Font size="18.0" />
                </font>
