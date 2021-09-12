@@ -1,5 +1,6 @@
 package com.fabiomalves.jogosAlphaFX;
 
+import com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerDN;
 import com.fabiomalves.jogosAlphaFX.inicio.controller.ControllerInicio;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import javafx.animation.PauseTransition;
@@ -8,11 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
 
 //@SpringBootApplication
 public class App extends Application {

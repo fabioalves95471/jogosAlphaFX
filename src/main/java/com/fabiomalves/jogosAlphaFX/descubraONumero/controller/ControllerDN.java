@@ -11,8 +11,6 @@ import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 
 import javafx.css.PseudoClass;
-import javafx.event.Event;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
@@ -33,8 +31,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.animation.KeyFrame;
-
-import javax.swing.event.HyperlinkEvent;
 
 public class ControllerDN implements Initializable {
 
@@ -84,8 +80,8 @@ public class ControllerDN implements Initializable {
 	private KeyFrame kfTempoTela, kfError;
 	private final PseudoClass PSEUDOCLASS_ACESO = PseudoClass.getPseudoClass("aceso");
 	private final PseudoClass PSEUDOCLASS_SEMAUDIO = PseudoClass.getPseudoClass("semAudio");
-	private final URL urlAudioAcerto = getClass().getResource("../view/acerto02.wav");
-	private final URL urlAudioErro = getClass().getResource("../view/erro.wav");
+	private final URL urlAudioAcerto = ControllerDN.class.getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/acerto02.wav");
+	private final URL urlAudioErro = ControllerDN.class.getResource("/com/fabiomalves/jogosAlphaFX/descubraONumero/view/erro.wav");
 	private final Media mediaAudioAcerto = new Media(urlAudioAcerto.toString());
 	private final Media mediaAudioErro = new Media(urlAudioErro.toString());
 

@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: com.fabiomalves.jogosAlphaFX.App
-Class-Path: lib/libJavafx/lib/javafx.base.jar lib/libJavafx/lib/javafx.controls.jar lib/libJavafx/lib/javafx.fxml.jar lib/libJavafx/lib/javafx.graphics.jar lib/libJavafx/lib/javafx.media.jar
+Class-Path: lib/libJavafx/lib/javafx.base.jar lib/libJavafx/lib/javafx.controls.jar lib/libJavafx/lib/javafx.fxml.jar lib/libJavafx/lib/javafx.graphics.jar lib/libJavafx/lib/javafx.media.jar lib/libJavafx/lib/javafx.swing.jar lib/libJavafx/lib/javafx.web.jar lib/libJavafx/lib/javafx-swt.jar
 
