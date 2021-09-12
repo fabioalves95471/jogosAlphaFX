@@ -1,7 +1,7 @@
 # JogosAlphaFX
 Aplicativo de jogos em javaFX.<br/>
 <br/>
-Executável -> [Download](https://github.com/fabioalves95472/jogosAlphaFX/archive/refs/tags/versao_1.0.0.1.zip) (executa em java 8 e posterior, leia abaixo)
+Executável -> [Download](https://github.com/fabioalves95472/jogosAlphaFX/archive/refs/tags/versao_1.0.zip) (executa em java 8 e posterior, leia abaixo)
 <br/>
 - Java 8:<br/>
 	- Execute: `jogosAlphaFX.jar`<br/>
