@@ -21,7 +21,7 @@
 	-fx-border-color: #363636;
 	-fx-border-width: 1px;
 	-fx-border-radius: 8px;
-	-fx-background-radius: 8px;
+	-fx-background-radius: 9px;
 	-fx-background-insets: 1px;
 	-fx-background-color: transparent;
 /*	-fx-background-color: #dbdbdb; */
@@ -90,6 +90,9 @@
 	-fx-background-insets: 1px;
 	-fx-pref-width: 100px;
 	-fx-pref-height: 35px;
+	-fx-text-overrun: clip;
+	-fx-wrap-text: true;
+	-fx-text-alignment: center;
 }
 
 /* Icones dos botões -------------------*/
@@ -240,14 +243,14 @@
 -------------------------------------------*/
 
 .combo-box, .text-field {
-	-fx-padding: 0;
+	-fx-padding: 2 4 2 4;
 	-fx-pref-height: 30;
 	-fx-border-style: solid;
 	-fx-border-width: 1.5px;
 	-fx-border-color: #363636;
-	-fx-border-radius: 6px;
+	-fx-border-radius: 8px;
+	-fx-background-radius: 9px;
 	-fx-background-color: #fff;
-	-fx-background-radius: 7px;
 }
 .combo-box .arrow-button{
 	-fx-padding: 5;
@@ -289,7 +292,7 @@
 
 .combo-box.azul:focused, .combo-box.azul:hover,
 .text-field.azul:focused, .text-field.azul:hover {
-	-fx-background-color: #0028ff, #fff;
+	-fx-background-color: #667eff, #fff;
 	-fx-background-insets: -1.5px, 0px;
 }
 
