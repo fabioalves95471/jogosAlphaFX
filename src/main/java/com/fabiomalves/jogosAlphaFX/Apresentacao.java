@@ -11,7 +11,6 @@ import javafx.util.Duration;
 
 public class Apresentacao {
 
-	private int count = 0, i = 0;
     private AnimationTimer caminha, apresenta;
     private Stage stage;
     private GridPane root;
@@ -52,6 +51,7 @@ public class Apresentacao {
         ap.getChildren().addAll(personagem, falaDoPersonagem);
         root.add(ap, 0, 1);
 
+        // Insere a animacao.
         PauseTransition pause01 = new PauseTransition(Duration.seconds(1.5));
 
         TranslateTransition mov01 = new TranslateTransition(Duration.seconds(1.5), personagem);
@@ -59,14 +59,12 @@ public class Apresentacao {
         mov01.setInterpolator(Interpolator.LINEAR);
         mov01.setOnFinished(e -> {
             caminha.stop();
-            count = i = 0;
             apresenta.start();
         });
 
         PauseTransition pause02 = new PauseTransition(Duration.seconds(7));
         pause02.setOnFinished(e -> {
             apresenta.stop();
-            count = i = 0;
             caminha.start();
             personagem.setScaleX(-1);
         });
@@ -113,38 +111,72 @@ public class Apresentacao {
         SequentialTransition sequentialAnimation = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
 
         caminha = new AnimationTimer() {
+            private long timeCaminha = 0;
+            private boolean semaforoInicial = true;
+            private long timeSwitchImages = 100_000_000l; // tempo de troca das imagens (em nanosegundos).
+            private int i = 0;
             @Override
-            public void handle(long l) {
-                if (0==count%8) {
+            public void handle(long now) {
+                if (semaforoInicial) {
+                    timeCaminha = now;
+                    semaforoInicial = false;
+                }
+                if (now>=timeCaminha+timeSwitchImages) {
                     personagem.setImage(imgsCaminha[i%8]);
                     i++;
+                    timeCaminha = now;
                 }
-                count++;
             }
         };
         apresenta = new AnimationTimer() {
+            private long timeApresenta = 0l;
+            private boolean semaforoInicial = true;
+            private short step = 0;
             @Override
-            public void handle(long l) {
-                if ((i!=imgsApresenta.length) && (0==count%6) && (count ==0 || count > 23)) {
-                    personagem.setImage(imgsApresenta[i]);
-                    i++;
+            public void handle(long now) {
+                if (semaforoInicial) {
+                    timeApresenta = now;
+                    semaforoInicial = false;
                 }
-                if (count == 55) {
+                if ((now >= timeApresenta) && step == 0) {
+                    personagem.setImage(imgsApresenta[0]);
+                    step++;
+                }
+                if ((now >= timeApresenta+400_000_000l) && step == 1) {
+                    personagem.setImage(imgsApresenta[1]);
+                    step++;
+                }
+                if ((now >= timeApresenta+480_000_000l) && step == 2) {
+                    personagem.setImage(imgsApresenta[2]);
+                    step++;
+                }
+                if ((now >= timeApresenta+1_000_000_000l) && step == 3) {
                     falaDoPersonagem.setVisible(true);
+                    step++;
                 }
-                if (count == 170) {
+                if ((now >= timeApresenta+3_500_000_000l) && step == 4) {
                     falaDoPersonagem.setVisible(false);
+                    step++;
                 }
-                if (count == 220) {
+                if ((now >= timeApresenta+4_000_000_000l) && step == 5) {
                     falaDoPersonagem.setImage(imgsFalaDoPersonagem[1]);
                     falaDoPersonagem.setTranslateX(-10);
                     falaDoPersonagem.setTranslateY(-30);
                     falaDoPersonagem.setVisible(true);
+                    step++;
                 }
-                if (count == 420) {
+                if ((now >= timeApresenta+6_200_000_000l) && step == 6) {
                     falaDoPersonagem.setVisible(false);
+                    step++;
                 }
-                count++;
+                if ((now >= timeApresenta+6_400_000_000l) && step == 7) {
+                    personagem.setImage(imgsApresenta[1]);
+                    step++;
+                }
+                if ((now >= timeApresenta+6_480_000_000l) && step == 8) {
+                    personagem.setImage(imgsApresenta[0]);
+                    step++;
+                }
             }
         };
         stage.show();
