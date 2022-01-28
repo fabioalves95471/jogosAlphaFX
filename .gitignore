@@ -1,4 +1,7 @@
-/src/deploy/
+/src/deploy/deploy-linux/
+/src/deploy/deploy-linux-mac-script/
+/src/deploy/deploy-mac/
+/src/deploy/deploy-windows/
 /Classes/
 HELP.md
 target/

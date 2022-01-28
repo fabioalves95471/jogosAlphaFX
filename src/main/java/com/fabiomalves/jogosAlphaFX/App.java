@@ -36,7 +36,7 @@ public class App extends Application {
 	}
 
     /**
-     * O aplicativo inicia aqui.
+     * Metodo de inicio do aplicativo.
      */
     private void rodaInicioComApresentacao() throws IOException {
         stage.setHeight(400);
