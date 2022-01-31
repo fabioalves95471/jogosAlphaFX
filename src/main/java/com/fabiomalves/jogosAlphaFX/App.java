@@ -20,7 +20,7 @@ import java.net.URL;
 //@SpringBootApplication
 public class App extends Application {
 
-    static Stage stage;
+    static Stage stage = null;
 	static Scene scene = null;
     private static Parent   rootInicio = null,
                             rootDescubraONumero = null;
@@ -30,21 +30,21 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        carregaScenesJogos();
-        rodaInicioComApresentacao();
-//        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar rodaInicioComApresentação()).
-	}
+        rootInicio = FXML_load(Jogos.INICIO);
+        rodaApresentacao();
+        apresentacao.getAnimacao().setOnFinished( e -> {
+            rodaInicio((int)apresentacao.getX(),(int)apresentacao.getY()-30);
+            apresentacao = null;
+        });
+        carregaScenesJogos(); // Carrega os arquivos enquanto a apresentacao roda.
+//        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar o codigo acima referente a apresentacao).
+
+    }
 
     /**
-     * Metodo de inicio do aplicativo.
+     * Inicia o aplicativo.
      */
-    private void rodaInicioComApresentacao() throws IOException {
-        stage.setHeight(400);
-        stage.setWidth(600);
-        stage.initStyle(StageStyle.UNDECORATED);
-        rootInicio = FXML_load(Jogos.INICIO);
-        scene = new Scene(rootInicio);
-        stage.setScene(scene);
+    private void rodaApresentacao() throws IOException {
         apresentacao = new Apresentacao(stage, (GridPane)rootInicio, pathJogosAlphaFX);
         apresentacao.run();
     }
@@ -63,6 +63,7 @@ public class App extends Application {
                 stage.setX(x);
                 stage.setY(y);
             }
+            // Carrega a cena inicial e pega o controller.
             FXMLLoader loader = FXML_loader(Jogos.INICIO);
             rootInicio = loader.load();
             ControllerInicio controllerInicio = loader.getController();
@@ -82,17 +83,17 @@ public class App extends Application {
         }
     }
 
-    public static FXMLLoader FXML_loader (Jogos jogos) {
-        return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
+    public static FXMLLoader FXML_loader (Jogos jogo) {
+        return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogo.getPath()));
     }
 
-	public static Parent FXML_load (Jogos jogos) {
+	public static Parent FXML_load (Jogos jogo) {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogos.getPath()));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogo.getPath()));
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-			new Erro ("Não pode carregar a Tela: \t"+jogos.name()+"\t\n"+e.getMessage(), stage);
+			new Erro ("Não pode carregar a Tela: \t"+jogo.name()+"\t\n"+e.getMessage(), stage);
 			System.exit(0);
             return null;
         }
@@ -110,7 +111,7 @@ public class App extends Application {
 
     /**
      * Coloca root na scene principal.
-     * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se controller for diferente de "null", carrega novamente o root com o controller informado.
+     * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se o parametro controller for diferente de "null", carrega novamente o root com o controller informado.
      * @param jogos
      * @param controller
      * @throws IOException
@@ -131,11 +132,11 @@ public class App extends Application {
 	}
 
     private void carregaScenesJogos() {
-        PauseTransition pause01 = new PauseTransition(Duration.seconds(1));
-        pause01.setOnFinished (e -> {
-            rootDescubraONumero = FXML_load(Jogos.DESCUBRAONUMERO);
-        });
-        pause01.play();
+        try { Thread.sleep(10);
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+        rootDescubraONumero = FXML_load(Jogos.DESCUBRAONUMERO);
     }
 
     public static Stage getStage() {

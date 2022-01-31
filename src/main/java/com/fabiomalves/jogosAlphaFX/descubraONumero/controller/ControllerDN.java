@@ -70,7 +70,7 @@ public class ControllerDN implements Initializable {
 	private Button bSom;
 
 	private IServiceDN service = new ServiceDN();
-	private MyGroup<ControllerRa> groupPo = new MyGroup<>();
+	private MyGroup<ControllerRa> groupRk = new MyGroup<>();
 	private MyGroup<ControllerFJ> groupFJ = new MyGroup<>();
 	private boolean botaoErrosAceso = false;
 	private boolean mudo = false;
@@ -110,12 +110,12 @@ public class ControllerDN implements Initializable {
 		groupFJ.getController().setDados(operadorNome, score, tempo);
 		groupFJ.getStage().showAndWait();
 	}
-	private void chamaStageRanking(boolean passandoOperador) {
-		if (passandoOperador)
-			groupPo.getController().runRanking(service.getOperadorNome());
+	private void chamaStageRanking(boolean passaOperador) {
+		if (passaOperador)
+			groupRk.getController().runRanking(service.getOperadorNome());
 		else
-			groupPo.getController().runRanking();
-		groupPo.getStage().showAndWait();
+			groupRk.getController().runRanking();
+		groupRk.getStage().showAndWait();
 	}
 	private void chamaEventoRespostaErrada() {
 		if (!mudo)
@@ -347,9 +347,9 @@ public class ControllerDN implements Initializable {
 		preparaEfeitoErrar();
 		Platform.runLater (() -> {
 			bIniciar.requestFocus(); // Focus no botão "Iniciar".
-			carregaGroup( groupPo, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/ranking.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/rankingStyle.css");
+			carregaGroup( groupRk, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/ranking.fxml", "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/rankingStyle.css");
 			carregaGroup( groupFJ, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml", null);
-			groupPo.getController().setConfig(groupPo.getStage(), service);
+			groupRk.getController().setConfig(groupRk.getStage(), service);
 			groupFJ.getController().setStage(groupFJ.getStage());
 		});
 	}

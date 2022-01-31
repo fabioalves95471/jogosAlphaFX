@@ -3,26 +3,37 @@ package com.fabiomalves.jogosAlphaFX;
 import java.io.IOException;
 
 import javafx.animation.*;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Apresentacao {
 
     private AnimationTimer caminha, apresenta;
     private Stage stage;
+    private double x, y;
     private GridPane root;
     private String pathProgram;
+    private SequentialTransition animacao;
 
     Apresentacao (Stage stage, GridPane root, String pathProgram) {
         this.stage = stage;
         this.root = root;
         this.pathProgram = pathProgram;
-    }
-
-	public synchronized void run () throws IOException {
+        // ---Constroi a apresentacao---
+        stage.setHeight(400);
+        stage.setWidth(600);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(new Scene(root));
+        stage.show();
+        stage.setX(stage.getX()-50);
+        // Coloca a posicao da tela em variaveis internas. A tela será fechada após a finalização da apresentacao.
+        x = stage.getX();
+        y = stage.getY();
         // Coloca borda na tela de apresentação.
         root.setStyle("-fx-border-style: solid; -fx-border-color: grey;");
         // Carrega as imagens do personagem e fala.
@@ -51,7 +62,7 @@ public class Apresentacao {
         ap.getChildren().addAll(personagem, falaDoPersonagem);
         root.add(ap, 0, 1);
 
-        // Insere a animacao.
+        // Constroi a animacao.
         PauseTransition pause01 = new PauseTransition(Duration.seconds(1.5));
 
         TranslateTransition mov01 = new TranslateTransition(Duration.seconds(1.5), personagem);
@@ -82,6 +93,7 @@ public class Apresentacao {
             int aumenta = 100;
             boolean primeiraVez = true;
             int stageHeight, stageWidth, stageX;
+            int count = 0;
             {
                 setCycleDuration(Duration.seconds(1));
                 setOnFinished(e -> {
@@ -97,7 +109,6 @@ public class Apresentacao {
                 final int n = Math.round(aumenta * (float) frac);
                 stage.setHeight(stageHeight+n);
                 stage.setWidth(stageWidth+n);
-                stage.setX(stageX-(n/2));
             }
         };
 
@@ -105,10 +116,9 @@ public class Apresentacao {
         PauseTransition pause04 = new PauseTransition(Duration.seconds(1));
         pause04.setOnFinished(e -> {
             stage.close();
-            App.rodaInicio((int)stage.getX(), (int)stage.getY()-30);
         });
 
-        SequentialTransition sequentialAnimation = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
+        animacao = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
 
         caminha = new AnimationTimer() {
             private long timeCaminha = 0;
@@ -179,8 +189,19 @@ public class Apresentacao {
                 }
             }
         };
-        stage.show();
-        sequentialAnimation.play();
+    }
+	void run () throws IOException {
+        animacao.play();
         caminha.start();
-	}
+    }
+    SequentialTransition getAnimacao () {
+        return animacao;
+    }
+    double getX () {
+        return x;
+    }
+    double getY () {
+        return y;
+    }
 }
+
