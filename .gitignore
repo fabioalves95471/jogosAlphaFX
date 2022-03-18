@@ -1,12 +1,8 @@
-/src/deploy/deploy-linux/
-/src/deploy/deploy-linux-mac-script/
-/src/deploy/deploy-mac/
-/src/deploy/deploy-windows/
-/Classes/
-HELP.md
-target/
+Classes/
 out/
 
+HELP.md
+target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
