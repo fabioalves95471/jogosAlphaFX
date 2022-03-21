@@ -1,0 +1,35 @@
+#hbTituloLogin > .label > .text{
+	-fx-font-size: 25px;
+	-fx-fill: white;
+	-fx-stroke: #363636;
+	-fx-stroke-width: 1px;
+}
+#hbTituloLogin > #lL > .text{
+	-fx-fill: #66ff66;
+}
+#lMensagem {
+	-fx-text-fill: #e60000;
+	-fx-wrap-text: true;
+}
+#lMensagem > .text{
+	-fx-font-size: 14px;
+}
+#vbLogin {
+	-fx-background-color: transparent;
+	-fx-background-radius: 7;
+	-fx-border-width: 2px;
+	-fx-border-color: #363636;
+	-fx-border-radius: 7;
+}
+.hyperlink {
+	-fx-text-fill: #0028ff;
+	-fx-underline: true;
+}
+/*
+	-fx-border-color: #363636;
+
+	-fx-background-insets: -1px, 2px;
+	-fx-background-radius: 7, 4;
+	-fx-border-color: transparent;
+
+*/

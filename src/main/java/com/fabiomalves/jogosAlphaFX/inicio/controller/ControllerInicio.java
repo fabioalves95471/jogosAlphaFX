@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.Jogos;
+import com.fabiomalves.jogosAlphaFX.MainViews;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +26,7 @@ public class ControllerInicio implements Initializable {
 //----------Medotos com  interação direta com a tela----------
 	@FXML
 	private void bDescubraONumeroEventAction () {
-        App.setRoot(Jogos.DESCUBRAONUMERO);
+        App.setRoot(MainViews.DESCUBRAONUMERO);
 	}
 	@FXML
 	private void bDescubraONumeroEventKey (KeyEvent ke) {

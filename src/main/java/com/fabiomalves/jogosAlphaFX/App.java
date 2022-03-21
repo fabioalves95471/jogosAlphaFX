@@ -1,100 +1,118 @@
 package com.fabiomalves.jogosAlphaFX;
 
-import com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerDN;
 import com.fabiomalves.jogosAlphaFX.inicio.controller.ControllerInicio;
+import com.fabiomalves.jogosAlphaFX.login.Login;
+import com.fabiomalves.jogosAlphaFX.login.Usuario;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.List;
 
 //@SpringBootApplication
 public class App extends Application {
 
-    static Stage stage = null;
-	static Scene scene = null;
-    private static Parent   rootInicio = null,
-                            rootDescubraONumero = null;
+    private static Stage primaryStage = null;
+	private static Scene scene = null;
+    private static Parent   parentInicio = null,
+                            parentDescubraONumero = null;
+    private static ControllerInicio controllerInicio;
     private Apresentacao apresentacao = null;
-    static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
+    private static Login login;
+    private static Usuario usuario;
+    private static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        rootInicio = FXML_load(Jogos.INICIO);
-        rodaApresentacao();
-        apresentacao.getAnimacao().setOnFinished( e -> {
-            rodaInicio((int)apresentacao.getX(),(int)apresentacao.getY()-30);
-            apresentacao = null;
-        });
-        carregaScenesJogos(); // Carrega os arquivos enquanto a apresentacao roda.
-//        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar o codigo acima referente a apresentacao).
+        this.primaryStage = primaryStage;
+//        rodaApresentacao();
+//        apresentacao.getAnimacao().setOnFinished( e -> {
+//            rodaInicio((int)apresentacao.getX(),(int)apresentacao.getY()-30);
+//            apresentacao = null; // Retira a referencia para reduzir a memoria.
+//        });
+        carregaParentsPrincipais(); // Carrega os arquivos enquanto a apresentacao roda.
+        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar o codigo acima referente a apresentacao).
 
     }
 
     /**
-     * Inicia o aplicativo.
+     * Apresentacao inicial do aplicativo.
      */
     private void rodaApresentacao() throws IOException {
-        apresentacao = new Apresentacao(stage, (GridPane)rootInicio, pathJogosAlphaFX);
+        apresentacao = new Apresentacao(primaryStage, pathJogosAlphaFX);
         apresentacao.run();
     }
 
+    /**
+     * Roda a tela inicial do aplicatico (após a apresentacao).
+     * Pode-se também iniciar o aplicativo a partir daqui.
+     */
     static void rodaInicio() {
         rodaInicio(-1, -1);
     }
     /**
-     * É chamado após rodaInicioComApresentacao().
+     * Roda a tela inicial do aplicatico (após a apresentacao).
      * Pode-se também iniciar o aplicativo a partir daqui.
      */
     static void rodaInicio(int x, int y)  {
-        try {
-            stage = new Stage();
-            if (x >= 0 && y >= 0) {
-                stage.setX(x);
-                stage.setY(y);
-            }
-            // Carrega a cena inicial e pega o controller.
-            FXMLLoader loader = FXML_loader(Jogos.INICIO);
-            rootInicio = loader.load();
-            ControllerInicio controllerInicio = loader.getController();
-            if (scene == null)
-                scene = new Scene(rootInicio);
-            else
-                scene.setRoot(rootInicio);
-            stage.setScene(scene);
-            stage.show();
-            stage.setMinHeight(stage.getHeight());
-            stage.setMaxHeight(stage.getHeight());
-            stage.setMinWidth(stage.getWidth());
-            stage.setMaxWidth(stage.getWidth());
-            controllerInicio.mostraCorpoDaTela();
-        } catch (IOException e) {
-            new Erro("Não pode carregar a Tela: "+"\t\n"+e.getMessage(), stage);
+        login = new Login(primaryStage);
+        usuario = new Usuario();
+
+        System.out.println("loginAtivo: "+usuario.isLoginAtivo());
+        System.out.println("ultimoTempoAtivo: "+usuario.getUltimoTempoAtivo());
+        System.out.println("tipoDeLogin: "+usuario.getTipoDeLogin());
+        System.out.println("nome: "+usuario.getNome());
+        System.out.println("jogosRealizados: "+usuario.getJogosRealizados());
+
+      
+        if (x >= 0 && y >= 0) {
+            primaryStage.setX(x);
+            primaryStage.setY(y);
         }
+        // Carrega a cena inicial.
+        if (scene == null)
+            scene = new Scene(parentInicio);
+        else
+            scene.setRoot(parentInicio);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setMinHeight(primaryStage.getHeight());
+        primaryStage.setMaxHeight(primaryStage.getHeight());
+        primaryStage.setMinWidth(primaryStage.getWidth());
+        primaryStage.setMaxWidth(primaryStage.getWidth());
+        controllerInicio.mostraCorpoDaTela();
+        login.showLogin(primaryStage);
     }
 
-    public static FXMLLoader FXML_loader (Jogos jogo) {
-        return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogo.getPath()));
+    public static FXMLLoader FXML_loader (MainViews view) {
+        return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+view.getPath()));
     }
 
-	public static Parent FXML_load (Jogos jogo) {
+    public static Parent FXML_load (FXMLLoader loader) {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+jogo.getPath()));
+            Parent parent = loader.load();
+            return parent;
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Erro ("Não pode carregar a Tela: \t"+loader.getLocation().toString()+"\t\n"+e.getMessage(), primaryStage);
+//			System.exit(0);
+            return null;
+        }
+        
+    }
+
+	public static Parent FXML_load (MainViews view) {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+view.getPath()));
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-			new Erro ("Não pode carregar a Tela: \t"+jogo.name()+"\t\n"+e.getMessage(), stage);
-			System.exit(0);
+			new Erro ("Não pode carregar a Tela: \t"+view.name()+"\t\n"+e.getMessage(), primaryStage);
+//			System.exit(0);
             return null;
         }
 	}
@@ -102,48 +120,60 @@ public class App extends Application {
     /**
      * Coloca o root na scene principal.
      * O root selecionado pelo enum Jogos.
-     * @param jogos
+     * @param mainViews
      * @throws IOException
      */
-    public static void setRoot(Jogos jogos) {
-        setRoot(jogos, null);
+    public static void setRoot(MainViews mainViews) {
+        setRoot(mainViews, null);
     }
 
     /**
      * Coloca root na scene principal.
      * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se o parametro controller for diferente de "null", carrega novamente o root com o controller informado.
-     * @param jogos
+     * @param mainViews
      * @param controller
      * @throws IOException
      */
-	public static void setRoot (Jogos jogos, Object controller) {
-        switch (jogos) {
+	public static void setRoot (MainViews mainViews, Object controller) {
+        switch (mainViews) {
             case INICIO :
-//                if (rootInicio == null || controller != null)
-//                    rootInicio = FXML_load(jogos, controller);
-                scene.setRoot(rootInicio);
+                scene.setRoot(parentInicio);
                 break;
             case DESCUBRAONUMERO :
-//                if (rootDescubraONumero == null || controller != null)
-//                    rootDescubraONumero = FXML_load(jogos, controller);
-                scene.setRoot(rootDescubraONumero);
+                scene.setRoot(parentDescubraONumero);
                 break;
         }
 	}
 
-    private void carregaScenesJogos() {
-        try { Thread.sleep(10);
+    private void carregaParentsPrincipais() {
+        try {
+            Thread.sleep(10); // Aguarda o carregamento da apresentação.
+            FXMLLoader loader = FXML_loader(MainViews.INICIO);
+            if (parentInicio == null)
+                parentInicio = loader.load();
+            controllerInicio = loader.getController();
+            parentDescubraONumero = FXML_load(MainViews.DESCUBRAONUMERO); // Carrega o Parent DescubraONumero
+//            parentDescubraONumero = FXML_load(MainViews.LOGIN); // Carrega o Parent DescubraONumero
         } catch (InterruptedException ie) {
             ie.printStackTrace();
+        } catch (IOException e) {
+            new Erro("Não pode carregar a Tela: "+"\t\n"+e.getMessage(), primaryStage);
         }
-        rootDescubraONumero = FXML_load(Jogos.DESCUBRAONUMERO);
     }
 
-    public static Stage getStage() {
-        return stage;
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
-	public static void main(String[] args) {
+    public static Usuario getUsuario() {
+        return usuario;
+    }
+
+    public static void setUsuario(Usuario usuario) {
+        App.usuario = usuario;
+    }
+
+    public static void main(String[] args) {
 //		SpringApplication.run(App.class, args);
 		launch(args);
 	}

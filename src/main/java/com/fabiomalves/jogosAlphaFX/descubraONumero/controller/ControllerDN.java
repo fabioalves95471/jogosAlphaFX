@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.Jogos;
+import com.fabiomalves.jogosAlphaFX.MainViews;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
@@ -96,10 +96,10 @@ public class ControllerDN implements Initializable {
 			group.getStage().setScene(scene);
 			group.setController(loader.getController());
 			group.getStage().initModality(Modality.WINDOW_MODAL);
-			group.getStage().initOwner(App.getStage());
+			group.getStage().initOwner(App.getPrimaryStage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			new Erro ("Não pode carregar a Tela: \t"+resource+"\t\n"+e.getMessage(), App.getStage());
+			new Erro ("Não pode carregar a Tela: \t"+resource+"\t\n"+e.getMessage(), App.getPrimaryStage());
 			System.exit(0);
 		}
 	}
@@ -120,8 +120,8 @@ public class ControllerDN implements Initializable {
 	private void chamaEventoRespostaErrada() {
 		if (!mudo)
 			new MediaPlayer(mediaAudioErro).play();
-		rErros.setHeight(App.getStage().getHeight());
-		rErros.setWidth(App.getStage().getWidth());
+		rErros.setHeight(App.getPrimaryStage().getHeight());
+		rErros.setWidth(App.getPrimaryStage().getWidth());
 		rErros.setStyle("visibility: visible");
 		tlError.play();
 		// Inclue a resposta errada no listView para visualizacao do usuario.
@@ -194,7 +194,7 @@ public class ControllerDN implements Initializable {
 	private void bHomeEventAction () {
 		limpaTela();
 		vbQuadroCentral.setVisible(false);
-		App.setRoot(Jogos.INICIO);
+		App.setRoot(MainViews.INICIO);
 	}
 	@FXML
 	private void bHomeEventKey (KeyEvent ke) {
