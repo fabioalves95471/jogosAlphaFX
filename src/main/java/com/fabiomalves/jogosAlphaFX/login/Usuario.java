@@ -15,6 +15,10 @@ public class Usuario {
         return loginAtivo;
     }
 
+    void setLoginAtivo(boolean loginAtivo) {
+        this.loginAtivo = loginAtivo;
+    }
+
     public long getUltimoTempoAtivo() {
         return ultimoTempoAtivo;
     }
@@ -25,6 +29,10 @@ public class Usuario {
 
     public String getNome() {
         return nome;
+    }
+
+    void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {

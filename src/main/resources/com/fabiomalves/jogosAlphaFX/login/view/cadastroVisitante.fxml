@@ -9,26 +9,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="392.0" stylesheets="@../../standard/standardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="292.0" stylesheets="@../../standard/standardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <AnchorPane prefHeight="190.0" prefWidth="100.0" styleClass="rootElement">
+      <AnchorPane prefHeight="160.0" prefWidth="290.0" styleClass="rootElement">
          <children>
-            <VBox prefHeight="190.0" prefWidth="390.0">
+            <VBox prefHeight="160.0" prefWidth="290.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="130.0" prefWidth="100.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="110.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Label text="Digite um nome de usuário:" />
-                        <TextField fx:id="tfNomeUsuario" maxWidth="160.0">
+                        <Label style="-fx-font-size: 14;" text="Digite um nome de usuário:" />
+                        <TextField fx:id="tfNomeUsuario_CADASTROVISITANTE" maxWidth="160.0" onKeyReleased="#tfNomeUsuario_CADASTROVISITANTEEventKey">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </TextField>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="70.0">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Button fx:id="bOk" mnemonicParsing="false" prefWidth="200.0" text="Ok" />
-                        <Button id="bCancelar" fx:id="bCancelar" minWidth="120.0" mnemonicParsing="false" prefWidth="120.0" text="Cancelar" />
+                        <Button fx:id="bOk_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bOk_CADASTROVISITANTEEventKey" onMouseReleased="#bOk_CADASTROVISITANTEEventAction" style="-fx-font-size: 14;" text="Ok" />
+                        <Button id="bCancelar" fx:id="bCancelar_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bCancelar_CADASTROVISITANTEEventKey" onMouseReleased="#bCancelar_CADASTROVISITANTEEventAction" style="-fx-font-size: 14;" text="Cancelar" />
                      </children>
                   </HBox>
                </children>

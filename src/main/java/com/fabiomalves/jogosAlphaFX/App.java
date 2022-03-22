@@ -61,14 +61,6 @@ public class App extends Application {
     static void rodaInicio(int x, int y)  {
         login = new Login(primaryStage);
         usuario = new Usuario();
-
-        System.out.println("loginAtivo: "+usuario.isLoginAtivo());
-        System.out.println("ultimoTempoAtivo: "+usuario.getUltimoTempoAtivo());
-        System.out.println("tipoDeLogin: "+usuario.getTipoDeLogin());
-        System.out.println("nome: "+usuario.getNome());
-        System.out.println("jogosRealizados: "+usuario.getJogosRealizados());
-
-      
         if (x >= 0 && y >= 0) {
             primaryStage.setX(x);
             primaryStage.setY(y);
