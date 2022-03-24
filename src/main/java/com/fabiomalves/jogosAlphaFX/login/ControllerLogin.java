@@ -2,12 +2,14 @@ package com.fabiomalves.jogosAlphaFX.login;
 
 import com.fabiomalves.jogosAlphaFX.App;
 import com.fabiomalves.jogosAlphaFX.MainViews;
+import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -30,7 +32,9 @@ public class ControllerLogin {
     @FXML
     Button bCancelar_CADASTROVISITANTE;
     @FXML
-    TextField tfNomeUsuario_CADASTROVISITANTE;    
+    TextField tfNomeUsuario_CADASTROVISITANTE;
+    @FXML
+    Label lMensagem_CADASTROVISITANTE;
     
     public ControllerLogin () {
         stagePopUp = new Stage();
@@ -42,6 +46,7 @@ public class ControllerLogin {
         loaderMV.setController(this);
         sceneMensagemVisitante = new Scene(App.FXML_load(loaderMV));
         sceneCadastroVisitante = new Scene(App.FXML_load(loaderCV));
+        CamposDeEntrada.textComMaximo15Digitos(tfNomeUsuario_CADASTROVISITANTE);
     }
 
     @FXML
@@ -75,6 +80,11 @@ public class ControllerLogin {
     }
 
     public void bOk_CADASTROVISITANTEEventAction () {
+        if (tfNomeUsuario_CADASTROVISITANTE.getText().equals("")) {
+            lMensagem_CADASTROVISITANTE.setVisible(true);
+            return;
+        }
+        lMensagem_CADASTROVISITANTE.setVisible(false);
         App.getUsuario().setNome(tfNomeUsuario_CADASTROVISITANTE.getText());
         App.getUsuario().setLoginAtivo(true);
         stagePopUp.close();

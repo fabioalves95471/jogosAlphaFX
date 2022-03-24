@@ -15,15 +15,22 @@
          <children>
             <VBox prefHeight="160.0" prefWidth="290.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="110.0" prefWidth="100.0" spacing="10.0">
+                  <VBox alignment="CENTER" prefHeight="110.0" prefWidth="100.0" spacing="2.0">
                      <children>
-                        <Label style="-fx-font-size: 14;" text="Digite um nome de usuário:" />
+                        <Label style="-fx-font-size: 14;" text="Digite um nome de usuário:">
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin></Label>
                         <TextField fx:id="tfNomeUsuario_CADASTROVISITANTE" maxWidth="160.0" onKeyReleased="#tfNomeUsuario_CADASTROVISITANTEEventKey">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </TextField>
+                        <Label fx:id="lMensagem_CADASTROVISITANTE" style="-fx-font-size: 14; -fx-text-fill: red;" text="Deve conter ao menos 1 dígito." visible="false" />
                      </children>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="40.0">
                      <children>
