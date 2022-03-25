@@ -95,7 +95,7 @@ public class ControllerRa implements Initializable  {
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperador.getSelectionModel().select(0);
-		coNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+		coNome.setCellValueFactory(new PropertyValueFactory<>("usuarioNome"));
 		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormatado"));
 		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
 		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormatado"));

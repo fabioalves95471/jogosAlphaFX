@@ -3,6 +3,7 @@ package com.fabiomalves.jogosAlphaFX.login;
 import java.util.List;
 
 public class Usuario {
+    private long usuarioId;
     private boolean loginAtivo;
     private long ultimoTempoAtivo;
     private short tipoDeLogin;
@@ -10,6 +11,14 @@ public class Usuario {
     private String email;
     private String senha;
     private List<Object> jogosRealizados;
+
+    public long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 
     public boolean isLoginAtivo() {
         return loginAtivo;

@@ -29,7 +29,7 @@
                   <Insets top="8.0" />
                </VBox.margin>
             </Label>
-            <TextField styleClass="cinza">
+            <TextField disable="true" styleClass="cinza">
                <font>
                   <Font size="18.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Insets top="8.0" />
                </VBox.margin>
             </Label>
-            <PasswordField maxWidth="-Infinity" prefWidth="160.0" styleClass="cinza">
+            <PasswordField disable="true" maxWidth="-Infinity" prefWidth="160.0" styleClass="cinza">
                <font>
                   <Font size="18.0" />
                </font>

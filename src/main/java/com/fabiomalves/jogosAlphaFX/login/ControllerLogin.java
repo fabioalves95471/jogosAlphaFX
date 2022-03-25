@@ -85,8 +85,8 @@ public class ControllerLogin {
             return;
         }
         lMensagem_CADASTROVISITANTE.setVisible(false);
-        App.getUsuario().setNome(tfNomeUsuario_CADASTROVISITANTE.getText());
-        App.getUsuario().setLoginAtivo(true);
+        Login.getUsuario().setNome(tfNomeUsuario_CADASTROVISITANTE.getText());
+        Login.getUsuario().setLoginAtivo(true);
         stagePopUp.close();
         stageLogin.close();
     }

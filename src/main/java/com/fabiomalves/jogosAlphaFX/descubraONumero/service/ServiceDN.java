@@ -7,6 +7,7 @@ import java.util.Comparator;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.enums.Operador;
 
+import com.fabiomalves.jogosAlphaFX.login.Login;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -52,6 +53,8 @@ public class ServiceDN implements IServiceDN {
 	}
 	public void iniciarJogoDN (String operadorNome, int totalQuestoes) {
 		jogo = new JogoDN();
+		jogo.setUsuarioNome(Login.getUsuario().getNome());
+		jogo.setUsuarioId(Login.getUsuario().getUsuarioId());
 		jogo.setOperador(operadorNome);
 		jogo.setErros(0);
 		jogo.setAcertos(0);
@@ -74,7 +77,6 @@ public class ServiceDN implements IServiceDN {
 	public void finalizaJogoDN() {
 		jogo.setAcertosPorcentual((float)jogo.getAcertos()/jogo.getTotalQuestoes());
 		tempo.finalizaTempo();
-		jogo.setUsuario("Visitante");
 		jogo.setTempoFinalDeJogo(tempo.getTempoFinalDeJogo());
 		listAtual = listsJogos.getListUsuario(jogo.getOperador());
 		listAtual.add(jogo);

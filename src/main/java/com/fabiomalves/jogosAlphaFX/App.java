@@ -23,7 +23,6 @@ public class App extends Application {
     private static ControllerInicio controllerInicio;
     private Apresentacao apresentacao = null;
     private static Login login;
-    private static Usuario usuario;
     private static String pathJogosAlphaFX = "/com/fabiomalves/jogosAlphaFX/";
 
 	@Override
@@ -60,7 +59,6 @@ public class App extends Application {
      */
     static void rodaInicio(int x, int y)  {
         login = new Login(primaryStage);
-        usuario = new Usuario();
         if (x >= 0 && y >= 0) {
             primaryStage.setX(x);
             primaryStage.setY(y);
@@ -155,14 +153,6 @@ public class App extends Application {
 
     public static Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public static Usuario getUsuario() {
-        return usuario;
-    }
-
-    public static void setUsuario(Usuario usuario) {
-        App.usuario = usuario;
     }
 
     public static void main(String[] args) {

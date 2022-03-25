@@ -16,6 +16,7 @@ public class Login {
     private Stage stageLogin;
     private ControllerLogin controllerLogin;
     private Scene sceneLogin, sceneEncerramento;
+    private static Usuario usuario;
 
     @FXML
     Button bSim_ENCERRAMENTO;
@@ -23,6 +24,7 @@ public class Login {
     Button bCancelar_ENCERRAMENTO;
 
     public Login (Stage stageOwn) {
+        usuario = new Usuario();
         // Cria e prepara o stage LOGIN_ENCERRAMENTO.
         FXMLLoader loaderE = App.FXML_loader(MainViews.LOGIN_ENCERRAMENTO);
         loaderE.setController(this);
@@ -47,7 +49,7 @@ public class Login {
             newStageLogin(stageOwn);
         }
         stageLogin.showAndWait();
-        if (!App.getUsuario().isLoginAtivo())
+        if (!usuario.isLoginAtivo())
             showEncerramento();
     }
 
@@ -81,5 +83,7 @@ public class Login {
         }
     }
 
-
+    public static Usuario getUsuario() {
+        return usuario;
+    }
 }

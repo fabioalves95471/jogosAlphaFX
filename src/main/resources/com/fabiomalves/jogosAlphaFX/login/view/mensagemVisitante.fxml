@@ -15,7 +15,7 @@
                <children>
                   <VBox fx:id="vbMensagemAtencao" alignment="CENTER" prefHeight="110.0" prefWidth="390.0">
                      <children>
-                        <Label id="lMensagem" fx:id="lMensagem" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="350.0" style="-fx-font-size: 14;" text="Atenção: Ao entrar como visitante os dados dos jogos não serão gravados. Ao encerrar o programa, essas informações serão perdidas." textAlignment="CENTER" wrapText="true" />
+                        <Label id="lMensagem" fx:id="lMensagem" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="350.0" style="-fx-font-size: 14;" text="Atenção: Ao entrar como visitante os dados dos jogos não serão salvos. Ao encerrar o programa, as informações serão perdidas." textAlignment="CENTER" wrapText="true" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="70.0">
