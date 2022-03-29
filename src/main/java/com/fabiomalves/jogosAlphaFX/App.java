@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -30,6 +31,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
+        Font.loadFont(this.getClass().getResource("/com/fabiomalves/jogosAlphaFX/fonts/PoetsenOne-Regular.ttf").toExternalForm(), 20);
         rootInicio = FXML_load(Jogos.INICIO);
         rodaApresentacao();
         apresentacao.getAnimacao().setOnFinished( e -> {
