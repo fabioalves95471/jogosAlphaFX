@@ -24,8 +24,8 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="50.0">
                      <children>
-                        <Button fx:id="bSim_ENCERRAMENTO" mnemonicParsing="false" onKeyReleased="#bSim_ENCERRAMENTOEventKey" onMouseReleased="#bSim_ENCERRAMENTOEventAction" prefWidth="200.0" style="-fx-font-size: 14;" text="Sim" />
-                        <Button id="bCancelar" fx:id="bCancelar_ENCERRAMENTO" mnemonicParsing="false" onKeyReleased="#bCancelar_ENCERRAMENTOEventKey" onMouseReleased="#bCancelar_ENCERRAMENTOEventAction" style="-fx-font-size: 14;" text="Cancelar" />
+                        <Button fx:id="bSim_ENCERRAMENTO" mnemonicParsing="false" onKeyReleased="#bSim_ENCERRAMENTOEventKey" onMouseReleased="#bSim_ENCERRAMENTOEventAction" styleClass="button14px" text="Sim" />
+                        <Button fx:id="bCancelar_ENCERRAMENTO" mnemonicParsing="false" onKeyReleased="#bCancelar_ENCERRAMENTOEventKey" onMouseReleased="#bCancelar_ENCERRAMENTOEventAction" styleClass="button14px" text="Cancelar" />
                      </children>
                   </HBox>
                </children>

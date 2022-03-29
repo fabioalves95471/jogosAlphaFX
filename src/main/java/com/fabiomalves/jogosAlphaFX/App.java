@@ -2,7 +2,6 @@ package com.fabiomalves.jogosAlphaFX;
 
 import com.fabiomalves.jogosAlphaFX.inicio.controller.ControllerInicio;
 import com.fabiomalves.jogosAlphaFX.login.Login;
-import com.fabiomalves.jogosAlphaFX.login.Usuario;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 //@SpringBootApplication
 public class App extends Application {
@@ -28,22 +26,16 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-//        rodaApresentacao();
-//        apresentacao.getAnimacao().setOnFinished( e -> {
-//            rodaInicio((int)apresentacao.getX(),(int)apresentacao.getY()-30);
-//            apresentacao = null; // Retira a referencia para reduzir a memoria.
-//        });
-        carregaParentsPrincipais(); // Carrega os arquivos enquanto a apresentacao roda.
-        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar o codigo acima referente a apresentacao).
-
-    }
-
-    /**
-     * Apresentacao inicial do aplicativo.
-     */
-    private void rodaApresentacao() throws IOException {
         apresentacao = new Apresentacao(primaryStage, pathJogosAlphaFX);
         apresentacao.run();
+        apresentacao.getAnimacao().setOnFinished( e -> {
+            this.primaryStage = new Stage();
+            rodaInicio((int)apresentacao.getX(),(int)apresentacao.getY()-30);
+            apresentacao = null; // Retira a referencia para reduzir a memoria.
+        });
+        carregaParentsPrincipais();
+//        rodaInicio(); // Roda o programa sem a apresentação inicial (comentar o codigo acima referente a apresentacao).
+
     }
 
     /**
@@ -78,7 +70,7 @@ public class App extends Application {
         login.showLogin(primaryStage);
     }
 
-    public static FXMLLoader FXML_loader (MainViews view) {
+    public static FXMLLoader FXML_loader (Views view) {
         return new FXMLLoader(App.class.getResource(pathJogosAlphaFX+view.getPath()));
     }
 
@@ -95,7 +87,7 @@ public class App extends Application {
         
     }
 
-	public static Parent FXML_load (MainViews view) {
+	public static Parent FXML_load (Views view) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(pathJogosAlphaFX+view.getPath()));
             return loader.load();
@@ -110,22 +102,22 @@ public class App extends Application {
     /**
      * Coloca o root na scene principal.
      * O root selecionado pelo enum Jogos.
-     * @param mainViews
+     * @param views
      * @throws IOException
      */
-    public static void setRoot(MainViews mainViews) {
-        setRoot(mainViews, null);
+    public static void setRoot(Views views) {
+        setRoot(views, null);
     }
 
     /**
      * Coloca root na scene principal.
      * Carrega, caso não exista, o root selecionado pelo enum Jogos. Se o parametro controller for diferente de "null", carrega novamente o root com o controller informado.
-     * @param mainViews
+     * @param views
      * @param controller
      * @throws IOException
      */
-	public static void setRoot (MainViews mainViews, Object controller) {
-        switch (mainViews) {
+	public static void setRoot (Views views, Object controller) {
+        switch (views) {
             case INICIO :
                 scene.setRoot(parentInicio);
                 break;
@@ -138,11 +130,11 @@ public class App extends Application {
     private void carregaParentsPrincipais() {
         try {
             Thread.sleep(10); // Aguarda o carregamento da apresentação.
-            FXMLLoader loader = FXML_loader(MainViews.INICIO);
+            FXMLLoader loader = FXML_loader(Views.INICIO);
             if (parentInicio == null)
                 parentInicio = loader.load();
             controllerInicio = loader.getController();
-            parentDescubraONumero = FXML_load(MainViews.DESCUBRAONUMERO); // Carrega o Parent DescubraONumero
+            parentDescubraONumero = FXML_load(Views.DESCUBRAONUMERO); // Carrega o Parent DescubraONumero
 //            parentDescubraONumero = FXML_load(MainViews.LOGIN); // Carrega o Parent DescubraONumero
         } catch (InterruptedException ie) {
             ie.printStackTrace();

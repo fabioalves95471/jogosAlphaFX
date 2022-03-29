@@ -1,8 +1,9 @@
 package com.fabiomalves.jogosAlphaFX.login;
 
 import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.MainViews;
+import com.fabiomalves.jogosAlphaFX.Views;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Login {
     private Stage stageLogin;
@@ -26,15 +28,14 @@ public class Login {
     public Login (Stage stageOwn) {
         usuario = new Usuario();
         // Cria e prepara o stage LOGIN_ENCERRAMENTO.
-        FXMLLoader loaderE = App.FXML_loader(MainViews.LOGIN_ENCERRAMENTO);
+        FXMLLoader loaderE = App.FXML_loader(Views.LOGIN_ENCERRAMENTO);
         loaderE.setController(this);
         sceneEncerramento = new Scene(App.FXML_load(loaderE));
         // Cria e prepara o stage LOGIN.
-        FXMLLoader loader = App.FXML_loader(MainViews.LOGIN);
+        FXMLLoader loader = App.FXML_loader(Views.LOGIN);
         sceneLogin = new Scene(App.FXML_load(loader));
         controllerLogin = loader.getController();
         newStageLogin(stageOwn);
-        controllerLogin.setStageLogin(stageLogin); // passa o stageLogin para o controler: para colocar o stageOwn nas janelas popup da view login.
     }
 
     private void newStageLogin (Stage stageOwn) {
@@ -42,15 +43,24 @@ public class Login {
         stageLogin.setScene(sceneLogin);
         stageLogin.initModality(Modality.WINDOW_MODAL);
         stageLogin.initOwner(stageOwn);
+        controllerLogin.setStageLogin(stageLogin); // passa o stageLogin para o controler: para colocar o stageOwn nas janelas popup da view login.
+        // Funcão ao encerrar o programa.
+        stageLogin.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle (WindowEvent we) {
+                if (!usuario.isLoginAtivo()) {
+                    newStageLogin((Stage)stageLogin.getOwner());
+                    showEncerramento();
+                }
+            }
+        });
     }
 
     public void showLogin(Stage stageOwn) {
         if (!stageLogin.getOwner().equals(stageOwn)) {
             newStageLogin(stageOwn);
         }
-        stageLogin.showAndWait();
-        if (!usuario.isLoginAtivo())
-            showEncerramento();
+        stageLogin.show();
     }
 
     private void showEncerramento() {

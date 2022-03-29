@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.net.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="spPrimario" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="700.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerDN">
+<StackPane fx:id="spPrimario" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="700.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.descubraONumero.controller.ControllerDN">
 	<children>
 		<BorderPane>
 		   <center>
@@ -26,7 +36,7 @@
 											<Font size="18.0" />
 										 </font>
 									  </Label>
-									  <ComboBox fx:id="cbQuestoes" onHiding="#cbQuestoesEventHiding" onKeyReleased="#cbQuestoesEventKey" prefWidth="60.0" styleClass="azul" />
+									  <ComboBox fx:id="cbQuestoes" onHiding="#cbQuestoesEventHiding" onKeyReleased="#cbQuestoesEventKey" prefWidth="60.0" promptText="30" styleClass="azul" />
 								   </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -132,7 +142,7 @@
       									  <Font size="18.0" />
       								   </font>
       								</Label>
-      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onKeyPressed="#tfRespostaEventKey" onKeyReleased="#tfRespostaEventKey" prefHeight="37.0" prefWidth="65.0" styleClass="azul">
+      								<TextField fx:id="tfResposta" alignment="CENTER" maxWidth="-Infinity" onKeyPressed="#tfRespostaEventKey" onKeyReleased="#tfRespostaEventKey" prefHeight="35.0" prefWidth="80.0" styleClass="azul">
       								   <font>
       									  <Font size="18.0" />
       								   </font>
@@ -148,9 +158,9 @@
                               <Insets right="10.0" top="40.0" />
                            </HBox.margin>
       					</VBox>
-                        <Accordion focusTraversable="false">
+                        <Accordion fx:id="aErros" focusTraversable="false">
                           <panes>
-                            <TitledPane fx:id="tpErros" animated="false" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" styleClass="verde" text="Erros">
+                            <TitledPane fx:id="tpErros" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" styleClass="verde" text="Erros">
                                  <content>
                                     <ListView fx:id="lvErros" focusTraversable="false" prefHeight="200.0" prefWidth="150.0" />
                                  </content>
@@ -178,7 +188,7 @@
          <bottom>
 					<HBox fx:id="hbRodape" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="TOP_CENTER">
 					   <children>
-						  <Button fx:id="bIniciar" mnemonicParsing="false" onAction="#bIniciarEventAction" onKeyPressed="#bIniciarEventKey" onKeyReleased="#bIniciarEventKey" prefHeight="35.0" styleClass="verde" text="Iniciar"> <!---->
+						  <Button fx:id="bIniciar" mnemonicParsing="false" onAction="#bIniciarEventAction" onKeyPressed="#bIniciarEventKey" onKeyReleased="#bIniciarEventKey" prefHeight="40.0" prefWidth="120.0" styleClass="verde" text="Iniciar"> <!---->
 							 <font>
 								<Font size="18.0" />
 							 </font>
@@ -186,7 +196,7 @@
 								<Insets />
 							 </HBox.margin>
 						  </Button>
-						  <Button fx:id="bRanking" mnemonicParsing="false" onAction="#bRankingEventAction" onKeyPressed="#bRankingEventKey" onKeyReleased="#bRankingEventKey" prefHeight="35.0" styleClass="amarelo" text="Ranking">
+						  <Button fx:id="bRanking" mnemonicParsing="false" onAction="#bRankingEventAction" onKeyPressed="#bRankingEventKey" onKeyReleased="#bRankingEventKey" prefHeight="40.0" prefWidth="120.0" styleClass="amarelo" text="Ranking">
 							 <font>
 								<Font size="18.0" />
 							 </font>
@@ -241,7 +251,7 @@
             </ImageView>
          </graphic>
       </Button>
-		<Rectangle fx:id="rErros" height="500.0" width="700.0" />
+		<Rectangle fx:id="rErros" height="500.0" visible="false" width="700.0" />
 	</children>
    <stylesheets>
       <URL value="@../../standard/standardStyle.css" />

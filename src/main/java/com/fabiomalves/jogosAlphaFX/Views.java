@@ -1,6 +1,6 @@
 package com.fabiomalves.jogosAlphaFX;
 
-public enum MainViews {
+public enum Views {
     APRESENTACAO("inicio/view/inicio.fxml"),
     INICIO("inicio/view/inicio.fxml"),
     DESCUBRAONUMERO("descubraONumero/view/descubraONumero.fxml"),
@@ -9,7 +9,7 @@ public enum MainViews {
     LOGIN_CADASTROVISITANTE("login/view/cadastroVisitante.fxml"),
     LOGIN_ENCERRAMENTO("login/view/encerramento.fxml");
     private String path;
-    MainViews(String path) {
+    Views(String path) {
         this.path = path;
     }
     String getPath() {

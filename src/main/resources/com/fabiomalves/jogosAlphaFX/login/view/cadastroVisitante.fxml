@@ -34,8 +34,8 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Button fx:id="bOk_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bOk_CADASTROVISITANTEEventKey" onMouseReleased="#bOk_CADASTROVISITANTEEventAction" style="-fx-font-size: 14;" text="Ok" />
-                        <Button id="bCancelar" fx:id="bCancelar_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bCancelar_CADASTROVISITANTEEventKey" onMouseReleased="#bCancelar_CADASTROVISITANTEEventAction" style="-fx-font-size: 14;" text="Cancelar" />
+                        <Button fx:id="bOk_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bOk_CADASTROVISITANTEEventKey" onMouseReleased="#bOk_CADASTROVISITANTEEventAction" styleClass="button14px" text="Ok" />
+                        <Button id="bCancelar" fx:id="bCancelar_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bCancelar_CADASTROVISITANTEEventKey" onMouseReleased="#bCancelar_CADASTROVISITANTEEventAction" styleClass="button14px" text="Cancelar" />
                      </children>
                   </HBox>
                </children>

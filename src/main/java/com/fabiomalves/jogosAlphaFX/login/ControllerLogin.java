@@ -1,12 +1,10 @@
 package com.fabiomalves.jogosAlphaFX.login;
 
 import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.MainViews;
+import com.fabiomalves.jogosAlphaFX.Views;
 import com.fabiomalves.jogosAlphaFX.util.CamposDeEntrada;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,8 +38,8 @@ public class ControllerLogin {
         stagePopUp = new Stage();
         stagePopUp.initModality(Modality.WINDOW_MODAL);
         stagePopUp.initOwner(stageLogin);
-        FXMLLoader loaderCV = App.FXML_loader(MainViews.LOGIN_CADASTROVISITANTE);
-        FXMLLoader loaderMV = App.FXML_loader(MainViews.LOGIN_MENSAGEMVISITANTE);
+        FXMLLoader loaderCV = App.FXML_loader(Views.LOGIN_CADASTROVISITANTE);
+        FXMLLoader loaderMV = App.FXML_loader(Views.LOGIN_MENSAGEMVISITANTE);
         loaderCV.setController(this);
         loaderMV.setController(this);
         sceneMensagemVisitante = new Scene(App.FXML_load(loaderMV));
@@ -114,6 +112,8 @@ public class ControllerLogin {
 
     void setStageLogin(Stage stageLogin) {
         this.stageLogin = stageLogin;
+        stagePopUp = new Stage();
+        stagePopUp.initModality(Modality.WINDOW_MODAL);
         stagePopUp.initOwner(stageLogin);
     }
 }

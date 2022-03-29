@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.MainViews;
+import com.fabiomalves.jogosAlphaFX.Views;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.ServiceDN;
 import com.fabiomalves.jogosAlphaFX.tratamentoErros.Erro;
@@ -34,6 +34,8 @@ import javafx.animation.KeyFrame;
 
 public class ControllerDN implements Initializable {
 
+	@FXML
+	private Accordion aErros;
 	@FXML
 	private StackPane spPrimario;
 	@FXML
@@ -194,7 +196,7 @@ public class ControllerDN implements Initializable {
 	private void bHomeEventAction () {
 		limpaTela();
 		vbQuadroCentral.setVisible(false);
-		App.setRoot(MainViews.INICIO);
+		App.setRoot(Views.INICIO);
 	}
 	@FXML
 	private void bHomeEventKey (KeyEvent ke) {
@@ -351,6 +353,8 @@ public class ControllerDN implements Initializable {
 			carregaGroup( groupFJ, "/com/fabiomalves/jogosAlphaFX/descubraONumero/view/fimDeJogo.fxml", null);
 			groupRk.getController().setConfig(groupRk.getStage(), service);
 			groupFJ.getController().setStage(groupFJ.getStage());
+			tpErros.setExpanded(true);
+			aErros.setExpandedPane(tpErros);			
 		});
 	}
 }

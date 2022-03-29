@@ -13,7 +13,7 @@
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="500.0" spacing="30.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.login.ControllerLogin">
    <children>
-      <VBox fx:id="vbLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="300.0" spacing="2.0">
+      <VBox fx:id="vbLogin" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="300.0" spacing="2.0">
          <children>
             <HBox fx:id="hbTituloLogin" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -86,7 +86,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="bVisitante" minHeight="45.0" minWidth="120.0" mnemonicParsing="false" onKeyReleased="#bVisitanteEventKey" onMouseReleased="#bVisitanteEventAction" styleClass="amarelo" text="Visitante" />
+            <Button fx:id="bVisitante" mnemonicParsing="false" onKeyReleased="#bVisitanteEventKey" onMouseReleased="#bVisitanteEventAction" styleClass="amarelo" text="Visitante" />
          </children>
       </VBox>
    </children>

@@ -1,7 +1,5 @@
 package com.fabiomalves.jogosAlphaFX;
 
-import java.io.IOException;
-
 import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -27,12 +25,11 @@ public class Apresentacao {
         stage.setHeight(400);
         stage.setWidth(600);
         stage.initStyle(StageStyle.UNDECORATED);
-        rootApresentacao = (GridPane)App.FXML_load(MainViews.APRESENTACAO);
+        rootApresentacao = (GridPane)App.FXML_load(Views.APRESENTACAO);
         stage.setScene(new Scene(rootApresentacao));
         stage.show();
-        stage.setX(stage.getX()-50);
         // Coloca a posicao da tela em variaveis internas. A tela será fechada após a finalização da apresentacao.
-        x = stage.getX();
+        x = stage.getX()-50;
         y = stage.getY();
         // Coloca borda na tela de apresentação.
         rootApresentacao.setStyle("-fx-border-style: solid; -fx-border-color: grey;");
@@ -87,38 +84,12 @@ public class Apresentacao {
             caminha.stop();
         });
 
-        PauseTransition pause03 = new PauseTransition(Duration.seconds(1));
-
-        Animation aumenta01 = new Transition() {
-            int aumenta = 100;
-            boolean primeiraVez = true;
-            int stageHeight, stageWidth, stageX;
-            int count = 0;
-            {
-                setCycleDuration(Duration.seconds(1));
-                setOnFinished(e -> {
-                });
-            }
-            protected void interpolate (double frac) {
-                if (primeiraVez) {
-                    stageHeight = (int)stage.getHeight();
-                    stageWidth = (int)stage.getWidth();
-                    stageX = (int)stage.getX();
-                    primeiraVez = false;
-                }
-                final int n = Math.round(aumenta * (float) frac);
-                stage.setHeight(stageHeight+n);
-                stage.setWidth(stageWidth+n);
-            }
-        };
-
-
-        PauseTransition pause04 = new PauseTransition(Duration.seconds(1));
-        pause04.setOnFinished(e -> {
+        PauseTransition pause03 = new PauseTransition(Duration.seconds(0.1));
+        pause03.setOnFinished(e -> {
             stage.close();
         });
 
-        animacao = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
+        animacao = new SequentialTransition(pause01, mov01, pause02, mov02, pause03);
 
         caminha = new AnimationTimer() {
             private long timeCaminha = 0;
@@ -190,7 +161,7 @@ public class Apresentacao {
             }
         };
     }
-	void run () throws IOException {
+	void run () {
         animacao.play();
         caminha.start();
     }
