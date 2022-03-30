@@ -2,7 +2,6 @@ package com.fabiomalves.jogosAlphaFX.inicio.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.fabiomalves.jogosAlphaFX.App;
 import com.fabiomalves.jogosAlphaFX.Views;
 import javafx.css.PseudoClass;
