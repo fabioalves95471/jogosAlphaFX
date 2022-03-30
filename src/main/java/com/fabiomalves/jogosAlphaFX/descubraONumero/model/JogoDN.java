@@ -5,8 +5,9 @@ import java.time.LocalTime;
 
 public class JogoDN {
 
-	private int id;
-	private String usuario;
+	private int jogoId;
+	private String usuarioNome;
+	private long usuarioId;
 	private String operador;
 	private int erros;
 	private int acertos;
@@ -18,11 +19,12 @@ public class JogoDN {
 
 	public JogoDN () {}
 
-	public JogoDN(int id, String usuario, String operador, int erros, int acertos, float acertosPorcentual,
-			int totalQuestoes, LocalTime tempoFinalDeJogo, LocalDate dataHora, int posicao) {
+	public JogoDN(int jogoId, String usuarioNome, long usuarioId, String operador, int erros, int acertos, float acertosPorcentual,
+				  int totalQuestoes, LocalTime tempoFinalDeJogo, LocalDate dataHora, int posicao) {
 		super();
-		this.id = id;
-		this.usuario = usuario;
+		this.jogoId = jogoId;
+		this.usuarioNome = usuarioNome;
+		this.usuarioId = usuarioId;
 		this.operador = operador;
 		this.erros = erros;
 		this.acertos = acertos;
@@ -34,7 +36,7 @@ public class JogoDN {
 	}
 	@Override
 	public String toString() {
-		return "JogoDN [id=" + id + ", usuario=" + usuario + ", operador=" + operador + ",\terros=" + erros
+		return "JogoDN [id=" + jogoId + ", usuarioNome=" + usuarioNome + ", usuarioId=" + usuarioId + ", operador=" + operador + ",\terros=" + erros
 				+ ", acertos=" + acertos + ", acertosPorcentual=" + acertosPorcentual + ",totalQuestoes="
 				+ totalQuestoes + ", tempoFinalDeJogo=" + tempoFinalDeJogo + ", dataHora=" + dataHora + ", posicao="
 				+ posicao + "]";
@@ -63,20 +65,28 @@ public class JogoDN {
 
 // Getters e Setters: Padrões---
 
-	public int getId() {
-		return id;
+	public int getJogoId() {
+		return jogoId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setJogoId(int jogoId) {
+		this.jogoId = jogoId;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUsuarioNome() {
+		return usuarioNome;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public long getUsuarioId () {
+		return usuarioId;
+	}
+
+	public void setUsuarioNome(String usuarioNome) {
+		this.usuarioNome = usuarioNome;
+	}
+
+	public void setUsuarioId (long usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
 	public String getOperador() {

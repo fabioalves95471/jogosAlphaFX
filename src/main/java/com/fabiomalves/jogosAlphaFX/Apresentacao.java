@@ -1,7 +1,5 @@
 package com.fabiomalves.jogosAlphaFX;
 
-import java.io.IOException;
-
 import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,26 +14,25 @@ public class Apresentacao {
     private AnimationTimer caminha, apresenta;
     private Stage stage;
     private double x, y;
-    private GridPane root;
+    private GridPane rootApresentacao;
     private String pathProgram;
     private SequentialTransition animacao;
 
-    Apresentacao (Stage stage, GridPane root, String pathProgram) {
+    Apresentacao (Stage stage, String pathProgram) {
         this.stage = stage;
-        this.root = root;
         this.pathProgram = pathProgram;
         // ---Constroi a apresentacao---
         stage.setHeight(400);
         stage.setWidth(600);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(new Scene(root));
+        rootApresentacao = (GridPane)App.FXML_load(Views.APRESENTACAO);
+        stage.setScene(new Scene(rootApresentacao));
         stage.show();
-        stage.setX(stage.getX()-50);
         // Coloca a posicao da tela em variaveis internas. A tela será fechada após a finalização da apresentacao.
-        x = stage.getX();
+        x = stage.getX()-50;
         y = stage.getY();
         // Coloca borda na tela de apresentação.
-        root.setStyle("-fx-border-style: solid; -fx-border-color: grey;");
+        rootApresentacao.setStyle("-fx-border-style: solid; -fx-border-color: grey;");
         // Carrega as imagens do personagem e fala.
         Image[] imgsCaminha = new Image[8];
         for (short i=0; i<imgsCaminha.length; i++) {
@@ -60,7 +57,7 @@ public class Apresentacao {
         // Insere o personagem e a fala.
         AnchorPane ap = new AnchorPane();
         ap.getChildren().addAll(personagem, falaDoPersonagem);
-        root.add(ap, 0, 1);
+        rootApresentacao.add(ap, 0, 1);
 
         // Constroi a animacao.
         PauseTransition pause01 = new PauseTransition(Duration.seconds(1.5));
@@ -87,38 +84,12 @@ public class Apresentacao {
             caminha.stop();
         });
 
-        PauseTransition pause03 = new PauseTransition(Duration.seconds(1));
-
-        Animation aumenta01 = new Transition() {
-            int aumenta = 100;
-            boolean primeiraVez = true;
-            int stageHeight, stageWidth, stageX;
-            int count = 0;
-            {
-                setCycleDuration(Duration.seconds(1));
-                setOnFinished(e -> {
-                });
-            }
-            protected void interpolate (double frac) {
-                if (primeiraVez) {
-                    stageHeight = (int)stage.getHeight();
-                    stageWidth = (int)stage.getWidth();
-                    stageX = (int)stage.getX();
-                    primeiraVez = false;
-                }
-                final int n = Math.round(aumenta * (float) frac);
-                stage.setHeight(stageHeight+n);
-                stage.setWidth(stageWidth+n);
-            }
-        };
-
-
-        PauseTransition pause04 = new PauseTransition(Duration.seconds(1));
-        pause04.setOnFinished(e -> {
+        PauseTransition pause03 = new PauseTransition(Duration.seconds(0.1));
+        pause03.setOnFinished(e -> {
             stage.close();
         });
 
-        animacao = new SequentialTransition(pause01, mov01, pause02, mov02, pause03, aumenta01, pause04);
+        animacao = new SequentialTransition(pause01, mov01, pause02, mov02, pause03);
 
         caminha = new AnimationTimer() {
             private long timeCaminha = 0;
@@ -164,11 +135,11 @@ public class Apresentacao {
                     falaDoPersonagem.setVisible(true);
                     step++;
                 }
-                if ((now >= timeApresenta+3_500_000_000l) && step == 4) {
+                if ((now >= timeApresenta+2_800_000_000l) && step == 4) {
                     falaDoPersonagem.setVisible(false);
                     step++;
                 }
-                if ((now >= timeApresenta+4_000_000_000l) && step == 5) {
+                if ((now >= timeApresenta+3_700_000_000l) && step == 5) {
                     falaDoPersonagem.setImage(imgsFalaDoPersonagem[1]);
                     falaDoPersonagem.setTranslateX(-10);
                     falaDoPersonagem.setTranslateY(-30);
@@ -190,7 +161,7 @@ public class Apresentacao {
             }
         };
     }
-	void run () throws IOException {
+	void run () {
         animacao.play();
         caminha.start();
     }

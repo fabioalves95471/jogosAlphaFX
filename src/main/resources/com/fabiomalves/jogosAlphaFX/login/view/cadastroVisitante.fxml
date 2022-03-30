@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="292.0" stylesheets="@../../standard/standardStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane prefHeight="160.0" prefWidth="290.0" styleClass="rootElement">
+         <children>
+            <VBox prefHeight="160.0" prefWidth="290.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="110.0" prefWidth="100.0" spacing="2.0">
+                     <children>
+                        <Label style="-fx-font-size: 14;" text="Digite um nome de usuário:">
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin></Label>
+                        <TextField fx:id="tfNomeUsuario_CADASTROVISITANTE" maxWidth="160.0" onKeyReleased="#tfNomeUsuario_CADASTROVISITANTEEventKey">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                        <Label fx:id="lMensagem_CADASTROVISITANTE" style="-fx-font-size: 14; -fx-text-fill: red;" text="Deve conter ao menos 1 dígito." visible="false" />
+                     </children>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="40.0">
+                     <children>
+                        <Button fx:id="bOk_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bOk_CADASTROVISITANTEEventKey" onMouseReleased="#bOk_CADASTROVISITANTEEventAction" styleClass="button14px" text="Ok" />
+                        <Button id="bCancelar" fx:id="bCancelar_CADASTROVISITANTE" mnemonicParsing="false" onKeyReleased="#bCancelar_CADASTROVISITANTEEventKey" onMouseReleased="#bCancelar_CADASTROVISITANTEEventAction" styleClass="button14px" text="Cancelar" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

@@ -3,8 +3,6 @@ package com.fabiomalves.jogosAlphaFX.descubraONumero.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.fabiomalves.jogosAlphaFX.App;
-import com.fabiomalves.jogosAlphaFX.Jogos;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.model.JogoDN;
 import com.fabiomalves.jogosAlphaFX.descubraONumero.service.IServiceDN;
 
@@ -15,14 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ControllerRa implements Initializable  {
@@ -100,7 +95,7 @@ public class ControllerRa implements Initializable  {
     public void initialize(URL location, ResourceBundle resources) {
 		cbOperador.getItems().addAll(IServiceDN.getOperadorNomes());
 		cbOperador.getSelectionModel().select(0);
-		coNome.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+		coNome.setCellValueFactory(new PropertyValueFactory<>("usuarioNome"));
 		coAcertosPorcentual.setCellValueFactory(new PropertyValueFactory<>("acertosPorcentualFormatado"));
 		coTotalQuestoes.setCellValueFactory(new PropertyValueFactory<>("totalQuestoes"));
 		coTempoFinalDeJogo.setCellValueFactory(new PropertyValueFactory<>("tempoFinalDeJogoFormatado"));

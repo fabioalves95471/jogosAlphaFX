@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="500.0" spacing="30.0" styleClass="rootElement" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabiomalves.jogosAlphaFX.login.ControllerLogin">
+   <children>
+      <VBox fx:id="vbLogin" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="300.0" spacing="2.0">
+         <children>
+            <HBox fx:id="hbTituloLogin" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lL" alignment="CENTER" text="L" HBox.hgrow="NEVER" />
+                  <Label fx:id="lOgin" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="ogin" />
+               </children>
+            </HBox>
+            <Label text="E-mail:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </Label>
+            <TextField disable="true" styleClass="cinza">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Senha:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField disable="true" maxWidth="-Infinity" prefWidth="160.0" styleClass="cinza">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </PasswordField>
+            <Hyperlink disable="true" text="Esqueci a senha">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Hyperlink>
+            <Label fx:id="lMensagem" alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="60.0" prefWidth="260.0" text="Usuário ou senha incorreto. ou senha incorreto. ou senha incorreto. ou senha incorreto. ou senha incorreto. ou senha incorreto. ou senha incorreto. ou senha incorreto." textFill="RED" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefWidth="100.0" styleClass="verde" text="Entrar">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="160.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <HBox.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </HBox.margin>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="70.0">
+         <children>
+            <Button disable="true" minHeight="65.0" minWidth="120.0" mnemonicParsing="false" styleClass="amarelo" text="Novo Cadastro">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="bVisitante" mnemonicParsing="false" onKeyReleased="#bVisitanteEventKey" onMouseReleased="#bVisitanteEventAction" styleClass="amarelo" text="Visitante" />
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../standard/standardStyle.css" />
+      <URL value="@loginInicio.css" />
+   </stylesheets>
+</HBox>
