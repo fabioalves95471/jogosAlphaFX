@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        Font.loadFont(this.getClass().getResource("/com/fabiomalves/jogosAlphaFX/fonts/PoetsenOne-Regular.ttf").toExternalForm(), 20);
         apresentacao = new Apresentacao(primaryStage, pathJogosAlphaFX);
         apresentacao.run();
         apresentacao.getAnimacao().setOnFinished( e -> {
